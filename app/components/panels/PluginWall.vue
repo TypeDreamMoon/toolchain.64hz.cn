@@ -28,6 +28,14 @@ const REST = { rx: 4, ry: -7 }
 const tilt = reactive({ ...REST })
 
 function onMove(e: PointerEvent) {
+  // the sheen follows the pointer inside whichever tile it is over
+  const tile = (e.target as Element | null)?.closest?.('.wall__tile') as HTMLElement | null
+  if (tile) {
+    const tr = tile.getBoundingClientRect()
+    tile.style.setProperty('--mx', `${((e.clientX - tr.left) / tr.width) * 100}%`)
+    tile.style.setProperty('--my', `${((e.clientY - tr.top) / tr.height) * 100}%`)
+  }
+
   const el = wall.value
   if (!el) return
   const r = el.getBoundingClientRect()
@@ -140,6 +148,25 @@ const planeStyle = computed(() => ({
               background var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
   will-change: transform;
 }
+/* a highlight that tracks the pointer across the tile */
+.wall__tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle 150px at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--accent) 34%, transparent),
+    transparent 68%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 280ms var(--ease);
+  z-index: 1;
+}
+.wall__tile:hover::before,
+.wall__tile:focus-visible::before { opacity: 1; }
+
 /* the further forward a tile sits, the more it catches the accent */
 .wall__tile::after {
   content: '';
@@ -154,12 +181,18 @@ const planeStyle = computed(() => ({
 
 .wall__tile:hover,
 .wall__tile:focus-visible {
-  transform: translateZ(calc(var(--d) * 88px + 96px));
+  /* perspective alone already enlarges the lift; the explicit scale is what
+     makes it land as a pick-up rather than a drift forward */
+  transform: translateZ(calc(var(--d) * 88px + 96px)) scale(1.07);
   border-color: var(--accent);
   background: var(--bg-soft);
   z-index: 2;
 }
 .wall__tile.is-dim { opacity: .38; }
+
+.wall__cat,
+.wall__name,
+.wall__stars { position: relative; z-index: 2; }
 
 .wall__cat {
   font-family: var(--font-mono);

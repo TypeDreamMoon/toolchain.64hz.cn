@@ -98,20 +98,19 @@ void main(){
   col += uAccent * g * amp;
   col += vec3(r - g, 0.0, b - g) * FRINGE * (1.0 + 0.6 * uEnergy) * amp;
 
-  // 64 spectrum bins along the bottom — the name, drawn.
-  // Two beating sines give each bin its own motion; a third, slow and moving
-  // across, swells them in a travelling band so the row reads as one surface
-  // breathing rather than sixty-four bars twitching independently.
-  float N = 64.0;
-  float bx = uv.x * N;
-  float px = floor(bx) / N;
-  float env = sin(px * 3.14159265);
-  float swell = mix(0.42, 1.0, sin(px * 5.5 - t * 7.0) * 0.5 + 0.5);
-  float h = (sin(t * 22.0 + px * 9.0) * 0.5 + 0.5)
-          * (sin(t * 8.6 + px * 21.0) * 0.5 + 0.5)
-          * swell * env * 0.34;
-  float bar = step(0.28, fract(bx)) * step(fract(bx), 0.72) * step(uv.y, h);
-  col += uAccent * bar * (0.10 + 0.16 * env + uEnergy * 0.4);
+  // The spectrum along the bottom, as a continuous envelope rather than
+  // discrete bins: sixty-four bars reads as a media-player visualiser, while
+  // the same data drawn as a curve reads as instrumentation. Three sines at
+  // unrelated rates keep it from settling into a pattern, tapered at both ends.
+  float sx = uv.x;
+  float sEnv = sin(sx * 3.14159265);
+  float sh = ( (sin(sx * 5.5  - t * 7.0) * 0.5 + 0.5) * 0.45
+             + (sin(sx * 11.0 + t * 4.0) * 0.5 + 0.5) * 0.25
+             + (sin(sx * 2.3  - t * 2.1) * 0.5 + 0.5) * 0.30 ) * sEnv * 0.17;
+
+  float under = smoothstep(sh, sh - 0.05, uv.y);          // soft fill below
+  float crest = smoothstep(0.0035, 0.0, abs(uv.y - sh));  // hairline on top
+  col += uAccent * (under * 0.05 + crest * 0.45) * (1.0 + uEnergy);
 
   // scanlines and a soft vignette keep it reading as a screen
   col *= 1.0 - 0.035 * step(0.5, fract(gl_FragCoord.y * 0.5));
