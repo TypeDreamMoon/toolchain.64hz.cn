@@ -49,7 +49,9 @@ async function fetchRepo(name) {
   const repo = await api(`/repos/${OWNER}/${name}`)
   if (!repo) return { repo: name, missing: true }
 
-  const release = await api(`/repos/${OWNER}/${name}/releases/latest`)
+  // The whole list, not just the latest: the get-it panel offers every version
+  // as a clone target and a zip. Capped, because nobody picks the 30th tag.
+  const releases = (await api(`/repos/${OWNER}/${name}/releases?per_page=8`)) ?? []
 
   return {
     repo: name,
@@ -61,12 +63,30 @@ async function fetchRepo(name) {
     license: repo.license?.spdx_id ?? null,
     pushedAt: repo.pushed_at ?? null,
     archived: Boolean(repo.archived),
-    release: release
+    defaultBranch: repo.default_branch ?? 'main',
+    releases: releases
+      .filter((r) => !r.draft)
+      .map((r) => ({
+        tag: r.tag_name,
+        name: r.name || r.tag_name,
+        publishedAt: r.published_at,
+        url: r.html_url,
+        prerelease: Boolean(r.prerelease),
+        // Assets are the exception, not the rule — these plugins ship as
+        // source and the engine builds them. Where one exists it is a real
+        // packaged build, so it is worth offering ahead of the source zip.
+        assets: (r.assets ?? []).map((a) => ({
+          name: a.name,
+          url: a.browser_download_url,
+          size: a.size,
+        })),
+      })),
+    release: releases[0]
       ? {
-          tag: release.tag_name,
-          name: release.name || release.tag_name,
-          publishedAt: release.published_at,
-          url: release.html_url,
+          tag: releases[0].tag_name,
+          name: releases[0].name || releases[0].tag_name,
+          publishedAt: releases[0].published_at,
+          url: releases[0].html_url,
         }
       : null,
   }
@@ -95,7 +115,11 @@ async function main() {
     try {
       repos[name] = await fetchRepo(name)
       const r = repos[name]
-      console.log(`  ${name.padEnd(30)} ★ ${String(r.stars ?? '-').padStart(3)}  ${r.release?.tag ?? '—'}`)
+      const built = r.releases?.some((rel) => rel.assets.length) ? ' +pkg' : ''
+      console.log(
+        `  ${name.padEnd(30)} ★ ${String(r.stars ?? '-').padStart(3)}  ` +
+        `${String(r.release?.tag ?? '—').padEnd(12)} ${String(r.releases?.length ?? 0).padStart(2)} rel${built}`,
+      )
     } catch (err) {
       failures++
       console.warn(`  ${name.padEnd(30)} FAILED — ${err.message}`)

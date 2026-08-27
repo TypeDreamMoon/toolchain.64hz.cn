@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-27T11:26:57.785Z",
+  "generatedAt": "2026-08-27T12:27:58.213Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
@@ -27,6 +27,161 @@
       "license": "MIT",
       "pushedAt": "2026-08-23T08:25:39Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [
+        {
+          "tag": "v1.8.0",
+          "name": "DreamShader 1.8.0",
+          "publishedAt": "2026-08-21T10:51:14Z",
+          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.8.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamShader-1.8.0.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.8.0/DreamShader-1.8.0.zip",
+              "size": 1126660
+            },
+            {
+              "name": "dreamshaderlang-language-support-1.9.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.8.0/dreamshaderlang-language-support-1.9.0.vsix",
+              "size": 965473
+            }
+          ]
+        },
+        {
+          "tag": "v1.7.1",
+          "name": "DreamShader 1.7.1",
+          "publishedAt": "2026-08-16T08:53:16Z",
+          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.7.1",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamShader-1.7.1.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.7.1/DreamShader-1.7.1.zip",
+              "size": 1058366
+            },
+            {
+              "name": "dreamshaderlang-language-support-1.9.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.7.1/dreamshaderlang-language-support-1.9.0.vsix",
+              "size": 965473
+            }
+          ]
+        },
+        {
+          "tag": "v1.7.0",
+          "name": "DreamShader 1.7.0",
+          "publishedAt": "2026-08-16T02:20:18Z",
+          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.7.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamShader-1.7.0.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.7.0/DreamShader-1.7.0.zip",
+              "size": 1057018
+            },
+            {
+              "name": "dreamshaderlang-language-support-1.9.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.7.0/dreamshaderlang-language-support-1.9.0.vsix",
+              "size": 965473
+            }
+          ]
+        },
+        {
+          "tag": "v1.6.0",
+          "name": "DreamShader 1.6.0",
+          "publishedAt": "2026-08-15T08:36:38Z",
+          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.6.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamShader-1.6.0.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.6.0/DreamShader-1.6.0.zip",
+              "size": 1029341
+            },
+            {
+              "name": "dreamshaderlang-language-support-1.8.1.vsix",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.6.0/dreamshaderlang-language-support-1.8.1.vsix",
+              "size": 956005
+            }
+          ]
+        },
+        {
+          "tag": "v1.5.1",
+          "name": "DreamShader 1.5.1",
+          "publishedAt": "2026-08-02T09:52:06Z",
+          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.5.1",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamShader-1.5.1.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.5.1/DreamShader-1.5.1.zip",
+              "size": 933898
+            },
+            {
+              "name": "dreamshaderlang-language-support-1.6.3.vsix",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.5.1/dreamshaderlang-language-support-1.6.3.vsix",
+              "size": 153651
+            }
+          ]
+        },
+        {
+          "tag": "v1.5.0",
+          "name": "DreamShader 1.5.0",
+          "publishedAt": "2026-08-02T06:53:43Z",
+          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.5.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamShader-1.5.0.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.5.0/DreamShader-1.5.0.zip",
+              "size": 893468
+            },
+            {
+              "name": "dreamshaderlang-language-support-1.6.3.vsix",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.5.0/dreamshaderlang-language-support-1.6.3.vsix",
+              "size": 153651
+            }
+          ]
+        },
+        {
+          "tag": "v1.5.0b",
+          "name": "DreamShader 1.5.0 - Beta",
+          "publishedAt": "2026-07-15T16:33:57Z",
+          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.5.0b",
+          "prerelease": true,
+          "assets": [
+            {
+              "name": "DreamShader-1.5.0b.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.5.0b/DreamShader-1.5.0b.zip",
+              "size": 419302
+            },
+            {
+              "name": "dreamshaderlang-language-support-1.6.3.vsix",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.5.0b/dreamshaderlang-language-support-1.6.3.vsix",
+              "size": 153651
+            }
+          ]
+        },
+        {
+          "tag": "v1.4.1",
+          "name": "DreamShader 1.4.1",
+          "publishedAt": "2026-06-30T17:37:23Z",
+          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.4.1",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamShader-1.4.1.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.4.1/DreamShader-1.4.1.zip",
+              "size": 350969
+            },
+            {
+              "name": "dreamshaderlang-language-support-1.5.3.vsix",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.4.1/dreamshaderlang-language-support-1.5.3.vsix",
+              "size": 146445
+            }
+          ]
+        }
+      ],
       "release": {
         "tag": "v1.8.0",
         "name": "DreamShader 1.8.0",
@@ -56,6 +211,8 @@
       "license": null,
       "pushedAt": "2026-08-18T14:27:34Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "DreamFracture": {
@@ -68,6 +225,8 @@
       "license": null,
       "pushedAt": "2026-08-26T08:16:19Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "DreamTools": {
@@ -80,6 +239,37 @@
       "license": null,
       "pushedAt": "2024-02-29T10:47:25Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [
+        {
+          "tag": "1.0.2.1",
+          "name": "1.0.2.1",
+          "publishedAt": "2024-02-29T10:47:25Z",
+          "url": "https://github.com/TypeDreamMoon/DreamTools/releases/tag/1.0.2.1",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamTools.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamTools/releases/download/1.0.2.1/DreamTools.zip",
+              "size": 144197546
+            }
+          ]
+        },
+        {
+          "tag": "1.0.2",
+          "name": "1.0.2",
+          "publishedAt": "2024-02-29T01:32:22Z",
+          "url": "https://github.com/TypeDreamMoon/DreamTools/releases/tag/1.0.2",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamTools.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamTools/releases/download/1.0.2/DreamTools.zip",
+              "size": 142671369
+            }
+          ]
+        }
+      ],
       "release": {
         "tag": "1.0.2.1",
         "name": "1.0.2.1",
@@ -97,6 +287,8 @@
       "license": null,
       "pushedAt": "2026-03-21T06:06:33Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "DreamUnrealThemes": {
@@ -109,6 +301,8 @@
       "license": null,
       "pushedAt": "2026-03-20T14:09:09Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "ImGuiAngel": {
@@ -121,6 +315,8 @@
       "license": null,
       "pushedAt": "2026-03-11T10:16:55Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "DreamSequenceSubtitle": {
@@ -133,6 +329,8 @@
       "license": null,
       "pushedAt": "2026-04-24T19:05:11Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "DreamLipSync": {
@@ -145,6 +343,8 @@
       "license": null,
       "pushedAt": "2026-05-01T15:55:56Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "DreamSequenceMorphTarget": {
@@ -157,6 +357,17 @@
       "license": null,
       "pushedAt": "2026-05-01T18:20:46Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [
+        {
+          "tag": "1.0.0",
+          "name": "1.0.0 release",
+          "publishedAt": "2025-06-27T06:34:56Z",
+          "url": "https://github.com/TypeDreamMoon/DreamSequenceMorphTarget/releases/tag/1.0.0",
+          "prerelease": false,
+          "assets": []
+        }
+      ],
       "release": {
         "tag": "1.0.0",
         "name": "1.0.0 release",
@@ -174,6 +385,8 @@
       "license": null,
       "pushedAt": "2026-05-09T20:56:24Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "DreamFlowExpansion": {
@@ -186,6 +399,8 @@
       "license": null,
       "pushedAt": "2026-03-22T06:42:43Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "DreamGameplayTask": {
@@ -205,6 +420,73 @@
       "license": null,
       "pushedAt": "2025-08-07T05:46:52Z",
       "archived": false,
+      "defaultBranch": "master",
+      "releases": [
+        {
+          "tag": "v3.1.0",
+          "name": "Version 3.1.0",
+          "publishedAt": "2025-08-07T05:46:52Z",
+          "url": "https://github.com/TypeDreamMoon/DreamGameplayTask/releases/tag/v3.1.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamGameplayTask_5.4.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamGameplayTask/releases/download/v3.1.0/DreamGameplayTask_5.4.zip",
+              "size": 60842049
+            },
+            {
+              "name": "DreamGameplayTask_5.5.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamGameplayTask/releases/download/v3.1.0/DreamGameplayTask_5.5.zip",
+              "size": 69392375
+            },
+            {
+              "name": "DreamGameplayTask_5.6.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamGameplayTask/releases/download/v3.1.0/DreamGameplayTask_5.6.zip",
+              "size": 69772871
+            }
+          ]
+        },
+        {
+          "tag": "v3.0.1",
+          "name": "Version 3.0.1",
+          "publishedAt": "2025-07-11T08:13:36Z",
+          "url": "https://github.com/TypeDreamMoon/DreamGameplayTask/releases/tag/v3.0.1",
+          "prerelease": false,
+          "assets": []
+        },
+        {
+          "tag": "v3.0.0",
+          "name": "Version 3.0.0",
+          "publishedAt": "2025-07-10T05:20:14Z",
+          "url": "https://github.com/TypeDreamMoon/DreamGameplayTask/releases/tag/v3.0.0",
+          "prerelease": false,
+          "assets": []
+        },
+        {
+          "tag": "v3.0.0-b",
+          "name": "Version 3.0.0 Beta",
+          "publishedAt": "2025-07-03T04:23:01Z",
+          "url": "https://github.com/TypeDreamMoon/DreamGameplayTask/releases/tag/v3.0.0-b",
+          "prerelease": true,
+          "assets": []
+        },
+        {
+          "tag": "v3.0.0-a-a",
+          "name": "Version 3.0.0 Alpha A",
+          "publishedAt": "2025-06-28T13:34:04Z",
+          "url": "https://github.com/TypeDreamMoon/DreamGameplayTask/releases/tag/v3.0.0-a-a",
+          "prerelease": true,
+          "assets": []
+        },
+        {
+          "tag": "v3.0.0-a",
+          "name": "Version 3.0.0 Alpha",
+          "publishedAt": "2025-06-28T12:58:29Z",
+          "url": "https://github.com/TypeDreamMoon/DreamGameplayTask/releases/tag/v3.0.0-a",
+          "prerelease": true,
+          "assets": []
+        }
+      ],
       "release": {
         "tag": "v3.1.0",
         "name": "Version 3.1.0",
@@ -222,6 +504,8 @@
       "license": null,
       "pushedAt": "2026-05-09T16:30:24Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "DreamAnimationTextBlock": {
@@ -241,6 +525,89 @@
       "license": null,
       "pushedAt": "2025-08-07T00:31:48Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [
+        {
+          "tag": "v2.1.0",
+          "name": "Version 2.1.0",
+          "publishedAt": "2025-08-07T00:31:48Z",
+          "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/tag/v2.1.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamAnimationTextBlock_5.4.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/download/v2.1.0/DreamAnimationTextBlock_5.4.zip",
+              "size": 37288846
+            },
+            {
+              "name": "DreamAnimationTextBlock_5.5.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/download/v2.1.0/DreamAnimationTextBlock_5.5.zip",
+              "size": 43559178
+            },
+            {
+              "name": "DreamAnimationTextBlock_5.6.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/download/v2.1.0/DreamAnimationTextBlock_5.6.zip",
+              "size": 44120166
+            }
+          ]
+        },
+        {
+          "tag": "v2.0.1",
+          "name": "Version 2.0.1",
+          "publishedAt": "2025-08-04T04:09:28Z",
+          "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/tag/v2.0.1",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamAnimationTextBlock_5.4.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/download/v2.0.1/DreamAnimationTextBlock_5.4.zip",
+              "size": 37250884
+            },
+            {
+              "name": "DreamAnimationTextBlock_5.5.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/download/v2.0.1/DreamAnimationTextBlock_5.5.zip",
+              "size": 43530314
+            },
+            {
+              "name": "DreamAnimationTextBlock_5.6.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/download/v2.0.1/DreamAnimationTextBlock_5.6.zip",
+              "size": 44078071
+            }
+          ]
+        },
+        {
+          "tag": "v2.0.0",
+          "name": "Version 2.0.0",
+          "publishedAt": "2025-08-04T03:07:48Z",
+          "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/tag/v2.0.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "5.4.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/download/v2.0.0/5.4.zip",
+              "size": 37231158
+            },
+            {
+              "name": "5.5.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/download/v2.0.0/5.5.zip",
+              "size": 43509229
+            },
+            {
+              "name": "5.6.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/download/v2.0.0/5.6.zip",
+              "size": 44061049
+            }
+          ]
+        },
+        {
+          "tag": "v1.0.0",
+          "name": "Version 1.0.0",
+          "publishedAt": "2025-04-11T06:19:08Z",
+          "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/tag/v1.0.0",
+          "prerelease": false,
+          "assets": []
+        }
+      ],
       "release": {
         "tag": "v2.1.0",
         "name": "Version 2.1.0",
@@ -269,6 +636,8 @@
       "license": null,
       "pushedAt": "2025-07-07T09:19:50Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "DreamGUI": {
@@ -281,6 +650,8 @@
       "license": "NOASSERTION",
       "pushedAt": "2026-08-27T10:27:39Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "DreamMusicPlayer": {
@@ -299,6 +670,50 @@
       "license": null,
       "pushedAt": "2026-07-30T08:02:14Z",
       "archived": false,
+      "defaultBranch": "master",
+      "releases": [
+        {
+          "tag": "release200",
+          "name": "2.0.0",
+          "publishedAt": "2025-09-10T08:08:53Z",
+          "url": "https://github.com/TypeDreamMoon/DreamMusicPlayer/releases/tag/release200",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "Assets.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamMusicPlayer/releases/download/release200/Assets.zip",
+              "size": 325752340
+            }
+          ]
+        },
+        {
+          "tag": "release111",
+          "name": "Version 1.1.1",
+          "publishedAt": "2025-01-01T16:30:19Z",
+          "url": "https://github.com/TypeDreamMoon/DreamMusicPlayer/releases/tag/release111",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamMusicPlayer_5.5_Build.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamMusicPlayer/releases/download/release111/DreamMusicPlayer_5.5_Build.zip",
+              "size": 125348532
+            },
+            {
+              "name": "Tools.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamMusicPlayer/releases/download/release111/Tools.zip",
+              "size": 41927314
+            }
+          ]
+        },
+        {
+          "tag": "release110",
+          "name": "Version 1.1.0",
+          "publishedAt": "2024-12-22T13:56:53Z",
+          "url": "https://github.com/TypeDreamMoon/DreamMusicPlayer/releases/tag/release110",
+          "prerelease": false,
+          "assets": []
+        }
+      ],
       "release": {
         "tag": "release200",
         "name": "2.0.0",
@@ -323,6 +738,8 @@
       "license": null,
       "pushedAt": "2025-03-17T13:10:24Z",
       "archived": false,
+      "defaultBranch": "master",
+      "releases": [],
       "release": null
     },
     "libdlp": {
@@ -347,6 +764,38 @@
       "license": "MIT",
       "pushedAt": "2026-03-07T14:12:15Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [
+        {
+          "tag": "v0.1.2",
+          "name": "Version 0.1.2",
+          "publishedAt": "2026-01-25T13:57:45Z",
+          "url": "https://github.com/TypeDreamMoon/libdlp/releases/tag/v0.1.2",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "include.zip",
+              "url": "https://github.com/TypeDreamMoon/libdlp/releases/download/v0.1.2/include.zip",
+              "size": 11367
+            },
+            {
+              "name": "libdlp_0.1.2_x64_msvc.lib",
+              "url": "https://github.com/TypeDreamMoon/libdlp/releases/download/v0.1.2/libdlp_0.1.2_x64_msvc.lib",
+              "size": 5267006
+            },
+            {
+              "name": "libdlp_0.1.2_x64_msvc.tgz",
+              "url": "https://github.com/TypeDreamMoon/libdlp/releases/download/v0.1.2/libdlp_0.1.2_x64_msvc.tgz",
+              "size": 675979
+            },
+            {
+              "name": "libdlp_0.1.2_x64_msvc.zip",
+              "url": "https://github.com/TypeDreamMoon/libdlp/releases/download/v0.1.2/libdlp_0.1.2_x64_msvc.zip",
+              "size": 677846
+            }
+          ]
+        }
+      ],
       "release": {
         "tag": "v0.1.2",
         "name": "Version 0.1.2",
@@ -364,6 +813,121 @@
       "license": "MIT",
       "pushedAt": "2026-08-16T02:18:40Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [
+        {
+          "tag": "v1.9.0",
+          "name": "v1.9.0",
+          "publishedAt": "2026-08-16T02:18:42Z",
+          "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v1.9.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "dreamshaderlang-language-support-1.9.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/download/v1.9.0/dreamshaderlang-language-support-1.9.0.vsix",
+              "size": 965473
+            }
+          ]
+        },
+        {
+          "tag": "v1.8.3",
+          "name": "v1.8.3",
+          "publishedAt": "2026-08-15T23:47:44Z",
+          "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v1.8.3",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "dreamshaderlang-language-support-1.8.3.vsix",
+              "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/download/v1.8.3/dreamshaderlang-language-support-1.8.3.vsix",
+              "size": 962149
+            }
+          ]
+        },
+        {
+          "tag": "v1.8.2",
+          "name": "v1.8.2",
+          "publishedAt": "2026-08-15T17:00:04Z",
+          "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v1.8.2",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "dreamshaderlang-language-support-1.8.2.vsix",
+              "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/download/v1.8.2/dreamshaderlang-language-support-1.8.2.vsix",
+              "size": 960798
+            }
+          ]
+        },
+        {
+          "tag": "v1.8.1",
+          "name": "v1.8.1",
+          "publishedAt": "2026-08-14T05:27:32Z",
+          "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v1.8.1",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "dreamshaderlang-language-support-1.8.1.vsix",
+              "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/download/v1.8.1/dreamshaderlang-language-support-1.8.1.vsix",
+              "size": 956005
+            }
+          ]
+        },
+        {
+          "tag": "v1.8.0",
+          "name": "v1.8.0",
+          "publishedAt": "2026-08-14T05:01:50Z",
+          "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v1.8.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "dreamshaderlang-language-support-1.8.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/download/v1.8.0/dreamshaderlang-language-support-1.8.0.vsix",
+              "size": 954943
+            }
+          ]
+        },
+        {
+          "tag": "v1.7.0",
+          "name": "v1.7.0",
+          "publishedAt": "2026-08-10T09:05:28Z",
+          "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v1.7.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "dreamshaderlang-language-support-1.7.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/download/v1.7.0/dreamshaderlang-language-support-1.7.0.vsix",
+              "size": 523402
+            }
+          ]
+        },
+        {
+          "tag": "v1.6.3",
+          "name": "v1.6.3",
+          "publishedAt": "2026-07-01T05:03:13Z",
+          "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v1.6.3",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "dreamshaderlang-language-support-1.6.3.vsix",
+              "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/download/v1.6.3/dreamshaderlang-language-support-1.6.3.vsix",
+              "size": 153651
+            }
+          ]
+        },
+        {
+          "tag": "v1.6.2",
+          "name": "v1.6.2",
+          "publishedAt": "2026-07-01T04:37:14Z",
+          "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v1.6.2",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "dreamshaderlang-language-support-1.6.2.vsix",
+              "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/download/v1.6.2/dreamshaderlang-language-support-1.6.2.vsix",
+              "size": 153408
+            }
+          ]
+        }
+      ],
       "release": {
         "tag": "v1.9.0",
         "name": "v1.9.0",
@@ -381,6 +945,23 @@
       "license": "MIT",
       "pushedAt": "2026-08-14T05:19:27Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [
+        {
+          "tag": "v0.5.0",
+          "name": "v0.5.0",
+          "publishedAt": "2026-08-14T05:05:51Z",
+          "url": "https://github.com/TypeDreamMoon/dreamfx-language-support/releases/tag/v0.5.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "dreamfxlang-language-support-0.5.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/dreamfx-language-support/releases/download/v0.5.0/dreamfxlang-language-support-0.5.0.vsix",
+              "size": 262540
+            }
+          ]
+        }
+      ],
       "release": {
         "tag": "v0.5.0",
         "name": "v0.5.0",
@@ -413,6 +994,8 @@
       "license": "MIT",
       "pushedAt": "2026-08-20T14:56:34Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "dreamshader-blender": {
@@ -435,6 +1018,8 @@
       "license": "Apache-2.0",
       "pushedAt": "2026-08-09T11:45:48Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     },
     "dreamshader-package-index": {
@@ -447,6 +1032,8 @@
       "license": null,
       "pushedAt": "2026-08-14T04:34:00Z",
       "archived": false,
+      "defaultBranch": "main",
+      "releases": [],
       "release": null
     }
   }

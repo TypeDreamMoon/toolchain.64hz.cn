@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const { go } = useDeck()
-const { flagships, pluginItems, categories, pluginCount, totals } = useCatalog()
+const { flagships, pluginItems, categories, pluginCount, totals, downloads, prebuiltCount } = useCatalog()
 
 const catLabel = (id: string) => categories.value.find((c) => c.id === id)?.label ?? id
 
@@ -192,16 +192,15 @@ const CHANNEL_VARS: Record<string, string> = {
         <div class="eco__head rise">
           <span class="tag"><ScrambleText :text="t('start.tag')" /></span>
           <h2 v-split class="display">{{ t('start.title') }}</h2>
+          <p class="sub"><ScrambleText :text="t('start.sub')" /></p>
         </div>
+
+        <GetPanel :repos="downloads" :prebuilt="prebuiltCount" />
 
         <div class="steps rise">
           <div class="step"><b>01</b><span>{{ t('start.s1', { dir: 'Plugins/' }) }}</span></div>
           <div class="step"><b>02</b><span>{{ t('start.s2', { dir: 'DShader/' }) }}</span></div>
           <div class="step"><b>03</b><span>{{ t('start.s3') }}</span></div>
-        </div>
-
-        <div class="cmd rise">
-          <b>$</b> git clone https://github.com/TypeDreamMoon/DreamShader.git Plugins/DreamShader
         </div>
 
         <div class="ends rise">
@@ -495,22 +494,6 @@ const CHANNEL_VARS: Record<string, string> = {
   padding-top: .16rem;
   transition: color 700ms var(--ease);
 }
-
-.cmd {
-  font-family: var(--font-mono);
-  font-size: clamp(.76rem, .68rem + .4vw, .95rem);
-  padding: .9rem 1.1rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--bg-slab);
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: .8rem;
-  max-width: 42rem;
-  overflow-x: auto;
-}
-.cmd b { color: var(--accent); font-weight: 400; flex: none; transition: color 700ms var(--ease); }
 
 .ends {
   display: grid;

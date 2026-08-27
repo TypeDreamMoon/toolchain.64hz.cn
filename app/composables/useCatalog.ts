@@ -10,6 +10,17 @@ import registryRaw from '~~/content/generated/registry.json'
  * HTML carries the numbers — no request, no loading state, no rate limit.
  */
 
+export interface ReleaseAsset { name: string; url: string; size: number }
+
+export interface Release {
+  tag: string
+  name: string
+  publishedAt: string
+  url: string
+  prerelease: boolean
+  assets: ReleaseAsset[]
+}
+
 export interface RepoFacts {
   repo: string
   url?: string
@@ -17,6 +28,8 @@ export interface RepoFacts {
   stars?: number
   license?: string | null
   pushedAt?: string | null
+  defaultBranch?: string
+  releases?: Release[]
   release?: { tag: string; name: string; publishedAt: string; url: string } | null
   missing?: boolean
 }
@@ -108,8 +121,32 @@ export function useCatalog() {
       .sort((a, b) => Date.parse(b.release.publishedAt) - Date.parse(a.release.publishedAt)),
   )
 
+  /**
+   * Everything the get-it panel can hand you, flagships first and then by
+   * stars. Anything the sync could not reach is dropped rather than offered
+   * as a broken download.
+   */
+  const downloads = computed(() => {
+    const order = products.flagships.map((p: RawFlagship) => p.repo).filter(Boolean) as string[]
+    return Object.values(registry.repos)
+      .filter((r) => !r.missing)
+      .sort((a, b) => {
+        const ia = order.indexOf(a.repo)
+        const ib = order.indexOf(b.repo)
+        if (ia !== ib) return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib)
+        return (b.stars ?? 0) - (a.stars ?? 0)
+      })
+  })
+
+  /** How many of them ship a built package — the rest are source only. */
+  const prebuiltCount = computed(
+    () => downloads.value.filter((r) => r.releases?.some((rel) => rel.assets.length)).length,
+  )
+
   return {
     lang,
+    downloads,
+    prebuiltCount,
     flagships,
     pluginItems,
     categories,

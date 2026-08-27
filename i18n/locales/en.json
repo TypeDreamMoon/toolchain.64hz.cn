@@ -83,7 +83,7 @@
   },
   "start": {
     "tag": "(start)",
-    "title": "Three steps into your project",
+    "title": "Put the tools in your project",
     "s1": "Drop the plugin into {dir}, enable it under Edit ▸ Plugins and restart the editor",
     "s2": "Create {dir} in the project root and add your first .dsm file",
     "s3": "Save. Auto-compile is on by default, and the asset is already in the engine",
@@ -101,6 +101,19 @@
       "fxDocs": "DreamFX docs",
       "examples": "Examples",
       "studio": "64Hz Games Studio"
-    }
+    },
+    "sub": "Pick a plugin and a version — the command and the download follow"
+  },
+  "get": {
+    "plugin": "Plugin",
+    "version": "Version",
+    "latestSource": "latest source",
+    "copy": "Copy",
+    "copied": "Copied",
+    "pkg": "Download build",
+    "zip": "Download source .zip",
+    "notes": "Release notes",
+    "noteTitle": "Most of these are not precompiled.",
+    "noteBody": "They ship as source — drop one into Plugins/ and the engine builds it on the next compile; regenerate project files first if yours is a C++ project. Only {prebuilt} of the {total} repositories publish a packaged build you can use as-is."
   }
 }
