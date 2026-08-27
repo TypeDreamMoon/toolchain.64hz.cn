@@ -46,13 +46,17 @@ float fbm(vec2 p){
   return v;
 }
 
-// three drifting traces, warped by the noise field
+// Three drifting traces, warped by the noise field. Each carries a second,
+// slower harmonic running the other way: one sine alone reads as a metronome,
+// two out of phase never quite repeat and the line meanders instead.
 float trace(vec2 p, float t){
   float f = fbm(p * 1.25 + vec2(t, t * 0.5));
   float v = 0.0;
   for (int i = 0; i < 3; i++){
     float fi = float(i);
-    float y = sin(p.x * (1.5 + fi * 1.25) + t * (1.6 + fi) + f * 2.0 + fi) * (0.20 - fi * 0.05);
+    float amp = 0.20 - fi * 0.05;
+    float y = sin(p.x * (1.5 + fi * 1.25) + t * (1.6 + fi) + f * 2.0 + fi) * amp
+            + sin(p.x * (0.7 + fi * 0.4) - t * (0.9 + fi * 0.3) + fi * 2.1) * amp * 0.55;
     v += smoothstep(0.055, 0.0, abs(p.y - y)) * (0.55 - fi * 0.13);
   }
   return v;
@@ -94,12 +98,18 @@ void main(){
   col += uAccent * g * amp;
   col += vec3(r - g, 0.0, b - g) * FRINGE * (1.0 + 0.6 * uEnergy) * amp;
 
-  // 64 spectrum bins along the bottom — the name, drawn
+  // 64 spectrum bins along the bottom — the name, drawn.
+  // Two beating sines give each bin its own motion; a third, slow and moving
+  // across, swells them in a travelling band so the row reads as one surface
+  // breathing rather than sixty-four bars twitching independently.
   float N = 64.0;
   float bx = uv.x * N;
   float px = floor(bx) / N;
   float env = sin(px * 3.14159265);
-  float h = (sin(t * 22.0 + px * 9.0) * 0.5 + 0.5) * (sin(t * 8.6 + px * 21.0) * 0.5 + 0.5) * env * 0.30;
+  float swell = mix(0.42, 1.0, sin(px * 5.5 - t * 7.0) * 0.5 + 0.5);
+  float h = (sin(t * 22.0 + px * 9.0) * 0.5 + 0.5)
+          * (sin(t * 8.6 + px * 21.0) * 0.5 + 0.5)
+          * swell * env * 0.34;
   float bar = step(0.28, fract(bx)) * step(fract(bx), 0.72) * step(uv.y, h);
   col += uAccent * bar * (0.10 + 0.16 * env + uEnergy * 0.4);
 

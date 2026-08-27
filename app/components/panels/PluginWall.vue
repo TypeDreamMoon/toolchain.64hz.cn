@@ -52,26 +52,31 @@ const planeStyle = computed(() => ({
   <div class="wall" @pointermove="onMove" @pointerleave="onLeave">
     <div ref="wall" class="wall__stage">
       <div class="wall__plane" :style="planeStyle">
-        <a
-          v-for="p in items"
+        <span
+          v-for="(p, i) in items"
           :key="p.repo"
-          class="wall__tile"
-          :class="{ 'is-dim': active && active.repo !== p.repo }"
-          :style="{ '--d': depth(p).toFixed(3) }"
-          :href="href(p)"
-          target="_blank"
-          rel="noopener"
-          :data-cursor-label="label(p.cat)"
-          @pointerenter="active = p"
-          @focus="active = p"
+          class="wall__cell"
+          :style="{ '--i': i }"
         >
-          <span class="wall__cat">{{ label(p.cat) }}</span>
-          <span class="wall__name">{{ p.repo }}</span>
-          <span class="wall__stars">
-            <i class="wall__bar" />
-            {{ stars(p) }}
-          </span>
-        </a>
+          <a
+            class="wall__tile"
+            :class="{ 'is-dim': active && active.repo !== p.repo }"
+            :style="{ '--d': depth(p).toFixed(3) }"
+            :href="href(p)"
+            target="_blank"
+            rel="noopener"
+            :data-cursor-label="label(p.cat)"
+            @pointerenter="active = p"
+            @focus="active = p"
+          >
+            <span class="wall__cat">{{ label(p.cat) }}</span>
+            <span class="wall__name">{{ p.repo }}</span>
+            <span class="wall__stars">
+              <i class="wall__bar" />
+              {{ stars(p) }}
+            </span>
+          </a>
+        </span>
       </div>
     </div>
 
@@ -101,7 +106,25 @@ const planeStyle = computed(() => ({
   will-change: transform;
 }
 
+/* The wave lives on a wrapper so it composes with the tile's own depth and
+   hover lift instead of fighting them for the transform property. Phase comes
+   from the item index, so the swell travels across the wall at an angle
+   rather than every tile breathing in unison. */
+.wall__cell {
+  display: flex;
+  transform-style: preserve-3d;
+  animation: wall-swell 7.5s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -210ms);
+  will-change: transform;
+}
+
+@keyframes wall-swell {
+  0%, 100% { transform: translateZ(-11px) rotateX(1.1deg); }
+  50%      { transform: translateZ(15px) rotateX(-1.1deg); }
+}
+
 .wall__tile {
+  flex: 1;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -195,6 +218,7 @@ const planeStyle = computed(() => ({
 @media (prefers-reduced-motion: reduce) {
   .wall__stage { perspective: none; }
   .wall__plane { transform: none !important; transition: none; }
+  .wall__cell { animation: none; transform: none; }
   .wall__tile { transform: none; }
   .wall__tile:hover, .wall__tile:focus-visible { transform: none; }
 }
