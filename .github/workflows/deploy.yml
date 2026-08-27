@@ -65,23 +65,38 @@ jobs:
       - name: Build
         run: pnpm build
 
-      # A missing credential otherwise surfaces as an SSH timeout several
-      # minutes in, which reads like a server problem and is not one.
-      - name: Check deploy credentials
+      # Either credential works, key first where both are set. Resolved here
+      # rather than in each step's `if` because the secrets context is not
+      # available in a step condition — and because a missing credential
+      # otherwise surfaces as an SSH timeout several minutes in, which reads
+      # like a server problem and is not one.
+      - name: Resolve the auth method
+        id: auth
         if: github.event_name != 'pull_request'
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
-          if [ -z "$SSH_PRIVATE_KEY" ]; then
-            echo "::error::Set the SSH_PRIVATE_KEY repository secret."
+          if [ -n "$SSH_PRIVATE_KEY" ]; then
+            echo "method=key" >> "$GITHUB_OUTPUT"
+            echo "Authenticating with a private key."
+          elif [ -n "$SSH_PASSWORD" ]; then
+            echo "method=password" >> "$GITHUB_OUTPUT"
+            echo "Authenticating with a password."
+          else
+            echo "::error::Set either the SSH_PASSWORD or the SSH_PRIVATE_KEY repository secret."
             exit 1
           fi
 
       - name: Load SSH key
-        if: github.event_name != 'pull_request'
+        if: steps.auth.outputs.method == 'key'
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Install sshpass
+        if: steps.auth.outputs.method == 'password'
+        run: sudo apt-get update && sudo apt-get install -y sshpass
 
       - name: Add server to known_hosts
         if: github.event_name != 'pull_request'
@@ -105,10 +120,19 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          # sshpass -e takes the password from the environment. Passing it as
+          # -p would put it in the process list, where anything else running on
+          # the runner could read it.
+          SSHPASS: ${{ secrets.SSH_PASSWORD }}
         run: |
+          RSH="ssh -p ${SSH_PORT:-22}"
+          if [ "${{ steps.auth.outputs.method }}" = "password" ]; then
+            RSH="sshpass -e ssh -p ${SSH_PORT:-22}"
+          fi
+
           rsync -rltvz --delete --mkpath \
             --no-perms --no-owner --no-group --omit-dir-times \
             --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r \
             --exclude='/.well-known/' \
-            -e "ssh -p ${SSH_PORT:-22}" \
+            -e "$RSH" \
             dist/ "${SSH_USER}@${SSH_HOST}:${DEPLOY_PATH}"

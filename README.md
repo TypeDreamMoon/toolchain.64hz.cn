@@ -85,11 +85,19 @@ becomes an ordinary scrolling page and the effects stand down.
 what hertz-games already does. Pushes to `main` build and deploy, pull requests
 build only, and a daily cron refreshes the registry before deploying.
 
-Repository secrets: `SSH_HOST`, `SSH_USER`, `SSH_PORT`, `SSH_PRIVATE_KEY`,
-`DEPLOY_PATH`.
+Repository secrets:
 
-Use a dedicated deploy user with write access to only that web root — a repo
-compromise should not be a server compromise.
+| Secret | |
+| --- | --- |
+| `SSH_HOST` | required |
+| `SSH_USER` | required |
+| `DEPLOY_PATH` | required |
+| `SSH_PASSWORD` **or** `SSH_PRIVATE_KEY` | one of the two; the key wins if both are set |
+| `SSH_PORT` | optional, defaults to 22 |
+
+Whichever credential you use, give it a dedicated deploy account with write
+access to that web root and nothing else — a repository compromise should not
+be a server compromise.
 
 ## Licence
 
