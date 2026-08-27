@@ -1,0 +1,201 @@
+<script setup lang="ts">
+import type { PluginItem } from '~/composables/useCatalog'
+
+/**
+ * The plugin library as a tilted wall.
+ *
+ * The plane leans with the pointer, and each tile's depth is its star count —
+ * so the wall is not just perspective for its own sake, the Z axis carries the
+ * same information the numbers do. Hovering pulls a tile to the front and
+ * writes its description underneath.
+ */
+
+const props = defineProps<{ items: PluginItem[]; label: (cat: string) => string }>()
+
+const wall = shallowRef<HTMLElement>()
+const active = ref<PluginItem | null>(null)
+
+const stars = (p: PluginItem) => p.facts?.stars ?? 0
+const href = (p: PluginItem) => p.facts?.url ?? `https://github.com/TypeDreamMoon/${p.repo}`
+
+const maxStars = computed(() => Math.max(1, ...props.items.map(stars)))
+/** 0 at the back, 1 at the front — square-rooted so a 10★ outlier does not
+ *  flatten everything else against the wall */
+const depth = (p: PluginItem) => Math.sqrt(stars(p) / maxStars.value)
+
+/** the wall leans a little even at rest, so it reads as a plane on arrival */
+const REST = { rx: 4, ry: -7 }
+const tilt = reactive({ ...REST })
+
+function onMove(e: PointerEvent) {
+  const el = wall.value
+  if (!el) return
+  const r = el.getBoundingClientRect()
+  const nx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2)
+  const ny = (e.clientY - (r.top + r.height / 2)) / (r.height / 2)
+  tilt.ry = REST.ry + nx * 11
+  tilt.rx = REST.rx - ny * 7
+}
+
+function onLeave() {
+  tilt.rx = REST.rx
+  tilt.ry = REST.ry
+  active.value = null
+}
+
+const planeStyle = computed(() => ({
+  transform: `rotateX(${tilt.rx.toFixed(2)}deg) rotateY(${tilt.ry.toFixed(2)}deg)`,
+}))
+</script>
+
+<template>
+  <div class="wall" @pointermove="onMove" @pointerleave="onLeave">
+    <div ref="wall" class="wall__stage">
+      <div class="wall__plane" :style="planeStyle">
+        <a
+          v-for="p in items"
+          :key="p.repo"
+          class="wall__tile"
+          :class="{ 'is-dim': active && active.repo !== p.repo }"
+          :style="{ '--d': depth(p).toFixed(3) }"
+          :href="href(p)"
+          target="_blank"
+          rel="noopener"
+          :data-cursor-label="label(p.cat)"
+          @pointerenter="active = p"
+          @focus="active = p"
+        >
+          <span class="wall__cat">{{ label(p.cat) }}</span>
+          <span class="wall__name">{{ p.repo }}</span>
+          <span class="wall__stars">
+            <i class="wall__bar" />
+            {{ stars(p) }}
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="wall__detail">
+      <template v-if="active">
+        <p class="wall__desc">{{ active.desc }}</p>
+        <span v-if="active.source" class="wall__src">
+          Fork of {{ active.source.name }} · {{ active.source.author }} · {{ active.source.license }}
+        </span>
+      </template>
+      <p v-else class="wall__hint"><slot name="hint" /></p>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.wall { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+
+.wall__stage { perspective: 1500px; perspective-origin: 50% 40%; }
+
+.wall__plane {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: .55rem;
+  transform-style: preserve-3d;
+  transition: transform 600ms var(--ease);
+  will-change: transform;
+}
+
+.wall__tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  padding: .7rem .75rem .6rem;
+  min-height: 6.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--bg-card) 82%, transparent);
+  /* depth is the star count — see `depth()` */
+  transform: translateZ(calc(var(--d) * 88px));
+  transition: transform 420ms var(--ease), border-color var(--dur-fast) var(--ease),
+              background var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+  will-change: transform;
+}
+/* the further forward a tile sits, the more it catches the accent */
+.wall__tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 62%);
+  opacity: calc(var(--d) * .9);
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.wall__tile:hover,
+.wall__tile:focus-visible {
+  transform: translateZ(calc(var(--d) * 88px + 96px));
+  border-color: var(--accent);
+  background: var(--bg-soft);
+  z-index: 2;
+}
+.wall__tile.is-dim { opacity: .38; }
+
+.wall__cat {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.wall__name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--step--1);
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  color: var(--text-hi);
+  overflow-wrap: anywhere;
+}
+.wall__stars {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.wall__bar {
+  display: block;
+  height: 2px;
+  width: calc(6px + var(--d) * 34px);
+  border-radius: 1px;
+  background: var(--accent);
+  transition: background 700ms var(--ease);
+}
+
+/* ---- detail ---- */
+.wall__detail {
+  min-height: 3.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  max-width: 66ch;
+}
+.wall__desc { font-size: var(--step--1); color: var(--muted); line-height: 1.65; }
+.wall__src { font-family: var(--font-mono); font-size: var(--step--2); color: var(--faint); }
+.wall__hint { font-size: var(--step--1); color: var(--faint); line-height: 1.65; }
+
+@media (max-width: 1180px) { .wall__plane { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 860px) {
+  .wall__plane { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Standing still: no perspective, no lean, no depth — an ordinary grid, with
+   every tile at the same distance and the same weight. */
+@media (prefers-reduced-motion: reduce) {
+  .wall__stage { perspective: none; }
+  .wall__plane { transform: none !important; transition: none; }
+  .wall__tile { transform: none; }
+  .wall__tile:hover, .wall__tile:focus-visible { transform: none; }
+}
+</style>

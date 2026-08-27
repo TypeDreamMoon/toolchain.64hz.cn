@@ -44,7 +44,7 @@
     "tag": "(plugins)",
     "fork": "Fork of {name} · {author} · {license}",
     "countUnit": "open source plugins",
-    "hint": "Hover any name to read what it does."
+    "hint": "Move across the wall — the further forward a tile sits, the more stars it has."
   },
   "eco": {
     "tag": "(ecosystem)",

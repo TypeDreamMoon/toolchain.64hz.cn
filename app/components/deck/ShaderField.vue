@@ -72,19 +72,27 @@ void main(){
   float d = length(p - m);
   float lens = smoothstep(1.15, 0.0, d);
   vec2 dir = (p - m) / max(d, 0.0001);
-  float shift = (0.016 + 0.026 * uEnergy) * lens;
+  // The traces are ~0.055 wide, so the offset has to stay well under that:
+  // past roughly a third of the feature width the whole ribbon displaces
+  // instead of its edges, and the split stops reading as fringing and starts
+  // reading as a rainbow. Turn FRINGE up rather than SHIFT to make it louder.
+  const float SHIFT = 0.007;
+  const float FRINGE = 1.7;
+  float shift = (SHIFT + SHIFT * 2.0 * uEnergy) * lens;
 
-  float r = trace(p + dir * shift, t);
   float g = trace(p, t);
+  float r = trace(p + dir * shift, t);
   float b = trace(p - dir * shift, t);
 
-  // The traces are thin, so a raw per-channel split does not fringe the accent
-  // — it replaces it, and the field turns into a rainbow smear. Sharing most of
-  // the luminance keeps the accent hue intact and leaves the split reading as
-  // an edge tint, which is what lets the shift above be this large.
-  float mean = (r + g + b) / 3.0;
-  vec3 rgb = mix(vec3(mean), vec3(r, g, b), 0.62);
-  col += uAccent * rgb * (0.5 + 0.85 * lens + 0.3 * uEnergy);
+  // Multiplying the accent by vec3(r, g, b) does not fringe it, it replaces
+  // it: three different scalars on one colour is a hue change, and the field
+  // smears into a rainbow wherever the channels disagree. Real aberration
+  // keeps the body of the trace its own colour and only splits at the edges,
+  // so the body is drawn from the centre sample and only the channel
+  // *differences* are added on top. That is what lets the shift be this large.
+  float amp = 0.5 + 0.85 * lens + 0.3 * uEnergy;
+  col += uAccent * g * amp;
+  col += vec3(r - g, 0.0, b - g) * FRINGE * (1.0 + 0.6 * uEnergy) * amp;
 
   // 64 spectrum bins along the bottom — the name, drawn
   float N = 64.0;

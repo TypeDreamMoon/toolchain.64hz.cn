@@ -147,9 +147,9 @@ const CHANNEL_VARS: Record<string, string> = {
         </div>
 
         <div class="rise mx__body">
-          <PluginMarquee :items="pluginItems" :label="catLabel">
+          <PluginWall :items="pluginItems" :label="catLabel">
             <template #hint>{{ t('plugins.hint') }}</template>
-          </PluginMarquee>
+          </PluginWall>
         </div>
       </div>
     </DeckPanel>

@@ -44,7 +44,7 @@
     "tag": "(插件库)",
     "fork": "Fork of {name} · {author} · {license}",
     "countUnit": "个开源插件",
-    "hint": "把指针停在任意一个名字上。"
+    "hint": "把指针移到墙面上，越靠前的插件星标越高。"
   },
   "eco": {
     "tag": "(生态)",
