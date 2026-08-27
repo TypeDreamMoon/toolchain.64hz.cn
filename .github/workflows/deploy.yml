@@ -113,8 +113,16 @@ jobs:
         # owner/group/perms preservation, which fails (exit 23) on files the
         # deploy user does not own. --mkpath creates DEPLOY_PATH if missing;
         # --chmod gives uploaded files sane web perms regardless of umask.
-        # --exclude '/.well-known/' protects certbot's ACME challenge dir from
-        # --delete (root-owned, and required for HTTPS cert renewal).
+        # The excludes protect what the panel and certbot own in the web root.
+        # rsync will not delete an excluded path, which is the point: nothing
+        # here is produced by the build, so --delete would otherwise take them.
+        #   .well-known  certbot's ACME challenge dir — deleting it mid-renewal
+        #                breaks certificate issuance
+        #   .user.ini    BaoTa's per-directory PHP config, carrying chattr +i,
+        #                so the unlink fails and rsync exits 23 even though
+        #                every file transferred
+        #   .htaccess    the panel's per-directory Apache config
+        # This is the same preserve list upload.js uses on the docs sites.
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
@@ -134,5 +142,7 @@ jobs:
             --no-perms --no-owner --no-group --omit-dir-times \
             --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r \
             --exclude='/.well-known/' \
+            --exclude='/.user.ini' \
+            --exclude='/.htaccess' \
             -e "$RSH" \
             dist/ "${SSH_USER}@${SSH_HOST}:${DEPLOY_PATH}"
