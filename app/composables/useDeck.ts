@@ -29,8 +29,12 @@ export const PANELS: DeckPanel[] = [
   { id: 'start', key: 'panel.start', accent: '#ffc62e' },
 ]
 
-/** A deck needs room; below this a panel would be taller than the viewport. */
-const DECK_MIN = '(min-width: 861px) and (min-height: 620px)'
+/**
+ * A deck needs room. Below this the panels are genuinely taller than the
+ * viewport, and no amount of tightening fixes that — so the page becomes an
+ * ordinary scrolling document instead of clipping content nobody can reach.
+ */
+const DECK_MIN = '(min-width: 861px) and (min-height: 720px)'
 const TURN_MS = 900
 
 export function useDeck() {

@@ -123,7 +123,7 @@ onBeforeUnmount(() => clearTimeout(copyTimer))
 </template>
 
 <style scoped>
-.get { display: flex; flex-direction: column; gap: clamp(.9rem, 2vh, 1.4rem); }
+.get { display: flex; flex-direction: column; gap: clamp(.7rem, 1.7vh, 1.2rem); }
 
 .get__picks { display: flex; flex-wrap: wrap; gap: .8rem; }
 
@@ -168,8 +168,8 @@ onBeforeUnmount(() => clearTimeout(copyTimer))
 .get__note {
   font-size: var(--step--2);
   color: var(--muted);
-  line-height: 1.7;
-  max-width: 62ch;
+  line-height: 1.6;
+  max-width: 78ch;
   border-left: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
   padding-left: .8rem;
 }

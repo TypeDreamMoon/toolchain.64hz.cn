@@ -27,7 +27,11 @@ provide('panelLive', live)
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* `safe` is the guard: plain `center` on content taller than the panel
+     overflows in both directions, and the top half slides under the fixed
+     header. Safe alignment falls back to flex-start instead of clipping the
+     start edge. */
+  justify-content: safe center;
   padding: clamp(5rem, 11vh, 7.5rem) var(--pad) clamp(3.5rem, 8vh, 5.5rem);
   min-height: 100vh;
   border-top: 1px solid var(--line);

@@ -195,34 +195,36 @@ const CHANNEL_VARS: Record<string, string> = {
           <p class="sub"><ScrambleText :text="t('start.sub')" /></p>
         </div>
 
-        <GetPanel :repos="downloads" :prebuilt="prebuiltCount" />
+        <div class="start__grid rise">
+          <GetPanel :repos="downloads" :prebuilt="prebuiltCount" />
 
-        <div class="steps rise">
-          <div class="step"><b>01</b><span>{{ t('start.s1', { dir: 'Plugins/' }) }}</span></div>
-          <div class="step"><b>02</b><span>{{ t('start.s2', { dir: 'DShader/' }) }}</span></div>
-          <div class="step"><b>03</b><span>{{ t('start.s3') }}</span></div>
+          <div class="steps">
+            <div class="step"><b>01</b><span>{{ t('start.s1', { dir: 'Plugins/' }) }}</span></div>
+            <div class="step"><b>02</b><span>{{ t('start.s2', { dir: 'DShader/' }) }}</span></div>
+            <div class="step"><b>03</b><span>{{ t('start.s3') }}</span></div>
+          </div>
         </div>
 
         <div class="ends rise">
-          <div class="ends__col">
+          <div class="ends__row">
             <h4>{{ t('start.cols.lang') }}</h4>
             <a href="#shader" @click.prevent="go(1)">DreamShader</a>
             <a href="#fx" @click.prevent="go(2)">DreamFX</a>
             <a href="#texture" @click.prevent="go(3)">DreamTexture</a>
           </div>
-          <div class="ends__col">
+          <div class="ends__row">
             <h4>{{ t('start.cols.plugins') }}</h4>
             <a href="#plugins" @click.prevent="go(4)">{{ t('start.links.library') }}</a>
             <a href="#ecosystem" @click.prevent="go(5)">{{ t('start.links.extensions') }}</a>
             <a href="#ecosystem" @click.prevent="go(5)">{{ t('start.links.registry') }}</a>
           </div>
-          <div class="ends__col">
+          <div class="ends__row">
             <h4>{{ t('start.cols.docs') }}</h4>
             <a href="https://shader.toolchain.64hz.cn">{{ t('start.links.reference') }}</a>
             <a href="https://fx.toolchain.64hz.cn">{{ t('start.links.fxDocs') }}</a>
             <a href="#">{{ t('start.links.examples') }}</a>
           </div>
-          <div class="ends__col">
+          <div class="ends__row">
             <h4>{{ t('start.cols.community') }}</h4>
             <a href="https://github.com/TypeDreamMoon" target="_blank" rel="noopener">GitHub</a>
             <a href="https://discord.gg/BpC9rH8Rk" target="_blank" rel="noopener">Discord</a>
@@ -462,7 +464,7 @@ const CHANNEL_VARS: Record<string, string> = {
   display: flex;
   flex-direction: column;
   gap: .5rem;
-  min-height: 10rem;
+  min-height: clamp(8rem, 15vh, 10rem);
   transition: background 240ms var(--ease);
 }
 .eco__cell:hover { background: var(--bg-soft); }
@@ -473,14 +475,23 @@ const CHANNEL_VARS: Record<string, string> = {
 .eco__cell--soft .eco__n { color: var(--muted); }
 
 /* ---------- 06 start ---------- */
-.start { display: flex; flex-direction: column; gap: clamp(1.5rem, 3.5vh, 2.6rem); }
+.start { display: flex; flex-direction: column; gap: clamp(.8rem, 2vh, 1.6rem); }
+
+/* The console and the three steps stacked made this the tallest panel in the
+   deck by a long way; side by side it fits a laptop viewport. */
+.start__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 3.2rem);
+  align-items: start;
+}
+
 .steps {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: .4rem;
   border-left: 1px solid var(--line);
   padding-left: 1.05rem;
-  max-width: 46rem;
 }
 .step { display: flex; gap: .8rem; font-size: var(--step--1); color: var(--muted); }
 .step b {
@@ -495,30 +506,43 @@ const CHANNEL_VARS: Record<string, string> = {
   transition: color 700ms var(--ease);
 }
 
+/* One row per group rather than one column: four stacked columns were the
+   tallest thing on the panel after the console. */
 .ends {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: .12rem;
   border-top: 1px solid var(--line);
-  padding-top: 1.4rem;
+  padding-top: .6rem;
 }
-.ends__col { display: flex; flex-direction: column; gap: .45rem; }
-.ends__col h4 {
+.ends__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .3rem 1rem;
+}
+.ends__row h4 {
   font-family: var(--font-mono);
   font-size: var(--step--2);
   font-weight: 400;
   letter-spacing: .16em;
   color: var(--faint);
+  min-width: 4.5rem;
+  flex: none;
 }
-.ends__col a { font-size: var(--step--1); color: var(--muted); width: fit-content; transition: color var(--dur-fast) var(--ease); }
-.ends__col a:hover { color: var(--accent); }
+.ends__row a {
+  font-size: var(--step--1);
+  color: var(--muted);
+  transition: color var(--dur-fast) var(--ease);
+}
+.ends__row a:hover { color: var(--accent); }
 .ends__bar {
-  grid-column: 1 / -1;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
-  padding-top: 1.1rem;
+  margin-top: .35rem;
+  padding-top: .6rem;
   border-top: 1px solid var(--line);
   font-family: var(--font-mono);
   font-size: var(--step--2);
@@ -528,7 +552,7 @@ const CHANNEL_VARS: Record<string, string> = {
 /* ---------- responsive ---------- */
 @media (max-width: 1080px) {
   .eco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .ends { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .start__grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 860px) {
   .hero__grid { grid-template-columns: 1fr; align-items: start; }
@@ -536,6 +560,5 @@ const CHANNEL_VARS: Record<string, string> = {
   .loop { grid-template-columns: 1fr; }
   .loop__mid { transform: rotate(90deg); }
   .eco { grid-template-columns: 1fr; }
-  .ends { grid-template-columns: 1fr 1fr; }
 }
 </style>

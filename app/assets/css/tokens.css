@@ -46,8 +46,11 @@
   --step-0:  clamp(.92rem, .86rem + .32vw, 1.05rem);
   --step-1:  clamp(1.15rem, 1rem + .9vw, 1.5rem);
   --step-2:  clamp(1.5rem, 1.15rem + 1.8vw, 2.4rem);
-  --step-3:  clamp(2.2rem, 1.5rem + 3.2vw, 4rem);
-  --step-4:  clamp(3rem, 1.3rem + 7vw, 8rem);
+  /* The display sizes take the smaller of the two axes. Tied to width alone,
+     a wide-but-short window renders them at full size and the panel stops
+     fitting the viewport it is supposed to fill. */
+  --step-3:  clamp(2.2rem, min(1.5rem + 3.2vw, 7.5vh), 4rem);
+  --step-4:  clamp(3rem, min(1.3rem + 7vw, 13vh), 8rem);
 
   /* --- space, radius, motion --------------------------------------------- */
   --pad: clamp(1.25rem, 4vw, 4.5rem);
