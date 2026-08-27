@@ -90,9 +90,19 @@ const planeStyle = computed(() => ({
 
     <div class="wall__detail">
       <template v-if="active">
-        <p class="wall__desc">{{ active.desc }}</p>
+        <!-- keyed on the repo so moving between tiles remounts and re-decodes,
+             and tuned faster than the panel labels: this one is driven by hover,
+             so it has to land almost as soon as the pointer arrives -->
+        <p class="wall__desc">
+          <ScrambleText :key="active.repo" :text="active.desc" :scatter="13" :hold="5" />
+        </p>
         <span v-if="active.source" class="wall__src">
-          Fork of {{ active.source.name }} · {{ active.source.author }} · {{ active.source.license }}
+          <ScrambleText
+            :key="`${active.repo}-src`"
+            :text="`Fork of ${active.source.name} · ${active.source.author} · ${active.source.license}`"
+            :scatter="13"
+            :hold="5"
+          />
         </span>
       </template>
       <p v-else class="wall__hint"><slot name="hint" /></p>
