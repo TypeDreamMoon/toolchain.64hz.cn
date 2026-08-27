@@ -10,6 +10,10 @@ const props = defineProps<{ id: string }>()
 
 const { PANELS, index, deckOn } = useDeck()
 const live = computed(() => PANELS[index.value]?.id === props.id)
+
+// Descendants (ScrambleText) key their animation off this rather than each
+// reaching into the deck and re-deriving which panel they happen to sit in.
+provide('panelLive', live)
 </script>
 
 <template>

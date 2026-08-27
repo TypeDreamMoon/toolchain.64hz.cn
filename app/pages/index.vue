@@ -22,7 +22,7 @@ const CHANNEL_VARS: Record<string, string> = {
     <!-- ══════════ 00 · home ══════════ -->
     <DeckPanel id="home">
       <div class="panel__inner hero">
-        <p class="hero__eyebrow rise">{{ t('hero.eyebrow') }}</p>
+        <p class="hero__eyebrow rise"><ScrambleText :text="t('hero.eyebrow')" /></p>
 
         <h1 class="hero__title rise" aria-label="HERTZ TOOLCHAIN">
           <span v-split class="ln">HERTZ</span>
@@ -66,8 +66,14 @@ const CHANNEL_VARS: Record<string, string> = {
         <div class="rise"><span class="scroll-hint"><i />{{ t('hero.scroll') }}</span></div>
       </div>
 
-      <div class="corner corner--l"><b>64.000 Hz</b><span>{{ t('hero.cornerLeft') }}</span></div>
-      <div class="corner corner--r"><b>★ {{ totals.stars }} · {{ totals.repos }} REPOS</b><span>{{ t('hero.cornerRight') }}</span></div>
+      <div class="corner corner--l">
+        <b><ScrambleText text="64.000 Hz" /></b>
+        <span><ScrambleText :text="t('hero.cornerLeft')" /></span>
+      </div>
+      <div class="corner corner--r">
+        <b><ScrambleText :text="`★ ${totals.stars} · ${totals.repos} REPOS`" /></b>
+        <span><ScrambleText :text="t('hero.cornerRight')" /></span>
+      </div>
     </DeckPanel>
 
     <!-- ══════════ 01 · DreamShader ══════════ -->
@@ -138,7 +144,7 @@ const CHANNEL_VARS: Record<string, string> = {
       <div class="panel__inner panel__inner--col">
         <div class="mx__head rise">
           <div class="mx__title">
-            <span class="tag">{{ t('plugins.tag') }}</span>
+            <span class="tag"><ScrambleText :text="t('plugins.tag')" /></span>
             <h2 v-split class="display">{{ t('plugins.title') }}</h2>
           </div>
           <p class="mx__count">
@@ -158,9 +164,9 @@ const CHANNEL_VARS: Record<string, string> = {
     <DeckPanel id="ecosystem">
       <div class="panel__inner">
         <div class="eco__head rise">
-          <span class="tag">{{ t('eco.tag') }}</span>
+          <span class="tag"><ScrambleText :text="t('eco.tag')" /></span>
           <h2 v-split class="display">{{ t('eco.title') }}</h2>
-          <p class="sub">{{ t('eco.sub') }}</p>
+          <p class="sub"><ScrambleText :text="t('eco.sub')" /></p>
         </div>
 
         <div class="eco rise">
@@ -171,7 +177,7 @@ const CHANNEL_VARS: Record<string, string> = {
             :class="{ 'eco__cell--soft': k === 'apps' }"
             href="#"
           >
-            <span class="eco__k">{{ t(`eco.${k}.k`) }}</span>
+            <span class="eco__k"><ScrambleText :text="t(`eco.${k}.k`)" /></span>
             <span class="eco__n">{{ t(`eco.${k}.n`) }}</span>
             <span class="eco__d">{{ t(`eco.${k}.d`) }}</span>
             <span class="eco__go">→</span>
@@ -184,7 +190,7 @@ const CHANNEL_VARS: Record<string, string> = {
     <DeckPanel id="start">
       <div class="panel__inner start">
         <div class="eco__head rise">
-          <span class="tag">{{ t('start.tag') }}</span>
+          <span class="tag"><ScrambleText :text="t('start.tag')" /></span>
           <h2 v-split class="display">{{ t('start.title') }}</h2>
         </div>
 
@@ -310,7 +316,9 @@ const CHANNEL_VARS: Record<string, string> = {
   letter-spacing: .1em;
   color: var(--faint);
 }
-.corner--l { left: var(--pad); }
+/* the deck counter is fixed at bottom-left, so this readout stacks above it
+   rather than landing on top of it */
+.corner--l { left: var(--pad); bottom: 4.5rem; }
 .corner--r { right: var(--pad); text-align: right; }
 .corner b { color: var(--muted); font-weight: 400; }
 

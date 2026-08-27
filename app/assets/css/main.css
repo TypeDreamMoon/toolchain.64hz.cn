@@ -147,8 +147,13 @@ body.cursor-on button { cursor: none; }
 
 .panel__inner {
   width: 100%;
-  max-width: var(--shell);
+  max-width: var(--shell-safe);
   margin-inline: auto;
+}
+
+/* no rail below this width, so the shell gets its full measure back */
+@media (max-width: 860px) {
+  .panel__inner { max-width: var(--shell); }
 }
 
 /* a panel whose body must fit exactly: the head keeps its size, the dense

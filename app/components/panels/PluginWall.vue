@@ -77,7 +77,7 @@ const planeStyle = computed(() => ({
             @pointerenter="active = p"
             @focus="active = p"
           >
-            <span class="wall__cat">{{ label(p.cat) }}</span>
+            <span class="wall__cat"><ScrambleText :text="label(p.cat)" /></span>
             <span class="wall__name">{{ p.repo }}</span>
             <span class="wall__stars">
               <i class="wall__bar" />

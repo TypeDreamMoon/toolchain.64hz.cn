@@ -64,4 +64,9 @@
   /* --- deck --------------------------------------------------------------- */
   --deck-turn: 900ms;   /* panel slide; the dissolve is timed against this */
   --shell:     1240px;
+  /* The rail is fixed in the right gutter while content is centred, so the
+     shell has to give up twice the gutter — losing it on one side only would
+     push the content off centre. */
+  --rail-gutter: 7rem;
+  --shell-safe: min(var(--shell), calc(100vw - 2 * var(--pad) - 2 * var(--rail-gutter)));
 }

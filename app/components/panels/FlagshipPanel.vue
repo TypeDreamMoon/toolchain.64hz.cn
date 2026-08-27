@@ -18,9 +18,9 @@ const pills = computed(() => {
   <div class="panel__inner prod">
     <div class="prod__copy">
       <div class="prod__head rise">
-        <span class="tag">({{ product.copy.tag }})</span>
+        <span class="tag"><ScrambleText :text="`(${product.copy.tag})`" /></span>
         <h2 v-split class="display">{{ product.name }}</h2>
-        <p class="sub">{{ product.kicker }}</p>
+        <p class="sub"><ScrambleText :text="product.kicker" /></p>
       </div>
 
       <!-- eslint-disable-next-line vue/no-v-html -- copy is authored in content/products.json, not user input -->
