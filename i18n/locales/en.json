@@ -9,7 +9,8 @@
     "docs": "Docs",
     "playground": "Playground",
     "github": "GitHub",
-    "lang": "中文"
+    "lang": "中文",
+    "soon": "Coming soon"
   },
   "panel": {
     "home": "Home",
@@ -79,7 +80,8 @@
       "k": "APPS",
       "n": "Desktop apps",
       "d": "DreamUnrealManager, DreamTranslatePO and DreamDSP are moving to their own site."
-    }
+    },
+    "soon": "Coming soon · app.64hz.cn"
   },
   "start": {
     "tag": "(start)",

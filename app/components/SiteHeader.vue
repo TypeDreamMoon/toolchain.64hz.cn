@@ -16,7 +16,8 @@ const otherLocale = computed(() => (locale.value === 'en' ? 'zh' : 'en'))
 
     <div class="top__end">
       <a class="top__link" href="https://shader.toolchain.64hz.cn">{{ t('nav.docs') }}</a>
-      <a class="top__link" href="#">{{ t('nav.playground') }}</a>
+      <!-- no destination yet; a dead link is worse than a plain label -->
+      <span class="top__link top__link--soon" :title="t('nav.soon')">{{ t('nav.playground') }}</span>
       <a
         class="top__link"
         href="https://github.com/TypeDreamMoon"
@@ -70,6 +71,9 @@ const otherLocale = computed(() => (locale.value === 'en' ? 'zh' : 'en'))
   transition: color var(--dur-fast) var(--ease);
 }
 .top__link:hover { color: var(--accent); }
+
+.top__link--soon { color: var(--faint); cursor: default; }
+.top__link--soon:hover { color: var(--faint); }
 
 @media (max-width: 560px) {
   .brand__sub { display: none; }

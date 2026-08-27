@@ -9,7 +9,8 @@
     "docs": "文档",
     "playground": "Playground",
     "github": "GitHub",
-    "lang": "EN"
+    "lang": "EN",
+    "soon": "即将推出"
   },
   "panel": {
     "home": "首页",
@@ -79,7 +80,8 @@
       "k": "APPS",
       "n": "独立应用",
       "d": "DreamUnrealManager、DreamTranslatePO、DreamDSP 等桌面工具将迁到独立站点。"
-    }
+    },
+    "soon": "即将推出 · app.64hz.cn"
   },
   "start": {
     "tag": "(接入)",

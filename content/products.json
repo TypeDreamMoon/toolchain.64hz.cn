@@ -13,9 +13,18 @@
         "kind": "材质 · MATERIAL",
         "lede": "用 DreamShaderLang 写虚幻材质。保存即编译成 <em>UMaterial</em>、材质函数、材质层与层混合，默认<em>在内存中生成</em>——不落 .uasset，内容浏览器里干干净净，Cook 时自动实体化。",
         "facts": [
-          { "k": "源文件", "v": ".dsm 材质实现 / .dsf 材质函数 / .dsh 共享头" },
-          { "k": "产出", "v": "UMaterial · UMaterialFunction · Material Layer · Layer Blend" },
-          { "k": "生态", "v": "9 个官方包，外加从 Cycles 内核移植来的 Blender 着色节点" }
+          {
+            "k": "源文件",
+            "v": ".dsm 材质实现 / .dsf 材质函数 / .dsh 共享头"
+          },
+          {
+            "k": "产出",
+            "v": "UMaterial · UMaterialFunction · Material Layer · Layer Blend"
+          },
+          {
+            "k": "生态",
+            "v": "9 个官方包，外加从 Cycles 内核移植来的 Blender 着色节点"
+          }
         ]
       },
       "en": {
@@ -23,18 +32,31 @@
         "kind": "MATERIAL",
         "lede": "Author Unreal materials in DreamShaderLang. Saving compiles them into <em>UMaterial</em>, material functions, layers and layer blends — built <em>in memory</em> by default, so nothing lands in the Content Browser until a cook materialises it.",
         "facts": [
-          { "k": "Sources", "v": ".dsm materials / .dsf functions / .dsh shared headers" },
-          { "k": "Output", "v": "UMaterial · UMaterialFunction · Material Layer · Layer Blend" },
-          { "k": "Ecosystem", "v": "9 official packages, plus Blender's shader nodes ported from the Cycles kernel" }
+          {
+            "k": "Sources",
+            "v": ".dsm materials / .dsf functions / .dsh shared headers"
+          },
+          {
+            "k": "Output",
+            "v": "UMaterial · UMaterialFunction · Material Layer · Layer Blend"
+          },
+          {
+            "k": "Ecosystem",
+            "v": "9 official packages, plus Blender's shader nodes ported from the Cycles kernel"
+          }
         ]
       },
-      "pills": ["UE 5.3 — 5.8", "MIT"],
+      "pills": [
+        "UE 5.3 — 5.8",
+        "MIT"
+      ],
       "docs": "https://shader.toolchain.64hz.cn",
       "sample": {
         "file": "M_Minimal.dsm",
         "lang": "DreamShaderLang",
         "note": "保存 → /Game/DreamMaterials/M_Minimal"
-      }
+      },
+      "secondary": "https://shader.toolchain.64hz.cn/docs"
     },
     {
       "id": "fx",
@@ -48,9 +70,18 @@
         "kind": "特效 · NIAGARA",
         "lede": "把 Niagara 特效写成文本。<em>.dfs / .dfe / .dfm</em> 编译成标准 NiagaraSystem，而任意现有的 NiagaraSystem 也能<em>反编译回源码</em>——往返字节级一致，所以它能接管你已有的特效资产，而不是只能从零开始。",
         "facts": [
-          { "k": "源文件", "v": ".dfs 系统 / .dfe 发射器 / .dfm 模块" },
-          { "k": "往返", "v": "编译与反编译字节级幂等，四层校验" },
-          { "k": "环境", "v": "原版 UE 5.8，不需要引擎改动" }
+          {
+            "k": "源文件",
+            "v": ".dfs 系统 / .dfe 发射器 / .dfm 模块"
+          },
+          {
+            "k": "往返",
+            "v": "编译与反编译字节级幂等，四层校验"
+          },
+          {
+            "k": "环境",
+            "v": "原版 UE 5.8，不需要引擎改动"
+          }
         ]
       },
       "en": {
@@ -58,13 +89,26 @@
         "kind": "NIAGARA",
         "lede": "Author Niagara VFX as text. <em>.dfs / .dfe / .dfm</em> compile to standard NiagaraSystems, and any existing NiagaraSystem <em>decompiles back to source</em> — byte-idempotent, so it can take over the effects you already have.",
         "facts": [
-          { "k": "Sources", "v": ".dfs systems / .dfe emitters / .dfm modules" },
-          { "k": "Round trip", "v": "Byte-idempotent both ways, four-layer verification" },
-          { "k": "Engine", "v": "Stock UE 5.8, no engine changes" }
+          {
+            "k": "Sources",
+            "v": ".dfs systems / .dfe emitters / .dfm modules"
+          },
+          {
+            "k": "Round trip",
+            "v": "Byte-idempotent both ways, four-layer verification"
+          },
+          {
+            "k": "Engine",
+            "v": "Stock UE 5.8, no engine changes"
+          }
         ]
       },
-      "pills": ["UE 5.8", "MIT"],
-      "docs": "https://fx.toolchain.64hz.cn"
+      "pills": [
+        "UE 5.8",
+        "MIT"
+      ],
+      "docs": "https://fx.toolchain.64hz.cn",
+      "secondary": "https://fx.toolchain.64hz.cn/docs"
     },
     {
       "id": "texture",
@@ -78,9 +122,18 @@
         "kind": "贴图 · 即将推出",
         "lede": "基于 <em>ComfyUI + Vue</em> 的 PBR / NPR 贴图生成工作流。从一张参考图产出成套通道贴图，直接接进上面两条链路——材质引用它，特效也引用它。",
         "facts": [
-          { "k": "形态", "v": "ComfyUI 工作流 + Vue 操作前端" },
-          { "k": "产出", "v": "BaseColor · Normal · Roughness · AO 等通道" },
-          { "k": "风格", "v": "PBR 写实与 NPR 卡通两套管线" }
+          {
+            "k": "形态",
+            "v": "ComfyUI 工作流 + Vue 操作前端"
+          },
+          {
+            "k": "产出",
+            "v": "BaseColor · Normal · Roughness · AO 等通道"
+          },
+          {
+            "k": "风格",
+            "v": "PBR 写实与 NPR 卡通两套管线"
+          }
         ]
       },
       "en": {
@@ -88,13 +141,26 @@
         "kind": "COMING SOON",
         "lede": "A PBR / NPR texture pipeline built on <em>ComfyUI + Vue</em>. One reference image in, a full channel set out — feeding straight into the two toolchains above.",
         "facts": [
-          { "k": "Shape", "v": "ComfyUI workflow + a Vue front end" },
-          { "k": "Output", "v": "BaseColor · Normal · Roughness · AO and more" },
-          { "k": "Styles", "v": "Two pipelines: photoreal PBR and stylised NPR" }
+          {
+            "k": "Shape",
+            "v": "ComfyUI workflow + a Vue front end"
+          },
+          {
+            "k": "Output",
+            "v": "BaseColor · Normal · Roughness · AO and more"
+          },
+          {
+            "k": "Styles",
+            "v": "Two pipelines: photoreal PBR and stylised NPR"
+          }
         ]
       },
-      "pills": ["ComfyUI", "PBR / NPR"],
-      "docs": null
+      "pills": [
+        "ComfyUI",
+        "PBR / NPR"
+      ],
+      "docs": null,
+      "secondary": "https://discord.gg/BpC9rH8Rk"
     }
   ]
 }

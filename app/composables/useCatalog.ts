@@ -46,6 +46,8 @@ export interface Flagship {
   status: 'stable' | 'planned'
   pills: string[]
   docs: string | null
+  /** the second button: a deeper reference, or somewhere to follow along */
+  secondary: string
   sample?: { file: string; lang: string; note: string }
   copy: FlagshipCopy
   facts: RepoFacts | null

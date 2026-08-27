@@ -1,7 +1,28 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const { go } = useDeck()
-const { flagships, pluginItems, categories, pluginCount, totals, downloads, prebuiltCount } = useCatalog()
+const { flagships, pluginItems, categories, pluginCount, totals, downloads, prebuiltCount, facts } = useCatalog()
+
+const MARKETPLACE = 'https://marketplace.visualstudio.com/items?itemName=typedreammoon.'
+const gh = (repo: string) => facts(repo)?.url ?? `https://github.com/TypeDreamMoon/${repo}`
+
+/** One card per entry. `links` is empty where there is nowhere to send anyone
+ *  yet — app.64hz.cn does not resolve, and a dead link is worse than none. */
+const ECO = [
+  {
+    k: 'vscode',
+    links: [
+      { label: 'DreamShaderLang', href: `${MARKETPLACE}dreamshaderlang-language-support` },
+      { label: 'DreamFX', href: `${MARKETPLACE}dreamfxlang-language-support` },
+    ],
+  },
+  // published under a different account than the rest
+  { k: 'rider', links: [{ label: 'tsdaer/dreamshader-language-support', href: 'https://github.com/tsdaer/dreamshader-language-support' }] },
+  { k: 'mcp', links: [{ label: 'GitHub', href: gh('dream-mcp') }] },
+  { k: 'registry', links: [{ label: 'GitHub', href: gh('dreamshader-package-index') }] },
+  { k: 'blender', links: [{ label: 'GitHub', href: gh('dreamshader-blender') }] },
+  { k: 'apps', links: [] },
+]
 
 const catLabel = (id: string) => categories.value.find((c) => c.id === id)?.label ?? id
 
@@ -170,18 +191,28 @@ const CHANNEL_VARS: Record<string, string> = {
         </div>
 
         <div class="eco rise">
-          <a
-            v-for="k in ['vscode', 'rider', 'mcp', 'registry', 'blender', 'apps']"
-            :key="k"
+          <div
+            v-for="e in ECO"
+            :key="e.k"
             class="eco__cell"
-            :class="{ 'eco__cell--soft': k === 'apps' }"
-            href="#"
+            :class="{ 'eco__cell--soft': !e.links.length }"
           >
-            <span class="eco__k"><ScrambleText :text="t(`eco.${k}.k`)" /></span>
-            <span class="eco__n">{{ t(`eco.${k}.n`) }}</span>
-            <span class="eco__d">{{ t(`eco.${k}.d`) }}</span>
-            <span class="eco__go">→</span>
-          </a>
+            <span class="eco__k"><ScrambleText :text="t(`eco.${e.k}.k`)" /></span>
+            <span class="eco__n">{{ t(`eco.${e.k}.n`) }}</span>
+            <span class="eco__d">{{ t(`eco.${e.k}.d`) }}</span>
+
+            <span v-if="e.links.length" class="eco__go">
+              <a
+                v-for="l in e.links"
+                :key="l.href"
+                :href="l.href"
+                target="_blank"
+                rel="noopener"
+                data-cursor-label="↗"
+              >{{ l.label }} ↗</a>
+            </span>
+            <span v-else class="eco__soon">{{ t('eco.soon') }}</span>
+          </div>
         </div>
       </div>
     </DeckPanel>
@@ -222,7 +253,7 @@ const CHANNEL_VARS: Record<string, string> = {
             <h4>{{ t('start.cols.docs') }}</h4>
             <a href="https://shader.toolchain.64hz.cn">{{ t('start.links.reference') }}</a>
             <a href="https://fx.toolchain.64hz.cn">{{ t('start.links.fxDocs') }}</a>
-            <a href="#">{{ t('start.links.examples') }}</a>
+            <a href="https://github.com/TypeDreamMoon/DreamShader/tree/main/Docs/examples" target="_blank" rel="noopener">{{ t('start.links.examples') }}</a>
           </div>
           <div class="ends__row">
             <h4>{{ t('start.cols.community') }}</h4>
@@ -471,7 +502,28 @@ const CHANNEL_VARS: Record<string, string> = {
 .eco__k { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .16em; color: var(--faint); }
 .eco__n { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); letter-spacing: -.01em; color: var(--text-hi); }
 .eco__d { font-size: var(--step--1); color: var(--muted); line-height: 1.6; }
-.eco__go { margin-top: auto; font-family: var(--font-mono); font-size: var(--step--2); color: var(--accent); letter-spacing: .08em; transition: color 700ms var(--ease); }
+.eco__go {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem .9rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: .08em;
+}
+.eco__go a {
+  color: var(--accent);
+  transition: color 700ms var(--ease), opacity var(--dur-fast) var(--ease);
+}
+.eco__go a:hover { opacity: .72; text-decoration: underline; text-underline-offset: 3px; }
+
+.eco__soon {
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: .08em;
+  color: var(--faint);
+}
 .eco__cell--soft .eco__n { color: var(--muted); }
 
 /* ---------- 06 start ---------- */

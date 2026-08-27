@@ -38,9 +38,14 @@ const pills = computed(() => {
 
       <div class="prod__actions rise">
         <a v-if="product.docs" class="cta" :href="product.docs" data-magnetic data-cursor-label="→">{{ t('product.docs') }}</a>
-        <a class="cta cta--line" href="#" data-magnetic>
-          {{ product.docs ? t('product.reference') : t('product.subscribe') }}
-        </a>
+        <a
+          class="cta cta--line"
+          :href="product.secondary"
+          target="_blank"
+          rel="noopener"
+          data-magnetic
+          data-cursor-label="↗"
+        >{{ product.docs ? t('product.reference') : t('product.subscribe') }}</a>
       </div>
     </div>
 
