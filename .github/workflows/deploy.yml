@@ -1,0 +1,114 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Refresh star counts and release tags once a day, at 04:00 CST.
+  schedule:
+    - cron: '0 20 * * *'
+  workflow_dispatch:
+
+# The sync job commits the refreshed registry back; everything else only reads.
+permissions:
+  contents: write
+
+# Two deploys at once would race inside the same web root. One at a time,
+# newest wins.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and deploy static site
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Only on a scheduled or manual run — a push deploy uses the registry as
+      # committed, so the numbers on the site never jump around between runs.
+      - name: Refresh the GitHub registry
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm sync:github
+
+      - name: Commit the registry if it changed
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/generated/registry.json
+          git diff --cached --quiet || {
+            git commit -m "chore: refresh GitHub registry"
+            git push
+          }
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build
+        run: pnpm build
+
+      # A missing credential otherwise surfaces as an SSH timeout several
+      # minutes in, which reads like a server problem and is not one.
+      - name: Check deploy credentials
+        if: github.event_name != 'pull_request'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          if [ -z "$SSH_PRIVATE_KEY" ]; then
+            echo "::error::Set the SSH_PRIVATE_KEY repository secret."
+            exit 1
+          fi
+
+      - name: Load SSH key
+        if: github.event_name != 'pull_request'
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add server to known_hosts
+        if: github.event_name != 'pull_request'
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p "${SSH_PORT:-22}" -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Deploy with rsync
+        if: github.event_name != 'pull_request'
+        # -rltz: recurse, keep symlinks + mod-times, compress — but NOT -a's
+        # owner/group/perms preservation, which fails (exit 23) on files the
+        # deploy user does not own. --mkpath creates DEPLOY_PATH if missing;
+        # --chmod gives uploaded files sane web perms regardless of umask.
+        # --exclude '/.well-known/' protects certbot's ACME challenge dir from
+        # --delete (root-owned, and required for HTTPS cert renewal).
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          rsync -rltvz --delete --mkpath \
+            --no-perms --no-owner --no-group --omit-dir-times \
+            --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r \
+            --exclude='/.well-known/' \
+            -e "ssh -p ${SSH_PORT:-22}" \
+            dist/ "${SSH_USER}@${SSH_HOST}:${DEPLOY_PATH}"

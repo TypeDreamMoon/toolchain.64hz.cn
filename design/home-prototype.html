@@ -1,0 +1,1040 @@
+<title>64Hz Toolchain</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+
+<style>
+/* ==========================================================================
+   tokens — inherited from shader.toolchain.64hz.cn / app/styles/tokens.css
+   Raw brand hues are theme-invariant; only surfaces and derived ink swap.
+   Dark-first: the bare :root IS the dark palette, because the audience lives
+   in UE and VS Code and the banner artwork is near-black.
+   ========================================================================== */
+:root {
+  /* brand — identical in both themes, exactly as tokens.css declares them */
+  --miku:   #39c5bb;
+  --cyan:   #00d4ff;
+  --pink:   #ff5aa5;
+  --yellow: #ffd166;
+  --ink:    #10272c;
+
+  /* surfaces — dark */
+  --bg:         hsl(190 35% 7%);
+  --bg-deep:    hsl(190 42% 4%);
+  --fg:         hsl(177 43% 92%);
+  --muted:      hsl(190 30% 12%);
+  --muted-fg:   hsl(178 22% 70%);
+  --card:       hsl(190 32% 10%);
+  --border:     hsl(178 45% 46% / .24);
+  --border-soft:hsl(178 45% 46% / .13);
+
+  /* derived ink */
+  --brand-text: color-mix(in oklab, var(--miku) 90%, white);
+  --cyan-text:  color-mix(in oklab, var(--cyan) 94%, white);
+  --pink-text:  color-mix(in oklab, var(--pink) 92%, white);
+  --yellow-text:var(--yellow);
+
+  --tint:       color-mix(in oklab, var(--miku) 10%, transparent);
+  --tint-hover: color-mix(in oklab, var(--miku) 15%, transparent);
+  --code-bg:    hsl(190 44% 5%);
+  --shadow:     0 18px 42px hsl(190 80% 3% / .5);
+  --shadow-lift:0 26px 60px hsl(190 80% 2% / .62);
+  --grid-line:  hsl(178 45% 46% / .07);
+
+  /* type */
+  --f-display: 'Chakra Petch', 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
+  --f-body:    'IBM Plex Sans', 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
+  --f-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --t-2xs: .6875rem;  --t-xs: .75rem;    --t-sm: .8125rem;
+  --t-base: .9375rem; --t-md: 1.0625rem; --t-lg: 1.1875rem;
+  --t-xl: 1.5rem;     --t-2xl: 1.8125rem; --t-3xl: 2.25rem;
+
+  --lead-tight: 1.2; --lead-snug: 1.45; --lead-body: 1.78;
+
+  /* space — the 8-step ramp from tokens.css */
+  --s1: .25rem; --s2: .5rem;  --s3: .75rem; --s4: 1rem;
+  --s5: 1.5rem; --s6: 2rem;   --s7: 3rem;   --s8: 4rem;
+
+  --r-xs: 4px; --r-sm: 6px; --r-md: 8px; --r-lg: 12px; --r-pill: 999px;
+
+  --ease: cubic-bezier(.22, .9, .3, 1);
+  --dur-fast: 160ms; --dur-mid: 320ms; --dur-slow: 720ms;
+
+  --shell: 1180px;
+}
+
+/* light — for the un-stamped document on a light OS */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg:         hsl(186 48% 97%);
+    --bg-deep:    hsl(184 40% 94%);
+    --fg:         hsl(193 46% 13%);
+    --muted:      hsl(184 38% 93%);
+    --muted-fg:   hsl(192 23% 36%);
+    --card:       hsl(0 0% 100%);
+    --border:     hsl(184 35% 74% / .62);
+    --border-soft:hsl(184 35% 74% / .34);
+
+    --brand-text: color-mix(in oklab, var(--miku) 65%, black);
+    --cyan-text:  color-mix(in oklab, var(--cyan) 60%, black);
+    --pink-text:  color-mix(in oklab, var(--pink) 68%, black);
+    --yellow-text:color-mix(in oklab, var(--yellow) 52%, black);
+
+    --tint:       color-mix(in oklab, var(--miku) 8%, transparent);
+    --tint-hover: color-mix(in oklab, var(--miku) 13%, transparent);
+    --code-bg:    hsl(190 44% 6%);
+    --shadow:     0 14px 34px color-mix(in oklab, var(--ink) 12%, transparent);
+    --shadow-lift:0 22px 48px color-mix(in oklab, var(--ink) 16%, transparent);
+    --grid-line:  hsl(190 40% 30% / .07);
+  }
+}
+
+/* light — explicit choice beats a dark OS */
+:root[data-theme="light"] {
+  --bg:         hsl(186 48% 97%);
+  --bg-deep:    hsl(184 40% 94%);
+  --fg:         hsl(193 46% 13%);
+  --muted:      hsl(184 38% 93%);
+  --muted-fg:   hsl(192 23% 36%);
+  --card:       hsl(0 0% 100%);
+  --border:     hsl(184 35% 74% / .62);
+  --border-soft:hsl(184 35% 74% / .34);
+
+  --brand-text: color-mix(in oklab, var(--miku) 65%, black);
+  --cyan-text:  color-mix(in oklab, var(--cyan) 60%, black);
+  --pink-text:  color-mix(in oklab, var(--pink) 68%, black);
+  --yellow-text:color-mix(in oklab, var(--yellow) 52%, black);
+
+  --tint:       color-mix(in oklab, var(--miku) 8%, transparent);
+  --tint-hover: color-mix(in oklab, var(--miku) 13%, transparent);
+  --code-bg:    hsl(190 44% 6%);
+  --shadow:     0 14px 34px color-mix(in oklab, var(--ink) 12%, transparent);
+  --shadow-lift:0 22px 48px color-mix(in oklab, var(--ink) 16%, transparent);
+  --grid-line:  hsl(190 40% 30% / .07);
+}
+
+/* ========================================================================== */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-body);
+  font-size: var(--t-base);
+  line-height: var(--lead-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--miku);
+  outline-offset: 3px;
+  border-radius: var(--r-xs);
+}
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--s5);
+}
+
+/* --- shared type roles ---------------------------------------------------- */
+
+.eyebrow {
+  font-family: var(--f-display);
+  font-size: var(--t-2xs);
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--brand-text);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+.eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+
+.h2 {
+  font-family: var(--f-display);
+  font-size: var(--t-2xl);
+  font-weight: 600;
+  letter-spacing: .01em;
+  line-height: var(--lead-tight);
+  text-wrap: balance;
+  margin: 0;
+}
+
+.lede {
+  color: var(--muted-fg);
+  font-size: var(--t-md);
+  line-height: var(--lead-snug);
+  max-width: 60ch;
+  margin: 0;
+}
+
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+/* --- chips ---------------------------------------------------------------- */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-family: var(--f-mono);
+  font-size: var(--t-2xs);
+  font-weight: 500;
+  letter-spacing: .04em;
+  padding: 3px 9px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border-soft);
+  background: var(--tint);
+  color: var(--brand-text);
+  white-space: nowrap;
+  line-height: 1.5;
+}
+.chip--cyan { color: var(--cyan-text); background: color-mix(in oklab, var(--cyan) 12%, transparent); }
+.chip--pink { color: var(--pink-text); background: color-mix(in oklab, var(--pink) 13%, transparent); }
+.chip--bare { background: transparent; color: var(--muted-fg); }
+
+.dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex: none; }
+
+/* --- buttons -------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-family: var(--f-display);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .7rem 1.2rem;
+  border-radius: var(--r-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease),
+              transform var(--dur-fast) var(--ease);
+}
+.btn--primary { background: var(--miku); color: hsl(190 76% 8%); }
+.btn--primary:hover { background: color-mix(in oklab, var(--miku) 84%, white); transform: translateY(-1px); }
+.btn--ghost { border-color: var(--border); color: var(--fg); background: transparent; }
+.btn--ghost:hover { background: var(--tint); border-color: var(--miku); }
+
+/* ==========================================================================
+   header
+   ========================================================================== */
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom: 1px solid var(--border-soft);
+}
+.top__row {
+  display: flex;
+  align-items: center;
+  gap: var(--s6);
+  height: 3.5rem;
+}
+
+.mark { display: flex; align-items: baseline; gap: .55rem; flex: none; }
+.mark__hz {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: var(--t-md);
+  letter-spacing: .08em;
+  color: var(--fg);
+}
+.mark__hz b { color: var(--brand-text); font-weight: 700; }
+.mark__sub {
+  font-family: var(--f-display);
+  font-size: var(--t-2xs);
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--muted-fg);
+}
+
+.nav { display: flex; gap: var(--s5); flex: 1; }
+.nav a {
+  font-size: var(--t-sm);
+  color: var(--muted-fg);
+  padding: var(--s1) 0;
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.nav a:hover { color: var(--fg); border-bottom-color: var(--miku); }
+
+.top__end { display: flex; align-items: center; gap: var(--s3); flex: none; }
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 2rem; height: 2rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border-soft);
+  background: transparent;
+  color: var(--muted-fg);
+  cursor: pointer;
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.icon-btn:hover { background: var(--tint); color: var(--brand-text); }
+
+.star-pill {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  font-family: var(--f-mono); font-size: var(--t-xs);
+  padding: .3rem .6rem;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-sm);
+  color: var(--muted-fg);
+  font-variant-numeric: tabular-nums;
+}
+.star-pill b { color: var(--fg); font-weight: 500; }
+
+/* ==========================================================================
+   hero
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  padding-block: clamp(3rem, 7vw, 5.5rem) clamp(3rem, 6vw, 4.5rem);
+  overflow: hidden;
+}
+
+/* the dot lattice + diagonal cut lifted from the DreamShader banner */
+.hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, var(--grid-line) 1px, transparent 0);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(115% 85% at 72% 32%, #000 20%, transparent 72%);
+  pointer-events: none;
+}
+
+.hero__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.hero__copy { display: flex; flex-direction: column; gap: var(--s5); }
+
+.hero h1 {
+  font-family: var(--f-display);
+  font-size: clamp(2.25rem, 4.6vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -.005em;
+  margin: 0;
+  text-wrap: balance;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--brand-text);
+  position: relative;
+}
+/* the underline is a signal trace, not an underline — 64 Hz, drawn once */
+.hero h1 em::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -.14em;
+  height: 6px;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--miku) 0 2px, transparent 2px 7px);
+  opacity: .5;
+  mask-image: linear-gradient(90deg, #000 72%, transparent);
+}
+
+.hero__meta { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.hero__cta { display: flex; flex-wrap: wrap; gap: var(--s3); }
+
+/* --- the stage: material ball + the source that produced it --------------- */
+
+.stage { position: relative; display: grid; place-items: center; min-height: 30rem; }
+
+.stage__glow {
+  position: absolute;
+  width: 74%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--miku) 26%, transparent), transparent 66%);
+  filter: blur(46px);
+  pointer-events: none;
+}
+
+/* the UE corner triangle from the banner, redrawn as a frame tick */
+.stage__frame {
+  position: relative;
+  width: min(100%, 27rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  /* nudge off-centre so the source card below-left has somewhere to sit */
+  transform: translate(4%, -6%);
+}
+.stage__frame::before,
+.stage__frame::after {
+  content: "";
+  position: absolute;
+  width: 22px; height: 22px;
+  border: 1px solid var(--border);
+  pointer-events: none;
+}
+.stage__frame::before { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.stage__frame::after  { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+#ball {
+  width: 100%; height: 100%;
+  display: block;
+  image-rendering: auto;
+}
+
+.stage__tag {
+  position: absolute;
+  top: var(--s4); right: var(--s4);
+  font-family: var(--f-mono);
+  font-size: var(--t-2xs);
+  color: var(--muted-fg);
+  letter-spacing: .06em;
+  display: flex; align-items: center; gap: var(--s2);
+}
+.stage__tag .dot { background: var(--miku); animation: pulse 2.4s var(--ease) infinite; }
+
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+
+.stage__code {
+  position: absolute;
+  z-index: 2;
+  left: clamp(-3.5rem, -4vw, -1rem); bottom: 0;
+  width: min(18rem, 76%);
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lift);
+  overflow: hidden;
+}
+.stage__code header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s3);
+  padding: .5rem .75rem;
+  border-bottom: 1px solid hsl(178 45% 46% / .16);
+  font-family: var(--f-mono);
+  font-size: var(--t-2xs);
+  color: hsl(178 22% 62%);
+}
+.stage__code pre {
+  margin: 0;
+  padding: var(--s4) var(--s4) var(--s4);
+  font-family: var(--f-mono);
+  font-size: var(--t-2xs);
+  line-height: 1.8;
+  overflow-x: auto;
+  color: hsl(177 30% 84%);
+}
+
+/* a stand-in for what Shiki will emit from dreamshader.tmLanguage.json */
+.tk-key  { color: #7fe3da; }
+.tk-type { color: #6fd0ff; }
+.tk-str  { color: #ffc06e; }
+.tk-num  { color: #ff8fc0; }
+.tk-fn   { color: #b7a0ff; }
+.tk-mut  { color: hsl(178 18% 52%); }
+
+/* ==========================================================================
+   sections
+   ========================================================================== */
+
+.band { padding-block: clamp(3.5rem, 7vw, 5.5rem); border-top: 1px solid var(--border-soft); }
+.band--sunk { background: var(--bg-deep); }
+
+.band__head { display: flex; flex-direction: column; gap: var(--s4); margin-bottom: var(--s7); max-width: 68ch; }
+
+/* --- flagship cards ------------------------------------------------------- */
+
+.fleet { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s4); }
+
+.card {
+  position: relative;
+  display: flex; flex-direction: column; gap: var(--s4);
+  padding: var(--s5);
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+  transition: border-color var(--dur-mid) var(--ease),
+              transform var(--dur-mid) var(--ease),
+              box-shadow var(--dur-mid) var(--ease);
+}
+.card:hover {
+  border-color: color-mix(in oklab, var(--miku) 42%, var(--border));
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+.card--soon { opacity: .72; }
+.card--soon:hover { transform: none; box-shadow: none; }
+
+.card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s3); }
+.card__name {
+  font-family: var(--f-display);
+  font-size: var(--t-lg);
+  font-weight: 600;
+  letter-spacing: .01em;
+  line-height: 1.2;
+  margin: 0;
+}
+.card__name span { color: var(--brand-text); }
+.card__desc { color: var(--muted-fg); font-size: var(--t-sm); line-height: var(--lead-snug); margin: 0; flex: 1; }
+.card__ext { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.card__foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s3);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--border-soft);
+  font-family: var(--f-mono);
+  font-size: var(--t-2xs);
+  color: var(--muted-fg);
+  font-variant-numeric: tabular-nums;
+}
+.card__go { color: var(--brand-text); display: inline-flex; align-items: center; gap: 5px; }
+.card:hover .card__go { gap: 9px; }
+.card__go { transition: gap var(--dur-fast) var(--ease); }
+
+/* --- pipeline ------------------------------------------------------------- */
+
+.pipe {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);
+  align-items: stretch;
+  gap: var(--s4);
+}
+
+.node {
+  display: flex; flex-direction: column; gap: var(--s3);
+  padding: var(--s5);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+  background: var(--card);
+}
+.node--core {
+  border-color: color-mix(in oklab, var(--miku) 40%, var(--border));
+  background: linear-gradient(180deg, var(--tint), transparent), var(--card);
+}
+.node__label {
+  font-family: var(--f-display);
+  font-size: var(--t-2xs);
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted-fg);
+}
+.node--core .node__label { color: var(--brand-text); }
+.node__title { font-family: var(--f-display); font-size: var(--t-md); font-weight: 600; margin: 0; line-height: 1.25; }
+.node__list { display: flex; flex-direction: column; gap: 5px; margin: 0; padding: 0; list-style: none; }
+.node__list li { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted-fg); }
+
+.arrow { display: grid; place-items: center; color: color-mix(in oklab, var(--miku) 55%, var(--muted-fg)); }
+.arrow svg { width: 26px; height: 12px; }
+
+.satellites { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: var(--s4); margin-top: var(--s4); }
+.sat {
+  display: flex; flex-direction: column; gap: var(--s2);
+  padding: var(--s4);
+  border: 1px dashed var(--border-soft);
+  border-radius: var(--r-md);
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.sat:hover { border-color: var(--border); background: var(--tint); }
+.sat__k { font-family: var(--f-mono); font-size: var(--t-2xs); color: var(--muted-fg); letter-spacing: .04em; }
+.sat__v { font-size: var(--t-sm); font-weight: 500; line-height: 1.35; }
+.sat__n { font-family: var(--f-mono); font-size: var(--t-2xs); color: var(--brand-text); }
+
+/* --- releases ------------------------------------------------------------- */
+
+.rel { display: flex; flex-direction: column; border: 1px solid var(--border-soft); border-radius: var(--r-lg); overflow: hidden; }
+.rel__row {
+  display: grid;
+  grid-template-columns: 13rem 6.5rem 1fr 6rem;
+  gap: var(--s4);
+  align-items: baseline;
+  padding: var(--s4) var(--s5);
+  border-bottom: 1px solid var(--border-soft);
+  transition: background var(--dur-fast) var(--ease);
+}
+.rel__row:last-child { border-bottom: 0; }
+.rel__row:hover { background: var(--tint); }
+.rel__repo { font-family: var(--f-display); font-weight: 600; font-size: var(--t-sm); letter-spacing: .02em; }
+.rel__ver { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--brand-text); font-variant-numeric: tabular-nums; }
+.rel__note { color: var(--muted-fg); font-size: var(--t-sm); line-height: var(--lead-snug); }
+.rel__date { font-family: var(--f-mono); font-size: var(--t-2xs); color: var(--muted-fg); text-align: right; font-variant-numeric: tabular-nums; }
+
+/* --- footer --------------------------------------------------------------- */
+
+.foot { border-top: 1px solid var(--border-soft); padding-block: var(--s7) var(--s6); background: var(--bg-deep); }
+.foot__grid { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: var(--s6); }
+.foot__col { display: flex; flex-direction: column; gap: var(--s3); }
+.foot__col h4 {
+  font-family: var(--f-display); font-size: var(--t-2xs); font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--muted-fg); margin: 0;
+}
+.foot__col a { font-size: var(--t-sm); color: var(--muted-fg); width: fit-content; }
+.foot__col a:hover { color: var(--brand-text); }
+.foot__note { color: var(--muted-fg); font-size: var(--t-sm); line-height: var(--lead-snug); max-width: 34ch; margin: 0; }
+.foot__bar {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--s3);
+  margin-top: var(--s7); padding-top: var(--s4);
+  border-top: 1px solid var(--border-soft);
+  font-family: var(--f-mono); font-size: var(--t-2xs); color: var(--muted-fg);
+}
+
+/* ==========================================================================
+   responsive
+   ========================================================================== */
+
+@media (max-width: 980px) {
+  .hero__grid { grid-template-columns: 1fr; }
+  .stage { min-height: 22rem; order: -1; }
+  .stage__code { position: static; width: 100%; margin-top: var(--s5); box-shadow: none; }
+  .fleet { grid-template-columns: 1fr; }
+  .pipe { grid-template-columns: 1fr; }
+  .arrow { transform: rotate(90deg); padding-block: var(--s1); }
+  .satellites { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .foot__grid { grid-template-columns: 1fr 1fr; }
+  .nav { display: none; }
+  .rel__row { grid-template-columns: 1fr auto; row-gap: var(--s2); }
+  .rel__note { grid-column: 1 / -1; }
+  .rel__date { text-align: left; }
+}
+
+@media (max-width: 560px) {
+  .satellites { grid-template-columns: 1fr; }
+  .foot__grid { grid-template-columns: 1fr; }
+  .star-pill { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+</style>
+
+<header class="top">
+  <div class="shell top__row">
+    <a class="mark" href="#top">
+      <span class="mark__hz">64<b>Hz</b></span>
+      <span class="mark__sub">Toolchain</span>
+    </a>
+    <nav class="nav">
+      <a href="#fleet">产品</a>
+      <a href="#pipeline">生态</a>
+      <a href="#">Playground</a>
+      <a href="#">文档</a>
+      <a href="#releases">更新</a>
+    </nav>
+    <div class="top__end">
+      <span class="star-pill"><span aria-hidden="true">★</span> <b>112</b></span>
+      <button class="icon-btn" type="button" aria-label="切换语言">EN</button>
+      <button class="icon-btn" id="theme" type="button" aria-label="切换主题">◐</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===================== hero ===================== -->
+  <section class="hero">
+    <div class="shell hero__grid">
+
+      <div class="hero__copy">
+        <p class="eyebrow">Unreal Engine 工具链</p>
+
+        <h1>把材质和特效<br><em>写成源码</em>。</h1>
+
+        <p class="lede">
+          DreamShaderLang 与 DreamFX 让你用纯文本编写 Unreal 材质和 Niagara 特效，
+          保存即编译成标准引擎资产。源码进版本控制，资产是构建产物——随时可以删掉重新生成。
+        </p>
+
+        <div class="hero__meta">
+          <span class="chip"><span class="dot"></span> UE 5.3 – 5.8</span>
+          <span class="chip chip--bare">MIT License</span>
+          <span class="chip chip--bare">字节级幂等往返</span>
+          <span class="chip chip--bare">中文 / English</span>
+        </div>
+
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#fleet">开始使用</a>
+          <a class="btn btn--ghost" href="#">在线试玩 Playground</a>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage__glow" aria-hidden="true"></div>
+        <div class="stage__frame">
+          <canvas id="ball" width="440" height="440"
+                  aria-label="实时渲染的棋盘材质球预览"></canvas>
+        </div>
+        <div class="stage__tag"><span class="dot"></span> LIVE PREVIEW</div>
+
+        <figure class="stage__code">
+          <header>
+            <span>M_Checker.dsm</span>
+            <span>DreamShaderLang</span>
+          </header>
+          <pre><code><span class="tk-fn">Shader</span>(<span class="tk-key">Name</span>=<span class="tk-str">"Dream/M_Checker"</span>)
+{
+  <span class="tk-key">Properties</span> = {
+    <span class="tk-type">float</span> Scale = <span class="tk-num">20.0</span>;
+    <span class="tk-type">vec3</span>  Rim   = <span class="tk-fn">vec3</span>(<span class="tk-num">.22</span>, <span class="tk-num">.77</span>, <span class="tk-num">.73</span>);
+  }
+
+  <span class="tk-key">Graph</span> = {
+    Base.BaseColor = <span class="tk-fn">Checker</span>(UV * Scale);
+    Base.Roughness = <span class="tk-num">0.28</span>;
+    Base.Emissive  = Rim * <span class="tk-fn">Fresnel</span>(<span class="tk-num">3.0</span>);
+  }
+}</code></pre>
+        </figure>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== flagships ===================== -->
+  <section class="band" id="fleet">
+    <div class="shell">
+      <div class="band__head">
+        <p class="eyebrow">三条主线</p>
+        <h2 class="h2">材质、特效、贴图——一条链路上的三个入口</h2>
+        <p class="lede">每个工具各自独立可用，共享同一套源码优先的工作方式：文本是唯一的编辑面，资产永远可以重建。</p>
+      </div>
+
+      <div class="fleet">
+
+        <article class="card">
+          <div class="card__top">
+            <h3 class="card__name">Dream<span>Shader</span></h3>
+            <span class="chip"><span class="dot"></span> 稳定</span>
+          </div>
+          <p class="card__desc">用 DreamShaderLang 编写 Unreal 材质。保存即编译成 UMaterial、材质函数、材质层与层混合，默认在内存中生成，不落 .uasset。</p>
+          <div class="card__ext">
+            <span class="chip chip--bare">.dsm</span>
+            <span class="chip chip--bare">.dsf</span>
+            <span class="chip chip--bare">.dsh</span>
+          </div>
+          <div class="card__foot">
+            <span>v1.8.0 · ★ 97</span>
+            <span class="card__go">查看 <span aria-hidden="true">→</span></span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__top">
+            <h3 class="card__name">Dream<span>FX</span></h3>
+            <span class="chip"><span class="dot"></span> 稳定</span>
+          </div>
+          <p class="card__desc">把 Niagara 特效写成文本。源码编译成标准 NiagaraSystem，任意现有特效也能反编译回源码，往返字节级一致。</p>
+          <div class="card__ext">
+            <span class="chip chip--bare">.dfs</span>
+            <span class="chip chip--bare">.dfe</span>
+            <span class="chip chip--bare">.dfm</span>
+          </div>
+          <div class="card__foot">
+            <span>★ 8 · 四层校验</span>
+            <span class="card__go">查看 <span aria-hidden="true">→</span></span>
+          </div>
+        </article>
+
+        <article class="card card--soon">
+          <div class="card__top">
+            <h3 class="card__name">Dream<span>Texture</span></h3>
+            <span class="chip chip--pink">即将推出</span>
+          </div>
+          <p class="card__desc">基于 ComfyUI 与 Vue 的 PBR / NPR 贴图生成工作流。从一张参考图产出成套通道贴图，直接接进上面两条链路。</p>
+          <div class="card__ext">
+            <span class="chip chip--bare">ComfyUI</span>
+            <span class="chip chip--bare">PBR</span>
+            <span class="chip chip--bare">NPR</span>
+          </div>
+          <div class="card__foot">
+            <span>筹备中</span>
+            <span class="card__go">订阅进展 <span aria-hidden="true">→</span></span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== pipeline ===================== -->
+  <section class="band band--sunk" id="pipeline">
+    <div class="shell">
+      <div class="band__head">
+        <p class="eyebrow">链路</p>
+        <h2 class="h2">从一个文本文件，到引擎里可用的资产</h2>
+        <p class="lede">这三步是真实的编译顺序，不是示意。中间那一环是 DreamShaderCompiler，一个独立于编辑器 UI 的引擎模块。</p>
+      </div>
+
+      <div class="pipe">
+        <div class="node">
+          <span class="node__label">Source</span>
+          <h3 class="node__title">源码文件</h3>
+          <ul class="node__list">
+            <li>Materials/ *.dsm</li>
+            <li>Functions/ *.dsf</li>
+            <li>Shared/ *.dsh</li>
+            <li>Packages/ 依赖库</li>
+          </ul>
+        </div>
+
+        <div class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 26 12" fill="none"><path d="M0 6h22M17 1l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div class="node node--core">
+          <span class="node__label">Compile</span>
+          <h3 class="node__title">DreamShaderCompiler</h3>
+          <ul class="node__list">
+            <li>保存后防抖解析</li>
+            <li>语法 + 语义校验</li>
+            <li>默认在内存中构建</li>
+            <li>Cook 时自动实体化</li>
+          </ul>
+        </div>
+
+        <div class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 26 12" fill="none"><path d="M0 6h22M17 1l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div class="node">
+          <span class="node__label">Output</span>
+          <h3 class="node__title">Unreal 资产</h3>
+          <ul class="node__list">
+            <li>UMaterial</li>
+            <li>UMaterialFunction</li>
+            <li>Material Layer</li>
+            <li>Layer Blend</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="satellites">
+        <a class="sat" href="#">
+          <span class="sat__k">EDITOR</span>
+          <span class="sat__v">VS Code 扩展</span>
+          <span class="sat__n">v1.9.0 · 高亮 / 补全 / 诊断</span>
+        </a>
+        <a class="sat" href="#">
+          <span class="sat__k">EDITOR</span>
+          <span class="sat__v">Rider 插件</span>
+          <span class="sat__n">DreamShaderLang</span>
+        </a>
+        <a class="sat" href="#">
+          <span class="sat__k">AGENT</span>
+          <span class="sat__v">dream-mcp</span>
+          <span class="sat__n">MCP Server · Python</span>
+        </a>
+        <a class="sat" href="#">
+          <span class="sat__k">REGISTRY</span>
+          <span class="sat__v">官方包索引</span>
+          <span class="sat__n">9 个包 · math / noise / pbr …</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== releases ===================== -->
+  <section class="band" id="releases">
+    <div class="shell">
+      <div class="band__head">
+        <p class="eyebrow">最近更新</p>
+        <h2 class="h2">发布看板</h2>
+        <p class="lede">每天从 GitHub 同步一次，星标数与版本号自动保持新鲜。</p>
+      </div>
+
+      <div class="rel">
+        <a class="rel__row" href="#">
+          <span class="rel__repo">DreamShader</span>
+          <span class="rel__ver">v1.8.0</span>
+          <span class="rel__note">材质层混合支持虚函数覆写，包索引新增 dreamshader-sdf</span>
+          <span class="rel__date">08-24</span>
+        </a>
+        <a class="rel__row" href="#">
+          <span class="rel__repo">DreamFX</span>
+          <span class="rel__ver">v0.9.2</span>
+          <span class="rel__note">反编译器补齐 Niagara 模块签名，往返校验提升到四层</span>
+          <span class="rel__date">08-21</span>
+        </a>
+        <a class="rel__row" href="#">
+          <span class="rel__repo">dream-mcp</span>
+          <span class="rel__ver">v0.4.0</span>
+          <span class="rel__note">构建改走运行中的编辑器，省掉 12–24 秒冷启动并消除重复写入</span>
+          <span class="rel__date">08-17</span>
+        </a>
+        <a class="rel__row" href="#">
+          <span class="rel__repo">dreamshader-language-support</span>
+          <span class="rel__ver">v1.9.0</span>
+          <span class="rel__note">补全覆盖全部内建函数，新增材质预览与包管理命令</span>
+          <span class="rel__date">08-16</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__grid">
+      <div class="foot__col">
+        <a class="mark" href="#top">
+          <span class="mark__hz">64<b>Hz</b></span>
+          <span class="mark__sub">Toolchain</span>
+        </a>
+        <p class="foot__note">Unreal Engine 的源码优先内容管线。由 TypeDreamMoon 开发并以 MIT 协议开源。</p>
+      </div>
+      <div class="foot__col">
+        <h4>产品</h4>
+        <a href="#">DreamShader</a>
+        <a href="#">DreamFX</a>
+        <a href="#">DreamTexture</a>
+        <a href="#">全部插件</a>
+      </div>
+      <div class="foot__col">
+        <h4>文档</h4>
+        <a href="https://shader.toolchain.64hz.cn">语言参考</a>
+        <a href="https://fx.toolchain.64hz.cn">DreamFX 文档</a>
+        <a href="#">快速开始</a>
+        <a href="#">示例库</a>
+      </div>
+      <div class="foot__col">
+        <h4>社区</h4>
+        <a href="https://github.com/TypeDreamMoon">GitHub</a>
+        <a href="https://qm.qq.com/q/X9uCLjVcY">QQ 群 466585194</a>
+        <a href="#">问题反馈</a>
+        <a href="#">更新日志</a>
+      </div>
+    </div>
+    <div class="foot__bar">
+      <span>© 2026 64Hz · MIT Licensed</span>
+      <span>toolchain.64hz.cn</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* --------------------------------------------------------------------------
+   theme toggle — stamps data-theme so it beats the OS preference either way
+   -------------------------------------------------------------------------- */
+const root = document.documentElement;
+document.getElementById('theme').addEventListener('click', () => {
+  const explicit = root.getAttribute('data-theme');
+  const dark = explicit
+    ? explicit === 'dark'
+    : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.setAttribute('data-theme', dark ? 'light' : 'dark');
+});
+
+/* --------------------------------------------------------------------------
+   the material ball — a per-pixel checkerboard sphere, shaded in canvas 2D.
+
+   The site is about authoring shaders, so the hero renders one rather than
+   shipping a screenshot of one. Orthographic sphere, spherical-UV checker,
+   lambert + blinn spec, and a Miku-cyan fresnel rim that ties the banner's
+   black-and-white material ball to the brand accent.
+   -------------------------------------------------------------------------- */
+(() => {
+  const cv = document.getElementById('ball');
+  const ctx = cv.getContext('2d', { alpha: true });
+  const W = cv.width, H = cv.height;
+  const img = ctx.createImageData(W, H);
+  const buf = img.data;
+
+  const R = Math.min(W, H) * 0.46;
+  const cx = W / 2, cy = H / 2;
+
+  // light, normalised once
+  const ll = Math.hypot(-0.45, 0.62, 0.85);
+  const Lx = -0.45 / ll, Ly = 0.62 / ll, Lz = 0.85 / ll;
+  // half vector against the -Z view direction, also constant
+  const hl = Math.hypot(Lx, Ly, Lz + 1);
+  const Hx = Lx / hl, Hy = Ly / hl, Hz = (Lz + 1) / hl;
+
+  const RIM = [0x39, 0xc5, 0xbb];
+  const TAU = Math.PI * 2;
+
+  function frame(a) {
+    const sa = Math.sin(a), ca = Math.cos(a);
+
+    for (let y = 0; y < H; y++) {
+      const py = (y - cy) / R;
+      for (let x = 0; x < W; x++) {
+        const px = (x - cx) / R;
+        const i = (y * W + x) << 2;
+        const r2 = px * px + py * py;
+
+        if (r2 > 1) { buf[i + 3] = 0; continue; }
+
+        // surface normal of a unit sphere under orthographic projection
+        const nx = px, ny = -py, nz = Math.sqrt(1 - r2);
+
+        // spin the texture, not the light
+        const tx = nx * ca - nz * sa;
+        const tz = nx * sa + nz * ca;
+
+        const u = Math.atan2(tx, tz) / TAU + 0.5;
+        const v = Math.acos(ny < -1 ? -1 : ny > 1 ? 1 : ny) / Math.PI;
+        const check = (Math.floor(u * 20) + Math.floor(v * 10)) & 1;
+
+        const base = check ? 232 : 26;
+
+        const diff = Math.max(nx * Lx + ny * Ly + nz * Lz, 0);
+        const spec = Math.pow(Math.max(nx * Hx + ny * Hy + nz * Hz, 0), 42) * 190;
+        const rim  = Math.pow(1 - nz, 3.2);
+
+        // soft terminator keeps the dark squares from crushing to pure black
+        const lit = base * (0.16 + 0.84 * diff);
+
+        let r = lit + spec + RIM[0] * rim * 1.5;
+        let g = lit + spec + RIM[1] * rim * 1.5;
+        let b = lit + spec + RIM[2] * rim * 1.5;
+
+        buf[i]     = r > 255 ? 255 : r;
+        buf[i + 1] = g > 255 ? 255 : g;
+        buf[i + 2] = b > 255 ? 255 : b;
+        // one-pixel coverage feather on the silhouette
+        buf[i + 3] = r2 > 0.985 ? 255 * ((1 - r2) / 0.015) : 255;
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+  }
+
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (still) { frame(0.9); return; }
+
+  let t0 = null;
+  const loop = (t) => {
+    if (t0 === null) t0 = t;
+    frame(((t - t0) / 1000) * 0.32);
+    requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
+})();
+</script>

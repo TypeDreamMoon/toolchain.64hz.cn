@@ -1,0 +1,1281 @@
+<title>Hertz Toolchain Deck</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+/* ============================================================
+   64Hz Toolchain — deck
+   Ground, ink and type inherited from hertz-games/src/style.css.
+   The per-panel accent walks the DreamUnrealThemes families
+   (Amber · Ember · Sakura · Azure · Miku) and comes home.
+
+   Every effect on this page is a real-time rendering technique —
+   fbm field, chromatic aberration, ordered dithering — because
+   that is what the toolchain is for. Committed single-theme.
+   ============================================================ */
+
+:root {
+  --bg:        #0e1014;
+  --bg-soft:   #14161b;
+  --bg-card:   #1b1e24;
+  --line:      rgba(233, 230, 221, .12);
+  --line-2:    rgba(233, 230, 221, .22);
+  --text:      #e9e6dd;
+  --text-hi:   #ffffff;
+  --muted:     rgba(233, 230, 221, .55);
+  --faint:     rgba(233, 230, 221, .32);
+
+  /* the theme families, named as DreamUnrealThemes names them */
+  --amber:  #ffc62e;
+  --ember:  #ff5c35;
+  --sakura: #ff7aa8;
+  --azure:  #4a9eff;
+  --miku:   #39c5bb;
+
+  --accent:     #ffc62e;
+  --accent-ink: #161208;
+
+  --font-display: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
+  --font-body:    'Noto Sans SC', 'Space Grotesk', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Cascadia Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --pad:  clamp(1.25rem, 4vw, 4.5rem);
+
+  --step--2: clamp(.66rem, .62rem + .16vw, .74rem);
+  --step--1: clamp(.76rem, .7rem + .28vw, .88rem);
+  --step-0:  clamp(.92rem, .86rem + .32vw, 1.05rem);
+  --step-1:  clamp(1.15rem, 1rem + .9vw, 1.5rem);
+  --step-2:  clamp(1.5rem, 1.15rem + 1.8vw, 2.4rem);
+  --step-3:  clamp(2.2rem, 1.5rem + 3.2vw, 4rem);
+  --step-4:  clamp(3rem, 1.3rem + 7vw, 8rem);
+
+  --radius-sm: 6px;
+  --radius: 10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 300;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 3px; }
+
+/* the shader field, and the dither dissolve that fires on every page turn */
+#field { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+#wipe  { position: fixed; inset: 0; z-index: 45; pointer-events: none; opacity: 0; }
+
+/* ============================================================
+   custom cursor — carried over from the studio site
+   ============================================================ */
+
+.cur { position: fixed; top: 0; left: 0; z-index: 60; pointer-events: none; }
+.cur__dot, .cur__ring {
+  position: absolute; top: 0; left: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+.cur__dot { width: 5px; height: 5px; background: var(--accent); transition: background 700ms var(--ease); }
+.cur__ring {
+  width: 34px; height: 34px;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  display: grid; place-items: center;
+  transition: width 320ms var(--ease), height 320ms var(--ease),
+              border-color 700ms var(--ease), background 320ms var(--ease);
+}
+.cur__ring span {
+  font-family: var(--font-mono); font-size: .6rem; letter-spacing: .08em;
+  color: var(--accent-ink); opacity: 0; transition: opacity 200ms var(--ease); white-space: nowrap;
+}
+.cur.is-hot .cur__ring { width: 56px; height: 56px; background: color-mix(in srgb, var(--accent) 88%, transparent); border-color: transparent; }
+.cur.is-hot .cur__ring span { opacity: 1; }
+body.cursor-on { cursor: none; }
+body.cursor-on a, body.cursor-on button { cursor: none; }
+
+/* ============================================================
+   deck mechanics — flow by default, JS lifts it into panels
+   ============================================================ */
+
+.deck { position: relative; z-index: 1; }
+.deck-on .deck { position: fixed; inset: 0; overflow: hidden; }
+.deck-on .deck__rail { height: 100%; transition: transform 900ms var(--ease); will-change: transform; }
+
+.panel {
+  position: relative;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(5rem, 11vh, 7.5rem) var(--pad) clamp(3.5rem, 8vh, 5.5rem);
+  min-height: 100vh;
+  border-top: 1px solid var(--line);
+}
+.deck-on .panel { height: 100vh; min-height: 0; border-top: 0; overflow: hidden; }
+
+/* depth on the seam: the panel leaving sinks back, the way the studio
+   site's stacking panels do */
+.deck-on .panel {
+  transition: transform 900ms var(--ease), filter 900ms var(--ease);
+  transform-origin: center;
+}
+.deck-on .panel:not(.is-live) { transform: scale(.945); filter: brightness(.5); }
+
+.panel__inner { width: 100%; max-width: 1240px; margin-inline: auto; }
+/* a panel whose body must fit exactly: the head keeps its size, the dense
+   region below takes whatever is left and scrolls inside itself */
+.panel__inner--col { display: flex; flex-direction: column; min-height: 0; }
+.panel__inner--col .mx__wrap { flex: 1 1 auto; }
+
+.deck-on .rise { opacity: 0; transform: translateY(24px); }
+.deck-on .panel.is-live .rise {
+  opacity: 1; transform: none;
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.deck-on .panel.is-live .rise:nth-child(2) { transition-delay: 90ms; }
+.deck-on .panel.is-live .rise:nth-child(3) { transition-delay: 180ms; }
+.deck-on .panel.is-live .rise:nth-child(4) { transition-delay: 270ms; }
+.deck-on .panel.is-live .rise:nth-child(5) { transition-delay: 360ms; }
+
+/* ---- per-character heading reveal ---- */
+.ch {
+  display: inline-block;
+  will-change: transform, opacity;
+  opacity: 1;
+  transform: none;
+}
+.deck-on .ch { opacity: 0; transform: translateY(.55em) rotateX(-55deg); }
+.deck-on .panel.is-live .ch {
+  opacity: 1; transform: none;
+  transition: opacity 520ms var(--ease), transform 620ms var(--ease);
+  transition-delay: calc(var(--i) * 26ms + 120ms);
+}
+.ch--sp { width: .32em; }
+
+/* ============================================================
+   chrome
+   ============================================================ */
+
+.top {
+  position: fixed; z-index: 30; top: 0; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+  padding: 1.35rem var(--pad);
+}
+.brand { display: flex; align-items: baseline; gap: .6rem; }
+.brand__mark { font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); letter-spacing: -.02em; color: var(--text-hi); }
+.brand__mark span { color: var(--accent); transition: color 700ms var(--ease); }
+.brand__sub { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .22em; text-transform: uppercase; color: var(--faint); }
+.top__end { display: flex; align-items: center; gap: 1.35rem; }
+.top__link { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); transition: color 200ms var(--ease); }
+.top__link:hover { color: var(--accent); }
+
+.rail { position: fixed; z-index: 30; right: var(--pad); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: .85rem; align-items: flex-end; }
+.rail__item { display: flex; align-items: center; gap: .7rem; color: var(--faint); transition: color 260ms var(--ease); }
+.rail__label { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .1em; opacity: 0; transform: translateX(6px); white-space: nowrap; transition: opacity 260ms var(--ease), transform 260ms var(--ease); }
+.rail__tick { width: 24px; height: 1px; background: currentColor; transition: width 320ms var(--ease); }
+.rail__item:hover, .rail__item[aria-current="true"] { color: var(--text); }
+.rail__item:hover .rail__label, .rail__item[aria-current="true"] .rail__label { opacity: 1; transform: none; }
+.rail__item[aria-current="true"] { color: var(--accent); }
+.rail__item[aria-current="true"] .rail__tick { width: 42px; }
+
+.counter { position: fixed; z-index: 30; left: var(--pad); bottom: 1.4rem; display: flex; align-items: baseline; gap: .45rem; font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .1em; color: var(--faint); }
+.counter b { color: var(--accent); font-weight: 500; transition: color 700ms var(--ease); }
+
+/* ============================================================
+   shared type
+   ============================================================ */
+
+.tag { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .18em; color: var(--accent); transition: color 700ms var(--ease); }
+.display { font-family: var(--font-display); font-weight: 500; font-size: var(--step-3); line-height: .98; letter-spacing: -.03em; color: var(--text-hi); text-wrap: balance; }
+.sub { font-family: var(--font-mono); font-size: var(--step--1); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.body { color: var(--muted); max-width: 46ch; line-height: 1.75; }
+.body em { font-style: normal; color: var(--text); }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+.pill { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .06em; padding: .28rem .58rem; border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--muted); white-space: nowrap; }
+.pill--on { border-color: color-mix(in srgb, var(--accent) 45%, transparent); color: var(--accent); }
+
+.cta {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-family: var(--font-display); font-weight: 500; font-size: var(--step--1);
+  letter-spacing: .04em; padding: .8rem 1.4rem; border-radius: var(--radius-sm);
+  background: var(--accent); color: var(--accent-ink);
+  transition: background 700ms var(--ease), transform 200ms var(--ease), box-shadow 260ms var(--ease);
+}
+.cta:hover { transform: translateY(-2px); box-shadow: 0 10px 30px color-mix(in srgb, var(--accent) 26%, transparent); }
+.cta--line { background: none; color: var(--text); border: 1px solid var(--line-2); }
+.cta--line:hover { border-color: var(--accent); color: var(--accent); box-shadow: none; }
+
+/* ============================================================
+   00 — hero
+   ============================================================ */
+
+.hero__inner { display: flex; flex-direction: column; gap: clamp(1.4rem, 2.8vh, 2.4rem); }
+.hero__eyebrow { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .2em; text-transform: uppercase; color: var(--faint); }
+.hero__title { font-family: var(--font-display); font-weight: 700; font-size: var(--step-4); line-height: .86; letter-spacing: -.045em; color: var(--text-hi); perspective: 700px; }
+.hero__title span.ln { display: block; }
+.hero__title .lo .ch { color: transparent; -webkit-text-stroke: 1.5px var(--accent); transition: -webkit-text-stroke-color 700ms var(--ease), opacity 520ms var(--ease), transform 620ms var(--ease); }
+
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 5rem); align-items: end; }
+
+.strip { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.strip__row {
+  position: relative; overflow: hidden;
+  display: grid; grid-template-columns: 2.2rem 1fr auto; gap: 1rem; align-items: center;
+  padding: .72rem .25rem; border-bottom: 1px solid var(--line);
+  transition: padding-left 380ms var(--ease);
+}
+/* the channel colour wipes in from the left instead of a flat hover fill */
+.strip__row::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--ch) 16%, transparent), transparent 72%);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 480ms var(--ease);
+}
+.strip__row:hover::before { transform: scaleX(1); }
+.strip__row:hover { padding-left: .8rem; }
+.strip__row > * { position: relative; }
+.strip__n { font-family: var(--font-mono); font-size: var(--step--2); color: var(--faint); }
+.strip__name { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); letter-spacing: -.01em; }
+.strip__name b { font-weight: 500; color: var(--ch); }
+.strip__kind { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .1em; color: var(--faint); }
+.strip__row--more .strip__name { color: var(--muted); font-size: var(--step-0); }
+
+.corner { position: absolute; bottom: 1.4rem; display: flex; flex-direction: column; gap: .1rem; font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .1em; color: var(--faint); }
+.corner--r { right: var(--pad); text-align: right; }
+.corner b { color: var(--muted); font-weight: 400; }
+
+.scroll-hint { display: inline-flex; align-items: center; gap: .7rem; font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .16em; text-transform: uppercase; color: var(--faint); }
+.scroll-hint i { display: block; width: 40px; height: 1px; background: linear-gradient(90deg, var(--accent), transparent); animation: sweep 2.4s var(--ease) infinite; }
+@keyframes sweep { 0%,100% { opacity: .3; transform: scaleX(.6); transform-origin: left; } 50% { opacity: 1; transform: scaleX(1); } }
+
+/* ============================================================
+   product panels
+   ============================================================ */
+
+.prod { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.prod__copy { display: flex; flex-direction: column; gap: 1.3rem; }
+.prod__head { display: flex; flex-direction: column; gap: .5rem; perspective: 700px; }
+.prod__facts { display: flex; flex-direction: column; gap: .5rem; border-left: 1px solid var(--line); padding-left: 1.05rem; }
+.prod__fact { display: flex; gap: .8rem; font-size: var(--step--1); color: var(--muted); }
+.prod__fact b { font-family: var(--font-mono); font-size: var(--step--2); color: var(--accent); font-weight: 500; letter-spacing: .06em; flex: none; width: 4.4rem; padding-top: .16rem; transition: color 700ms var(--ease); }
+.prod__meta { display: flex; flex-wrap: wrap; gap: .42rem; }
+.prod__actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+
+.slab { background: #0a0c0f; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.4); }
+.slab__bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .55rem .85rem; border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .06em; color: var(--faint); }
+.slab pre { padding: 1rem 1.15rem; font-family: var(--font-mono); font-size: clamp(.62rem, .55rem + .3vw, .8rem); line-height: 1.82; overflow-x: auto; color: rgba(233, 230, 221, .82); }
+.k1 { color: var(--accent); }
+.k2 { color: #8fb8c9; }
+.k3 { color: #d8b06a; }
+.k4 { color: #c98fa8; }
+.k5 { color: var(--faint); }
+
+.loop { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; }
+.loop__box { border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem; background: rgba(27, 30, 36, .5); display: flex; flex-direction: column; gap: .45rem; }
+.loop__box b { font-family: var(--font-display); font-weight: 500; font-size: var(--step-0); color: var(--text-hi); }
+.loop__box span { font-family: var(--font-mono); font-size: var(--step--2); color: var(--faint); line-height: 1.9; }
+.loop__mid { display: flex; flex-direction: column; align-items: center; gap: .35rem; color: var(--accent); transition: color 700ms var(--ease); }
+.loop__mid svg { width: 42px; height: 10px; }
+.loop__mid em { font-family: var(--font-mono); font-size: var(--step--2); font-style: normal; letter-spacing: .1em; color: var(--faint); }
+.loop__note { grid-column: 1 / -1; margin-top: .3rem; font-family: var(--font-mono); font-size: var(--step--2); color: var(--faint); text-align: center; }
+
+.chans { display: grid; grid-template-columns: repeat(4, 1fr); gap: .65rem; }
+.chan { aspect-ratio: 1; border: 1px solid var(--line); border-radius: var(--radius-sm); display: flex; flex-direction: column; justify-content: flex-end; padding: .55rem; font-family: var(--font-mono); font-size: var(--step--2); color: var(--faint); letter-spacing: .06em; position: relative; overflow: hidden; }
+.chan canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .5; transition: opacity 320ms var(--ease), transform 620ms var(--ease); }
+.chan:hover canvas { opacity: .95; transform: scale(1.06); }
+.chan span { position: relative; }
+
+/* ============================================================
+   04 — the plugin library matrix
+   ============================================================ */
+
+.mx__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.3rem; }
+.filters { display: flex; flex-wrap: wrap; gap: .4rem; }
+.filters button { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .08em; padding: .34rem .7rem; border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--muted); transition: color 200ms var(--ease), border-color 200ms var(--ease), background 200ms var(--ease); }
+.filters button:hover { color: var(--text); border-color: var(--line-2); }
+.filters button[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+.filters b { font-weight: 400; opacity: .65; }
+
+/* 18 cells will not fit a short viewport, and the deck clips whatever
+   overflows. So the grid — not the panel — takes the scroll, and the wheel
+   handler below hands it the event until it bottoms out. */
+.mx__wrap { min-height: 0; display: flex; }
+.mx {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px; background: var(--line);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  overflow-y: auto; overflow-x: hidden;
+  align-content: start; width: 100%;
+  scrollbar-width: thin; scrollbar-color: var(--line-2) transparent;
+}
+.mx::-webkit-scrollbar { width: 6px; }
+.mx::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 3px; }
+.mx::-webkit-scrollbar-track { background: transparent; }
+
+.mx__cell {
+  position: relative; overflow: hidden;
+  background: var(--bg); padding: .78rem .95rem;
+  display: flex; flex-direction: column; gap: .26rem; min-height: 5.4rem;
+  transition: background 200ms var(--ease);
+}
+/* a thin accent edge slides up the left of the cell on hover */
+.mx__cell::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--accent);
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform 320ms var(--ease);
+}
+.mx__cell:hover::before { transform: scaleY(1); }
+.mx__cell:hover { background: var(--bg-soft); }
+.mx__cell[hidden] { display: none; }
+.mx__top { display: flex; align-items: baseline; justify-content: space-between; gap: .7rem; }
+.mx__n { font-family: var(--font-display); font-weight: 500; font-size: var(--step-0); letter-spacing: -.01em; color: var(--text-hi); }
+.mx__s { font-family: var(--font-mono); font-size: var(--step--2); color: var(--accent); font-variant-numeric: tabular-nums; flex: none; transition: color 700ms var(--ease); }
+/* clamped so one long description can't push its whole row taller */
+.mx__d { font-size: var(--step--2); color: var(--muted); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.mx__src { font-family: var(--font-mono); font-size: var(--step--2); color: var(--faint); margin-top: auto; padding-top: .28rem; }
+
+/* ============================================================
+   05 — ecosystem
+   ============================================================ */
+
+.eco { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.eco__cell { position: relative; background: var(--bg); padding: clamp(1.1rem, 2.2vw, 1.7rem); display: flex; flex-direction: column; gap: .5rem; min-height: 10rem; transition: background 240ms var(--ease); overflow: hidden; }
+.eco__cell::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 13%, transparent), transparent 62%);
+  opacity: 0; transition: opacity 320ms var(--ease);
+}
+.eco__cell:hover::before { opacity: 1; }
+.eco__cell > * { position: relative; }
+.eco__cell:hover { background: var(--bg-soft); }
+.eco__k { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: .16em; color: var(--faint); }
+.eco__n { font-family: var(--font-display); font-weight: 500; font-size: var(--step-1); letter-spacing: -.01em; color: var(--text-hi); }
+.eco__d { font-size: var(--step--1); color: var(--muted); line-height: 1.6; }
+.eco__go { margin-top: auto; font-family: var(--font-mono); font-size: var(--step--2); color: var(--accent); letter-spacing: .08em; transition: color 700ms var(--ease); }
+.eco__cell--soft .eco__n { color: var(--muted); }
+
+/* ============================================================
+   06 — start
+   ============================================================ */
+
+.start { display: flex; flex-direction: column; gap: clamp(1.5rem, 3.5vh, 2.6rem); }
+.start__cmd { font-family: var(--font-mono); font-size: clamp(.76rem, .68rem + .4vw, .95rem); padding: .9rem 1.1rem; border: 1px solid var(--line); border-radius: var(--radius); background: #0a0c0f; color: var(--muted); display: flex; align-items: center; gap: .8rem; max-width: 42rem; overflow-x: auto; }
+.start__cmd b { color: var(--accent); font-weight: 400; flex: none; transition: color 700ms var(--ease); }
+
+.ends { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.8rem; border-top: 1px solid var(--line); padding-top: 1.4rem; }
+.ends__col { display: flex; flex-direction: column; gap: .45rem; }
+.ends__col h4 { font-family: var(--font-mono); font-size: var(--step--2); font-weight: 400; letter-spacing: .16em; color: var(--faint); }
+.ends__col a { font-size: var(--step--1); color: var(--muted); width: fit-content; transition: color 200ms var(--ease); }
+.ends__col a:hover { color: var(--accent); }
+.ends__bar { grid-column: 1 / -1; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 1.1rem; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: var(--step--2); color: var(--faint); }
+
+/* ============================================================
+   responsive / fallback
+   ============================================================ */
+
+@media (max-width: 1180px) { .mx { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1080px) {
+  .prod { grid-template-columns: 1fr; }
+  .eco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ends { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .rail { display: none; }
+  .hero__grid { grid-template-columns: 1fr; align-items: start; }
+  .corner--l { display: none; }
+  .chans { grid-template-columns: repeat(2, 1fr); }
+  .loop { grid-template-columns: 1fr; }
+  .loop__mid { transform: rotate(90deg); }
+  .eco, .mx { grid-template-columns: 1fr; }
+  .ends { grid-template-columns: 1fr 1fr; }
+  .panel { min-height: auto; padding-block: clamp(4rem, 12vh, 6rem); }
+}
+
+@media (hover: none), (pointer: coarse) { .cur { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .cur { display: none; }
+  #wipe { display: none; }
+}
+</style>
+
+<canvas id="field" aria-hidden="true"></canvas>
+<canvas id="wipe" aria-hidden="true"></canvas>
+
+<div class="cur" id="cur" aria-hidden="true">
+  <div class="cur__ring" id="curRing"><span id="curLabel"></span></div>
+  <div class="cur__dot" id="curDot"></div>
+</div>
+
+<header class="top">
+  <a class="brand" href="#p0" data-magnetic><span class="brand__mark">64<span>Hz</span></span><span class="brand__sub">Toolchain</span></a>
+  <div class="top__end">
+    <a class="top__link" href="#">文档</a>
+    <a class="top__link" href="#">Playground</a>
+    <a class="top__link" href="https://github.com/TypeDreamMoon" data-cursor-label="↗">GitHub ↗</a>
+    <a class="top__link" href="#">EN</a>
+  </div>
+</header>
+
+<nav class="rail" aria-label="章节导航" id="rail"></nav>
+<div class="counter"><b id="cn">00</b><span>/ 06</span></div>
+
+<div class="deck" id="deck">
+  <div class="deck__rail" id="rail-inner">
+
+    <!-- ============ 00 hero ============ -->
+    <section class="panel" id="p0" data-accent="#ffc62e" data-label="首页">
+      <div class="panel__inner hero__inner">
+        <p class="hero__eyebrow rise">虚幻引擎内容管线 · 64Hz Games Studio</p>
+
+        <h1 class="hero__title rise" aria-label="HERTZ TOOLCHAIN">
+          <span class="ln" data-split aria-hidden="true">HERTZ</span>
+          <span class="ln lo" data-split aria-hidden="true">TOOLCHAIN</span>
+        </h1>
+
+        <div class="hero__grid rise">
+          <p class="body">
+            三门语言把材质、特效、贴图写成源码；二十多个插件补齐引擎缺的那部分。
+            共同的做法只有一条：<em>源码是唯一的编辑面，引擎资产是构建产物</em>。
+          </p>
+
+          <div class="strip">
+            <a class="strip__row" href="#p1" style="--ch: var(--amber)" data-cursor-label="材质">
+              <span class="strip__n">01</span><span class="strip__name">Dream<b>Shader</b></span><span class="strip__kind">材质 · MATERIAL</span>
+            </a>
+            <a class="strip__row" href="#p2" style="--ch: var(--ember)" data-cursor-label="特效">
+              <span class="strip__n">02</span><span class="strip__name">Dream<b>FX</b></span><span class="strip__kind">特效 · NIAGARA</span>
+            </a>
+            <a class="strip__row" href="#p3" style="--ch: var(--sakura)" data-cursor-label="贴图">
+              <span class="strip__n">03</span><span class="strip__name">Dream<b>Texture</b></span><span class="strip__kind">贴图 · 即将推出</span>
+            </a>
+            <a class="strip__row strip__row--more" href="#p4" style="--ch: var(--azure)" data-cursor-label="插件">
+              <span class="strip__n">+</span><span class="strip__name">插件库</span><span class="strip__kind">编辑器 · 影视化 · GAMEPLAY · 音频</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="rise"><span class="scroll-hint"><i></i> 向下</span></div>
+      </div>
+
+      <div class="corner corner--l" style="left: var(--pad)"><b>64.000 Hz</b><span>LOW END · CN</span></div>
+      <div class="corner corner--r"><b>UE 5.3 — 5.8</b><span>MIT LICENSED</span></div>
+    </section>
+
+    <!-- ============ 01 DreamShader ============ -->
+    <section class="panel" id="p1" data-accent="#ffc62e" data-label="材质">
+      <div class="panel__inner prod">
+        <div class="prod__copy">
+          <div class="prod__head rise">
+            <span class="tag">(材质)</span>
+            <h2 class="display" data-split>DreamShader</h2>
+            <p class="sub">Text to UE Materials</p>
+          </div>
+          <p class="body rise">
+            用 DreamShaderLang 写虚幻材质。保存即编译成 <em>UMaterial</em>、材质函数、
+            材质层与层混合，默认<em>在内存中生成</em>——不落 .uasset，内容浏览器里干干净净，
+            Cook 时自动实体化。
+          </p>
+          <div class="prod__facts rise">
+            <div class="prod__fact"><b>源文件</b><span>.dsm 材质实现 / .dsf 材质函数 / .dsh 共享头</span></div>
+            <div class="prod__fact"><b>产出</b><span>UMaterial · UMaterialFunction · Material Layer · Layer Blend</span></div>
+            <div class="prod__fact"><b>生态</b><span>9 个官方包，外加从 Cycles 内核移植来的 Blender 着色节点</span></div>
+          </div>
+          <div class="prod__meta rise">
+            <span class="pill pill--on">v1.8.0</span><span class="pill">★ 97</span><span class="pill">UE 5.3 — 5.8</span><span class="pill">MIT</span>
+          </div>
+          <div class="prod__actions rise">
+            <a class="cta" href="https://shader.toolchain.64hz.cn" data-magnetic data-cursor-label="→">阅读文档</a>
+            <a class="cta cta--line" href="#" data-magnetic>语言参考</a>
+          </div>
+        </div>
+
+        <figure class="slab rise">
+          <div class="slab__bar"><span>M_Minimal.dsm</span><span>DreamShaderLang</span></div>
+          <pre><code><span class="k1">Shader</span>(<span class="k2">Name</span>=<span class="k3">"DreamMaterials/M_Minimal"</span>)
+{
+    <span class="k2">Properties</span> = {
+        <span class="k4">vec3</span> Tint = <span class="k1">vec3</span>(<span class="k3">1.0, 0.2, 0.2</span>);
+    }
+
+    <span class="k2">Settings</span> = {
+        <span class="k2">Domain</span> = <span class="k3">"UI"</span>;
+        <span class="k2">ShadingModel</span> = <span class="k3">"Unlit"</span>;
+    }
+
+    <span class="k2">Outputs</span> = {
+        <span class="k4">vec3</span> Color;
+        Base.EmissiveColor = Color;
+    }
+
+    <span class="k2">Graph</span> = { Color = Tint; }
+}
+<span class="k5">// 保存 → /Game/DreamMaterials/M_Minimal</span></code></pre>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ 02 DreamFX ============ -->
+    <section class="panel" id="p2" data-accent="#ff5c35" data-label="特效">
+      <div class="panel__inner prod">
+        <div class="prod__copy">
+          <div class="prod__head rise">
+            <span class="tag">(特效)</span>
+            <h2 class="display" data-split>DreamFX</h2>
+            <p class="sub">Niagara as Source</p>
+          </div>
+          <p class="body rise">
+            把 Niagara 特效写成文本。<em>.dfs / .dfe / .dfm</em> 编译成标准 NiagaraSystem，
+            而任意现有的 NiagaraSystem 也能<em>反编译回源码</em>——往返字节级一致，
+            所以它能接管你已有的特效资产，而不是只能从零开始。
+          </p>
+          <div class="prod__facts rise">
+            <div class="prod__fact"><b>源文件</b><span>.dfs 系统 / .dfe 发射器 / .dfm 模块</span></div>
+            <div class="prod__fact"><b>往返</b><span>编译与反编译字节级幂等，四层校验</span></div>
+            <div class="prod__fact"><b>环境</b><span>原版 UE 5.8，不需要引擎改动</span></div>
+          </div>
+          <div class="prod__meta rise">
+            <span class="pill pill--on">★ 8</span><span class="pill">UE 5.8</span><span class="pill">四层校验</span><span class="pill">MIT</span>
+          </div>
+          <div class="prod__actions rise">
+            <a class="cta" href="https://fx.toolchain.64hz.cn" data-magnetic data-cursor-label="→">阅读文档</a>
+            <a class="cta cta--line" href="#" data-magnetic>语法速查</a>
+          </div>
+        </div>
+
+        <div class="loop rise">
+          <div class="loop__box"><b>源码</b><span>Systems/ *.dfs<br>Emitters/ *.dfe<br>Modules/ *.dfm</span></div>
+          <div class="loop__mid">
+            <svg viewBox="0 0 42 10" fill="none" aria-hidden="true"><path d="M0 3h36M31 0l5 3-5 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 8H6m5 3l-5-3 5-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/></svg>
+            <em>编译 / 反编译</em>
+          </div>
+          <div class="loop__box"><b>Niagara 资产</b><span>NiagaraSystem<br>NiagaraEmitter<br>NiagaraScript</span></div>
+          <p class="loop__note">往返后逐字节比对一致 — 资产不是单向产物</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 DreamTexture ============ -->
+    <section class="panel" id="p3" data-accent="#ff7aa8" data-label="贴图">
+      <div class="panel__inner prod">
+        <div class="prod__copy">
+          <div class="prod__head rise">
+            <span class="tag">(贴图)</span>
+            <h2 class="display" data-split>DreamTexture</h2>
+            <p class="sub">Coming Soon</p>
+          </div>
+          <p class="body rise">
+            基于 <em>ComfyUI + Vue</em> 的 PBR / NPR 贴图生成工作流。
+            从一张参考图产出成套通道贴图，直接接进上面两条链路——
+            材质引用它，特效也引用它。
+          </p>
+          <div class="prod__facts rise">
+            <div class="prod__fact"><b>形态</b><span>ComfyUI 工作流 + Vue 操作前端</span></div>
+            <div class="prod__fact"><b>产出</b><span>BaseColor · Normal · Roughness · AO 等通道</span></div>
+            <div class="prod__fact"><b>风格</b><span>PBR 写实与 NPR 卡通两套管线</span></div>
+          </div>
+          <div class="prod__meta rise">
+            <span class="pill pill--on">筹备中</span><span class="pill">ComfyUI</span><span class="pill">PBR / NPR</span>
+          </div>
+          <div class="prod__actions rise"><a class="cta cta--line" href="#" data-magnetic>订阅进展</a></div>
+        </div>
+
+        <div class="chans rise">
+          <div class="chan"><canvas data-chan="base"></canvas><span>BASECOLOR</span></div>
+          <div class="chan"><canvas data-chan="normal"></canvas><span>NORMAL</span></div>
+          <div class="chan"><canvas data-chan="rough"></canvas><span>ROUGHNESS</span></div>
+          <div class="chan"><canvas data-chan="ao"></canvas><span>AO</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 插件库 ============ -->
+    <section class="panel" id="p4" data-accent="#4a9eff" data-label="插件">
+      <div class="panel__inner panel__inner--col">
+        <div class="mx__head rise">
+          <div class="prod__head">
+            <span class="tag">(插件库)</span>
+            <h2 class="display" data-split>Plugin Library</h2>
+          </div>
+          <div class="filters" id="filters" role="group" aria-label="按类别筛选">
+            <button type="button" data-cat="all"    aria-pressed="true">全部 <b>18</b></button>
+            <button type="button" data-cat="editor" aria-pressed="false">编辑器 <b>5</b></button>
+            <button type="button" data-cat="cine"   aria-pressed="false">影视化 <b>3</b></button>
+            <button type="button" data-cat="play"   aria-pressed="false">Gameplay <b>7</b></button>
+            <button type="button" data-cat="audio"  aria-pressed="false">音频 <b>3</b></button>
+          </div>
+        </div>
+
+        <div class="mx__wrap rise">
+        <div class="mx" id="mx" data-scroll>
+          <a class="mx__cell" data-cat="editor" href="#">
+            <span class="mx__top"><span class="mx__n">DreamFracture</span><span class="mx__s">★ 2</span></span>
+            <span class="mx__d">对准撞击点按 Fracture 再 Bake，得到 Sequencer 里可拖动的 Chaos Cache 轨。木质 Dataflow 预设，视口内实时力预览。</span>
+          </a>
+          <a class="mx__cell" data-cat="editor" href="#">
+            <span class="mx__top"><span class="mx__n">DreamTools</span><span class="mx__s">—</span></span>
+            <span class="mx__d">虚幻引擎工具箱，日常编辑器杂活的集合。</span>
+          </a>
+          <a class="mx__cell" data-cat="editor" href="#">
+            <span class="mx__top"><span class="mx__n">DreamEngineStyle</span><span class="mx__s">★ 2</span></span>
+            <span class="mx__d">给 Windows 下的 UE 编辑器窗口套上 Win11 原生圆角，并修补 Slate 的 SWindow 样式使边框一致。</span>
+          </a>
+          <a class="mx__cell" data-cat="editor" href="#">
+            <span class="mx__top"><span class="mx__n">DreamUnrealThemes</span><span class="mx__s">—</span></span>
+            <span class="mx__d">编辑器主题预设，按 Dark / Gray / Light 分组，五个色系：Miku · Violet · Azure · Sakura · Ember。</span>
+          </a>
+          <a class="mx__cell" data-cat="editor" href="#">
+            <span class="mx__top"><span class="mx__n">ImGuiAngel</span><span class="mx__s">★ 1</span></span>
+            <span class="mx__d">ImGui 的 AngelScript 绑定，运行时热更写调试界面。需要支持 AngelScript 的引擎。</span>
+          </a>
+
+          <a class="mx__cell" data-cat="cine" href="#">
+            <span class="mx__top"><span class="mx__n">DreamSequenceSubtitle</span><span class="mx__s">★ 1</span></span>
+            <span class="mx__d">Sequencer 字幕轨，运行时、PIE 与编辑器预览都通过 UMG 控件渲染当前字幕。</span>
+          </a>
+          <a class="mx__cell" data-cat="cine" href="#">
+            <span class="mx__top"><span class="mx__n">DreamLipSync</span><span class="mx__s">—</span></span>
+            <span class="mx__d">基于 Morph Target 的口型同步，同一份 DataAsset 同时服务 Sequencer 与运行时组件。</span>
+          </a>
+          <a class="mx__cell" data-cat="cine" href="#">
+            <span class="mx__top"><span class="mx__n">DreamSequenceMorphTarget</span><span class="mx__s">—</span></span>
+            <span class="mx__d">Sequencer 的 Morph Target 轨道支持。</span>
+          </a>
+
+          <a class="mx__cell" data-cat="play" href="#">
+            <span class="mx__top"><span class="mx__n">DreamFlow</span><span class="mx__s">★ 2</span></span>
+            <span class="mx__d">节点式流程图核心：运行时执行器、图编辑器、流程作用域变量、蓝图/C++ 扩展与网络复制。</span>
+          </a>
+          <a class="mx__cell" data-cat="play" href="#">
+            <span class="mx__top"><span class="mx__n">DreamFlowExpansion</span><span class="mx__s">★ 2</span></span>
+            <span class="mx__d">DreamFlow 的领域扩展：任务、对话、剧情与遭遇战流程族。</span>
+          </a>
+          <a class="mx__cell" data-cat="play" href="#">
+            <span class="mx__top"><span class="mx__n">DreamGameplayTask</span><span class="mx__s">★ 5</span></span>
+            <span class="mx__d">Gameplay Task 系统。</span>
+          </a>
+          <a class="mx__cell" data-cat="play" href="#">
+            <span class="mx__top"><span class="mx__n">DreamUMG</span><span class="mx__s">★ 4</span></span>
+            <span class="mx__d">UMG / Slate 扩展：动态文本动画、2D UMG 里的伪 3D 曲面变换、蓝图动态组装的 Slate UI 树。</span>
+          </a>
+          <a class="mx__cell" data-cat="play" href="#">
+            <span class="mx__top"><span class="mx__n">DreamAnimationTextBlock</span><span class="mx__s">★ 5</span></span>
+            <span class="mx__d">带动画的文本控件。</span>
+          </a>
+          <a class="mx__cell" data-cat="play" href="#">
+            <span class="mx__top"><span class="mx__n">DreamGameplayInventory</span><span class="mx__s">★ 3</span></span>
+            <span class="mx__d">背包与物品系统。</span>
+          </a>
+          <a class="mx__cell" data-cat="play" href="#">
+            <span class="mx__top"><span class="mx__n">DreamGUI</span><span class="mx__s">—</span></span>
+            <span class="mx__d">世界空间 3D UI 系统，prefab 工作流，设计器手感对齐 UMG。UE 5.8。</span>
+            <span class="mx__src">Fork of LGUI · Lex Liu · MIT</span>
+          </a>
+
+          <a class="mx__cell" data-cat="audio" href="#">
+            <span class="mx__top"><span class="mx__n">DreamMusicPlayer</span><span class="mx__s">★ 10</span></span>
+            <span class="mx__d">音乐播放器插件，本仓库星标最高的运行时插件。</span>
+          </a>
+          <a class="mx__cell" data-cat="audio" href="#">
+            <span class="mx__top"><span class="mx__n">DreamSMTC</span><span class="mx__s">★ 1</span></span>
+            <span class="mx__d">Windows 系统媒体传输控件（SMTC）支持，让游戏内播放的音乐出现在系统媒体面板里。</span>
+          </a>
+          <a class="mx__cell" data-cat="audio" href="#">
+            <span class="mx__top"><span class="mx__n">libdlp</span><span class="mx__s">—</span></span>
+            <span class="mx__d">C++20 写的高性能歌词解析库，支持 lrc / ass 等格式。</span>
+          </a>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 05 生态 ============ -->
+    <section class="panel" id="p5" data-accent="#39c5bb" data-label="生态">
+      <div class="panel__inner">
+        <div class="prod__head rise" style="margin-bottom: clamp(1.4rem, 3.5vh, 2.4rem)">
+          <span class="tag">(生态)</span>
+          <h2 class="display" data-split>Ecosystem</h2>
+          <p class="sub">围着语言长出来的东西</p>
+        </div>
+
+        <div class="eco rise" id="eco">
+          <a class="eco__cell" href="#">
+            <span class="eco__k">EDITOR</span><span class="eco__n">VS Code 扩展</span>
+            <span class="eco__d">DreamShaderLang 与 DreamFX 各一套：高亮、补全、诊断、包管理、材质预览。</span>
+            <span class="eco__go">v1.9.0 →</span>
+          </a>
+          <a class="eco__cell" href="#">
+            <span class="eco__k">EDITOR</span><span class="eco__n">Rider 插件</span>
+            <span class="eco__d">在 Rider 里获得同一套语言支持，和 C++ 工程共用一个窗口。</span>
+            <span class="eco__go">查看 →</span>
+          </a>
+          <a class="eco__cell" href="#">
+            <span class="eco__k">AGENT</span><span class="eco__n">dream-mcp</span>
+            <span class="eco__d">把构建路由到运行中的编辑器，省掉 12–24 秒冷启动并消除静默重复写入；毫秒级回答模块签名。</span>
+            <span class="eco__go">MCP Server →</span>
+          </a>
+          <a class="eco__cell" href="#">
+            <span class="eco__k">REGISTRY</span><span class="eco__n">官方包索引</span>
+            <span class="eco__d">math · color · noise · pbr · normal · sdf · uv · texture · postprocess</span>
+            <span class="eco__go">9 个包 →</span>
+          </a>
+          <a class="eco__cell" href="#">
+            <span class="eco__k">BRIDGE</span><span class="eco__n">dreamshader-blender</span>
+            <span class="eco__d">Blender 的着色节点从 Cycles 内核移植到 DreamShaderLang，两边用同一套数学。</span>
+            <span class="eco__go">查看 →</span>
+          </a>
+          <a class="eco__cell eco__cell--soft" href="#">
+            <span class="eco__k">APPS</span><span class="eco__n">独立应用</span>
+            <span class="eco__d">DreamUnrealManager、DreamTranslatePO、DreamDSP 等桌面工具将迁到独立站点。</span>
+            <span class="eco__go">app.64hz.cn →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 06 接入 ============ -->
+    <section class="panel" id="p6" data-accent="#ffc62e" data-label="接入">
+      <div class="panel__inner start">
+        <div class="prod__head rise">
+          <span class="tag">(接入)</span>
+          <h2 class="display" data-split>三步接进你的工程</h2>
+        </div>
+
+        <div class="prod__facts rise" style="max-width: 46rem">
+          <div class="prod__fact"><b>01</b><span>把插件放进 <span class="mono">Plugins/</span>，在 Edit ▸ Plugins 里启用并重启编辑器</span></div>
+          <div class="prod__fact"><b>02</b><span>在工程根目录建 <span class="mono">DShader/</span>，放入第一个 .dsm 文件</span></div>
+          <div class="prod__fact"><b>03</b><span>保存。自动编译默认开启，资产已经在引擎里了</span></div>
+        </div>
+
+        <div class="start__cmd rise"><b>$</b> git clone https://github.com/TypeDreamMoon/DreamShader.git Plugins/DreamShader</div>
+
+        <div class="ends rise">
+          <div class="ends__col"><h4>语言</h4><a href="#p1">DreamShader</a><a href="#p2">DreamFX</a><a href="#p3">DreamTexture</a></div>
+          <div class="ends__col"><h4>插件</h4><a href="#p4">插件库</a><a href="#p5">编辑器扩展</a><a href="#p5">包索引</a></div>
+          <div class="ends__col"><h4>文档</h4><a href="https://shader.toolchain.64hz.cn">语言参考</a><a href="https://fx.toolchain.64hz.cn">DreamFX 文档</a><a href="#">示例库</a></div>
+          <div class="ends__col">
+            <h4>社区</h4>
+            <a href="https://github.com/TypeDreamMoon">GitHub</a>
+            <a href="https://discord.gg/BpC9rH8Rk" target="_blank" rel="noopener">Discord</a>
+            <a href="https://qm.qq.com/q/X9uCLjVcY" target="_blank" rel="noopener">QQ 群 466585194</a>
+            <a href="https://64hz.cn">64Hz Games Studio</a>
+          </div>
+          <div class="ends__bar"><span>© 2026 64Hz Games Studio</span><span>toolchain.64hz.cn</span></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const fine = matchMedia('(hover: hover) and (pointer: fine)');
+
+  const panels = Array.from(document.querySelectorAll('.panel'));
+  const railInner = document.getElementById('rail-inner');
+  const rail = document.getElementById('rail');
+  const counter = document.getElementById('cn');
+
+  /* ==========================================================
+     headings split to characters, so a page turn reads as an
+     authored line rather than a block fading in
+     ========================================================== */
+  document.querySelectorAll('[data-split]').forEach((el) => {
+    const text = el.textContent;
+    if (!el.closest('[aria-label]')) el.setAttribute('aria-label', text);
+    el.textContent = '';
+    let i = 0;
+    for (const c of text) {
+      const s = document.createElement('span');
+      s.className = c === ' ' ? 'ch ch--sp' : 'ch';
+      s.style.setProperty('--i', i++);
+      s.textContent = c === ' ' ? ' ' : c;
+      el.appendChild(s);
+    }
+  });
+
+  /* ---------- rail nav, built from the panels themselves ---------- */
+  panels.forEach((p, i) => {
+    const a = document.createElement('a');
+    a.className = 'rail__item';
+    a.href = '#' + p.id;
+    a.setAttribute('data-cursor-label', p.dataset.label);
+    a.innerHTML = '<span class="rail__label">' + p.dataset.label + '</span><span class="rail__tick"></span>';
+    a.addEventListener('click', (e) => { e.preventDefault(); go(i); });
+    rail.appendChild(a);
+  });
+  const railItems = Array.from(rail.children);
+
+  let index = 0, deckOn = false, locked = false;
+
+  function paint(i) {
+    const p = panels[i];
+    root.style.setProperty('--accent', p.dataset.accent);
+    counter.textContent = String(i).padStart(2, '0');
+    railItems.forEach((r, n) => r.setAttribute('aria-current', n === i ? 'true' : 'false'));
+    panels.forEach((q, n) => q.classList.toggle('is-live', n === i));
+    gfx.accent = p.dataset.accent;
+  }
+
+  function go(i) {
+    i = Math.max(0, Math.min(panels.length - 1, i));
+    if (i === index) return;
+    index = i;
+    if (deckOn) {
+      railInner.style.transform = 'translate3d(0,' + (-i * 100) + 'vh,0)';
+      locked = true;
+      setTimeout(() => { locked = false; }, 900);
+      gfx.pulse();
+      wipe.fire();
+    } else {
+      panels[i].scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth' });
+    }
+    paint(i);
+  }
+
+  /* ---------- deck vs plain flow ----------
+     A deck needs room: below this, panels grow taller than the viewport and
+     paging would hide content with no way to reach it. */
+  const deckQuery = matchMedia('(min-width: 861px) and (min-height: 620px)');
+
+  function sync() {
+    const want = deckQuery.matches && !reduce.matches;
+    if (want === deckOn) return;
+    deckOn = want;
+    document.body.classList.toggle('deck-on', deckOn);
+    railInner.style.transform = deckOn ? 'translate3d(0,' + (-index * 100) + 'vh,0)' : '';
+    if (!deckOn) panels.forEach((p) => p.classList.add('is-live'));
+    else paint(index);
+  }
+  deckQuery.addEventListener('change', sync);
+  reduce.addEventListener('change', sync);
+
+  /* ---------- input ---------- */
+  let acc = 0, accTimer = null;
+  addEventListener('wheel', (e) => {
+    if (!deckOn) return;
+
+    // A dense region inside a panel scrolls on its own until it bottoms out;
+    // only then does the wheel go back to paging the deck. Without this the
+    // global preventDefault would freeze the plugin grid.
+    const sc = e.target.closest('[data-scroll]');
+    if (sc && sc.scrollHeight > sc.clientHeight + 1) {
+      const atTop = sc.scrollTop <= 0;
+      const atEnd = sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 1;
+      if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atEnd)) { acc = 0; return; }
+    }
+
+    e.preventDefault();
+    if (locked) return;
+    // accumulate so a trackpad's flurry of small deltas counts as one page
+    acc += e.deltaY;
+    clearTimeout(accTimer);
+    accTimer = setTimeout(() => { acc = 0; }, 160);
+    if (Math.abs(acc) > 42) { go(index + (acc > 0 ? 1 : -1)); acc = 0; }
+  }, { passive: false });
+
+  addEventListener('keydown', (e) => {
+    if (!deckOn) return;
+    if (e.target.closest('.filters')) return;   // let the chips keep their keys
+    const map = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowUp: -1, PageUp: -1 };
+    if (e.key in map) { e.preventDefault(); go(index + map[e.key]); }
+    else if (e.key === 'Home') { e.preventDefault(); go(0); }
+    else if (e.key === 'End') { e.preventDefault(); go(panels.length - 1); }
+  });
+
+  let touchY = null;
+  addEventListener('touchstart', (e) => { touchY = e.touches[0].clientY; }, { passive: true });
+  addEventListener('touchmove', (e) => {
+    if (!deckOn || touchY === null || locked) return;
+    const dy = touchY - e.touches[0].clientY;
+    if (Math.abs(dy) > 56) { go(index + (dy > 0 ? 1 : -1)); touchY = null; }
+  }, { passive: true });
+
+  const io = new IntersectionObserver((entries) => {
+    if (deckOn) return;
+    entries.forEach((en) => { if (en.isIntersecting) { index = panels.indexOf(en.target); paint(index); } });
+  }, { threshold: .55 });
+  panels.forEach((p) => io.observe(p));
+
+  /* ---------- plugin library filter ---------- */
+  const filters = document.getElementById('filters');
+  const cells = Array.from(document.querySelectorAll('#mx .mx__cell'));
+  filters.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const cat = btn.dataset.cat;
+    Array.from(filters.children).forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+    cells.forEach((c) => { c.hidden = cat !== 'all' && c.dataset.cat !== cat; });
+  });
+
+  /* ---------- ecosystem cells track the pointer for their glow ---------- */
+  document.getElementById('eco').addEventListener('pointermove', (e) => {
+    const cell = e.target.closest('.eco__cell');
+    if (!cell) return;
+    const r = cell.getBoundingClientRect();
+    cell.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+    cell.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+  });
+
+  /* ==========================================================
+     tiny WebGL2 helper — compile a full-screen fragment shader
+     ========================================================== */
+  const VERT = `#version 300 es
+in vec2 aPos;
+void main(){ gl_Position = vec4(aPos, 0.0, 1.0); }`;
+
+  function makeGL(canvas, frag, names) {
+    const gl = canvas.getContext('webgl2', { alpha: true, antialias: false, premultipliedAlpha: false });
+    if (!gl) return null;
+    const sh = (type, src) => {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { console.warn(gl.getShaderInfoLog(s)); return null; }
+      return s;
+    };
+    const vs = sh(gl.VERTEX_SHADER, VERT), fs = sh(gl.FRAGMENT_SHADER, frag);
+    if (!vs || !fs) return null;
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.warn(gl.getProgramInfoLog(prog)); return null; }
+    gl.useProgram(prog);
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'aPos');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const u = {};
+    names.forEach((n) => { u[n] = gl.getUniformLocation(prog, n); });
+    return { gl, u, draw: () => gl.drawArrays(gl.TRIANGLES, 0, 3) };
+  }
+
+  /* ==========================================================
+     the frequency field — fbm + 64 spectrum bins, sampled three
+     times along the pointer vector so the channels separate into
+     a chromatic-aberration lens under the cursor.
+     ========================================================== */
+  const FIELD_FRAG = `#version 300 es
+precision highp float;
+out vec4 frag;
+uniform vec2 uRes;
+uniform float uTime;
+uniform vec2 uMouse;
+uniform vec3 uAccent;
+uniform float uEnergy;
+
+float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+float noise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  float a = hash(i), b = hash(i + vec2(1.0, 0.0));
+  float c = hash(i + vec2(0.0, 1.0)), d = hash(i + vec2(1.0, 1.0));
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
+float fbm(vec2 p){ float v = 0.0, a = 0.5; for (int i = 0; i < 4; i++){ v += a * noise(p); p *= 2.0; a *= 0.5; } return v; }
+
+// one scalar field: three drifting traces warped by the noise
+float trace(vec2 p, float t){
+  float f = fbm(p * 1.25 + vec2(t, t * 0.5));
+  float v = 0.0;
+  for (int i = 0; i < 3; i++){
+    float fi = float(i);
+    float y = sin(p.x * (1.5 + fi * 1.25) + t * (1.6 + fi) + f * 2.0 + fi) * (0.20 - fi * 0.05);
+    v += smoothstep(0.055, 0.0, abs(p.y - y)) * (0.55 - fi * 0.13);
+  }
+  return v;
+}
+
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes;
+  vec2 p = (gl_FragCoord.xy * 2.0 - uRes) / uRes.y;
+  float t = uTime * 0.05;
+
+  // never flat black — the studio site's warm vertical base
+  vec3 col = mix(vec3(0.045, 0.052, 0.066), vec3(0.055, 0.060, 0.072), uv.y);
+
+  // chromatic lens: offset each channel along the vector from the pointer
+  vec2 m = uMouse * vec2(uRes.x / uRes.y, 1.0);
+  float d = length(p - m);
+  float lens = smoothstep(1.15, 0.0, d);
+  vec2 dir = (p - m) / max(d, 0.0001);
+  float shift = (0.010 + 0.055 * uEnergy) * lens;
+
+  float r = trace(p + dir * shift, t);
+  float g = trace(p, t);
+  float b = trace(p - dir * shift, t);
+  col += uAccent * vec3(r, g, b) * (0.55 + 0.9 * lens + uEnergy);
+
+  // 64 spectrum bins along the bottom — the name, drawn
+  float N = 64.0;
+  float bx = uv.x * N;
+  float px = floor(bx) / N;
+  float env = sin(px * 3.14159265);
+  float h = (sin(t * 22.0 + px * 9.0) * 0.5 + 0.5) * (sin(t * 8.6 + px * 21.0) * 0.5 + 0.5) * env * 0.30;
+  float bar = step(0.28, fract(bx)) * step(fract(bx), 0.72) * step(uv.y, h);
+  col += uAccent * bar * (0.10 + 0.16 * env + uEnergy * 0.4);
+
+  // scanlines and a soft vignette keep it reading as a screen
+  col *= 1.0 - 0.035 * step(0.5, fract(gl_FragCoord.y * 0.5));
+  col *= 1.0 - 0.35 * smoothstep(0.55, 1.5, length(p * vec2(0.62, 1.0)));
+
+  frag = vec4(col, 1.0);
+}`;
+
+  /* ==========================================================
+     the page-turn dissolve — an ordered 4x4 Bayer threshold on
+     chunky pixels, the same technique dreamshader-noise ships
+     ========================================================== */
+  const WIPE_FRAG = `#version 300 es
+precision highp float;
+out vec4 frag;
+uniform vec2 uRes;
+uniform float uProgress;
+uniform vec3 uAccent;
+
+float bayer(vec2 q){
+  float m[16] = float[16](0.,8.,2.,10., 12.,4.,14.,6., 3.,11.,1.,9., 15.,7.,13.,5.);
+  ivec2 i = ivec2(mod(q, 4.0));
+  return m[i.y * 4 + i.x] / 16.0;
+}
+
+void main(){
+  float px = 7.0;                                   // chunky, so the pattern reads
+  vec2 q = floor(gl_FragCoord.xy / px);
+  // a triangle: cover on the way in, uncover on the way out
+  float cover = (1.0 - abs(uProgress * 2.0 - 1.0)) * 0.72;
+  // bias by height so the dissolve sweeps upward rather than appearing at once
+  float bias = (gl_FragCoord.y / uRes.y) * 0.28;
+  float a = step(bayer(q) + bias - 0.14, cover);
+  vec3 ground = vec3(0.055, 0.063, 0.078);
+  frag = vec4(mix(ground, uAccent * 0.55, 0.10), a);
+}`;
+
+  /* ---------- the graphics layer, with a 2D fallback ---------- */
+  const fieldCv = document.getElementById('field');
+  const wipeCv = document.getElementById('wipe');
+
+  const gfx = {
+    accent: '#ffc62e',
+    energy: 0,
+    pulse() { this.energy = 1; }
+  };
+
+  const hex = (h) => [parseInt(h.slice(1, 3), 16) / 255, parseInt(h.slice(3, 5), 16) / 255, parseInt(h.slice(5, 7), 16) / 255];
+  const cur = hex(gfx.accent);
+
+  const field = makeGL(fieldCv, FIELD_FRAG, ['uRes', 'uTime', 'uMouse', 'uAccent', 'uEnergy']);
+  const field2d = field ? null : fieldCv.getContext('2d');
+
+  const wipeGL = reduce.matches ? null : makeGL(wipeCv, WIPE_FRAG, ['uRes', 'uProgress', 'uAccent']);
+  const wipe = {
+    t0: -1,
+    dur: 780,
+    fire() { if (wipeGL) this.t0 = performance.now(); }
+  };
+
+  const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+  addEventListener('pointermove', (e) => {
+    mouse.tx = (e.clientX / innerWidth) * 2 - 1;
+    mouse.ty = 1 - (e.clientY / innerHeight) * 2;
+  }, { passive: true });
+
+  /* ---------- sizing ---------- */
+  let W = 0, H = 0;
+  // The field is a soft, noisy image — rendering it below device resolution
+  // costs nothing visible and keeps a 4-octave fbm sampled 3x affordable.
+  const FIELD_SCALE = 0.62;
+
+  function sizeCanvas(cv, ctx2d, scale) {
+    const dpr = Math.min(devicePixelRatio || 1, 2) * scale;
+    const w = Math.max(1, Math.floor(W * dpr)), h = Math.max(1, Math.floor(H * dpr));
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+    cv.style.width = W + 'px';
+    cv.style.height = H + 'px';
+    if (ctx2d) ctx2d.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function resize() {
+    W = innerWidth || document.documentElement.clientWidth;
+    H = innerHeight || document.documentElement.clientHeight;
+    // Nothing has been laid out yet — sizing to 0 would leave a dead canvas
+    // and, worse, make the deck media query read false forever.
+    if (!W || !H) return;
+    sizeCanvas(fieldCv, field2d, field ? FIELD_SCALE : 1);
+    sizeCanvas(wipeCv, null, 0.6);
+    if (field) field.gl.viewport(0, 0, fieldCv.width, fieldCv.height);
+    if (wipeGL) wipeGL.gl.viewport(0, 0, wipeCv.width, wipeCv.height);
+  }
+  resize();
+  addEventListener('resize', () => { resize(); sync(); });
+  addEventListener('load', () => { resize(); sync(); });
+  // Some hosts execute this script before the viewport reports a size; the
+  // first real layout then arrives as a ResizeObserver tick, never as resize.
+  new ResizeObserver(() => { resize(); sync(); }).observe(document.documentElement);
+
+  /* ---------- 2D fallback, kept from the pre-WebGL version ---------- */
+  function draw2d(s) {
+    const c = field2d;
+    const r = Math.round(cur[0] * 255), g = Math.round(cur[1] * 255), b = Math.round(cur[2] * 255);
+    const rgba = (a) => 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+    c.clearRect(0, 0, W, H);
+    const wash = c.createRadialGradient(W * .78, -H * .1, 0, W * .78, -H * .1, Math.max(W, H) * .95);
+    wash.addColorStop(0, rgba(.10)); wash.addColorStop(1, 'rgba(0,0,0,0)');
+    c.fillStyle = wash; c.fillRect(0, 0, W, H);
+    const N = 64, gap = W / N;
+    for (let i = 0; i < N; i++) {
+      const p = i / N, env = Math.sin(p * Math.PI);
+      const h = (Math.sin(s * 1.1 + p * 9) * .5 + .5) * (Math.sin(s * .43 + p * 21) * .5 + .5) * env * H * .3 + 2;
+      c.fillStyle = rgba(.028 + env * .045);
+      c.fillRect(i * gap + gap * .28, H - h, gap * .44, h);
+    }
+    for (let k = 0; k < 2; k++) {
+      c.beginPath();
+      const amp = H * (k ? .05 : .085), yb = H * (k ? .62 : .46), sp = k ? 1.9 : 1.2;
+      for (let x = 0; x <= W; x += 6) {
+        const u = x / W;
+        const y = yb + Math.sin(u * 6 * sp + s * .7 + k) * amp + Math.sin(u * 13 * sp - s * .45) * amp * .32;
+        x === 0 ? c.moveTo(x, y) : c.lineTo(x, y);
+      }
+      c.strokeStyle = rgba(k ? .05 : .085); c.lineWidth = 1; c.stroke();
+    }
+  }
+
+  /* ---------- the loop ---------- */
+  function frame(now) {
+    if (W && H) {
+      const tgt = hex(gfx.accent);
+      for (let i = 0; i < 3; i++) cur[i] += (tgt[i] - cur[i]) * 0.055;
+      gfx.energy *= 0.94;
+      mouse.x += (mouse.tx - mouse.x) * 0.06;
+      mouse.y += (mouse.ty - mouse.y) * 0.06;
+
+      if (field) {
+        const { gl, u, draw } = field;
+        gl.uniform2f(u.uRes, fieldCv.width, fieldCv.height);
+        gl.uniform1f(u.uTime, now / 1000);
+        gl.uniform2f(u.uMouse, mouse.x, mouse.y);
+        gl.uniform3f(u.uAccent, cur[0], cur[1], cur[2]);
+        gl.uniform1f(u.uEnergy, gfx.energy);
+        draw();
+      } else if (field2d) {
+        draw2d(now / 1000);
+      }
+
+      if (wipeGL) {
+        const p = wipe.t0 < 0 ? 0 : (now - wipe.t0) / wipe.dur;
+        if (p >= 0 && p <= 1) {
+          wipeCv.style.opacity = '1';
+          const { gl, u, draw } = wipeGL;
+          gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+          gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+          gl.uniform2f(u.uRes, wipeCv.width, wipeCv.height);
+          gl.uniform1f(u.uProgress, p);
+          gl.uniform3f(u.uAccent, cur[0], cur[1], cur[2]);
+          draw();
+        } else if (wipe.t0 >= 0) {
+          wipeCv.style.opacity = '0';
+          wipe.t0 = -1;
+        }
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  if (reduce.matches) { resize(); if (field2d) draw2d(0.9); }
+  requestAnimationFrame(frame);
+
+  /* ==========================================================
+     custom cursor — dot, ring, label, magnetic pull
+     ========================================================== */
+  if (fine.matches && !reduce.matches) {
+    document.body.classList.add('cursor-on');
+    const cw = document.getElementById('cur');
+    const dot = document.getElementById('curDot');
+    const ring = document.getElementById('curRing');
+    const label = document.getElementById('curLabel');
+    const pos = { dx: 0, dy: 0, rx: 0, ry: 0, x: 0, y: 0 };
+
+    addEventListener('pointermove', (e) => { pos.x = e.clientX; pos.y = e.clientY; }, { passive: true });
+
+    // magnetic pull: the element leans toward the pointer, the ring latches on
+    const magnets = Array.from(document.querySelectorAll('[data-magnetic]'));
+    magnets.forEach((m) => {
+      m.addEventListener('pointermove', (e) => {
+        const r = m.getBoundingClientRect();
+        const mx = e.clientX - (r.left + r.width / 2);
+        const my = e.clientY - (r.top + r.height / 2);
+        m.style.transform = 'translate(' + mx * 0.22 + 'px,' + my * 0.28 + 'px)';
+      });
+      m.addEventListener('pointerleave', () => { m.style.transform = ''; });
+    });
+
+    const hot = 'a, button, [data-cursor-label]';
+    document.addEventListener('pointerover', (e) => {
+      const t = e.target.closest(hot);
+      if (!t) return;
+      cw.classList.add('is-hot');
+      label.textContent = t.getAttribute('data-cursor-label') || '';
+    });
+    document.addEventListener('pointerout', (e) => {
+      if (e.target.closest(hot) && !e.relatedTarget?.closest?.(hot)) {
+        cw.classList.remove('is-hot');
+        label.textContent = '';
+      }
+    });
+
+    (function cursorLoop() {
+      pos.dx += (pos.x - pos.dx) * 0.85;   // the dot is nearly rigid
+      pos.dy += (pos.y - pos.dy) * 0.85;
+      pos.rx += (pos.x - pos.rx) * 0.16;   // the ring trails behind
+      pos.ry += (pos.y - pos.ry) * 0.16;
+      dot.style.transform = 'translate(' + pos.dx + 'px,' + pos.dy + 'px) translate(-50%,-50%)';
+      ring.style.transform = 'translate(' + pos.rx + 'px,' + pos.ry + 'px) translate(-50%,-50%)';
+      requestAnimationFrame(cursorLoop);
+    })();
+  }
+
+  /* ---------- the four texture channel thumbnails ---------- */
+  document.querySelectorAll('.chan canvas').forEach((c) => {
+    const k = c.dataset.chan, n = 72;
+    c.width = n; c.height = n;
+    const cx = c.getContext('2d');
+    const im = cx.createImageData(n, n);
+    const d = im.data;
+    // one cheap value-noise field, read four different ways
+    const val = (x, y) => (Math.sin(x * .21) * Math.cos(y * .17) + Math.sin((x + y) * .09) * .7 + 1.7) / 3.4;
+    for (let y = 0; y < n; y++) {
+      for (let x = 0; x < n; x++) {
+        const i = (y * n + x) * 4, v = val(x, y);
+        let R, G, B;
+        if (k === 'base')        { R = 150 * v + 40; G = 120 * v + 34; B = 96 * v + 30; }
+        else if (k === 'normal') { R = 128 + (val(x + 1, y) - v) * 620; G = 128 + (val(x, y + 1) - v) * 620; B = 235; }
+        else if (k === 'rough')  { R = G = B = 60 + v * 150; }
+        else                     { R = G = B = 210 - Math.pow(1 - v, 2) * 190; }
+        d[i] = R; d[i + 1] = G; d[i + 2] = B; d[i + 3] = 255;
+      }
+    }
+    cx.putImageData(im, 0, 0);
+  });
+
+  sync();
+  paint(0);
+})();
+</script>

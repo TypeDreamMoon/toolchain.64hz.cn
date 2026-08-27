@@ -1,0 +1,106 @@
+{
+  "site": {
+    "name": "64Hz Toolchain",
+    "tagline": "虚幻引擎内容管线",
+    "description": "DreamShader、DreamFX、DreamTexture 与二十多个开源插件 —— 把材质、特效、贴图写成源码的虚幻引擎工具链。"
+  },
+  "nav": {
+    "sections": "章节导航",
+    "docs": "文档",
+    "playground": "Playground",
+    "github": "GitHub",
+    "lang": "EN"
+  },
+  "panel": {
+    "home": "首页",
+    "shader": "材质",
+    "fx": "特效",
+    "texture": "贴图",
+    "plugins": "插件",
+    "ecosystem": "生态",
+    "start": "接入"
+  },
+  "hero": {
+    "eyebrow": "虚幻引擎内容管线 · 64Hz Games Studio",
+    "lede": "三门语言把材质、特效、贴图写成源码；{count} 个插件补齐引擎缺的那部分。共同的做法只有一条：",
+    "ledeStrong": "源码是唯一的编辑面，引擎资产是构建产物",
+    "more": "插件库",
+    "moreKind": "编辑器 · 影视化 · GAMEPLAY · 音频",
+    "scroll": "向下",
+    "cornerLeft": "LOW END · CN",
+    "cornerRight": "MIT LICENSED"
+  },
+  "product": {
+    "docs": "阅读文档",
+    "reference": "语言参考",
+    "subscribe": "订阅进展",
+    "roundTrip": "编译 / 反编译",
+    "source": "源码",
+    "assets": "Niagara 资产",
+    "roundTripNote": "往返后逐字节比对一致 — 资产不是单向产物"
+  },
+  "plugins": {
+    "title": "Plugin Library",
+    "tag": "(插件库)",
+    "fork": "Fork of {name} · {author} · {license}",
+    "countUnit": "个开源插件",
+    "hint": "把指针停在任意一个名字上。"
+  },
+  "eco": {
+    "tag": "(生态)",
+    "title": "Ecosystem",
+    "sub": "围着语言长出来的东西",
+    "vscode": {
+      "k": "EDITOR",
+      "n": "VS Code 扩展",
+      "d": "DreamShaderLang 与 DreamFX 各一套：高亮、补全、诊断、包管理、材质预览。"
+    },
+    "rider": {
+      "k": "EDITOR",
+      "n": "Rider 插件",
+      "d": "在 Rider 里获得同一套语言支持，和 C++ 工程共用一个窗口。"
+    },
+    "mcp": {
+      "k": "AGENT",
+      "n": "dream-mcp",
+      "d": "把构建路由到运行中的编辑器，省掉 12–24 秒冷启动并消除静默重复写入；毫秒级回答模块签名。"
+    },
+    "registry": {
+      "k": "REGISTRY",
+      "n": "官方包索引",
+      "d": "math · color · noise · pbr · normal · sdf · uv · texture · postprocess"
+    },
+    "blender": {
+      "k": "BRIDGE",
+      "n": "dreamshader-blender",
+      "d": "Blender 的着色节点从 Cycles 内核移植到 DreamShaderLang，两边用同一套数学。"
+    },
+    "apps": {
+      "k": "APPS",
+      "n": "独立应用",
+      "d": "DreamUnrealManager、DreamTranslatePO、DreamDSP 等桌面工具将迁到独立站点。"
+    }
+  },
+  "start": {
+    "tag": "(接入)",
+    "title": "三步接进你的工程",
+    "s1": "把插件放进 {dir}，在 Edit ▸ Plugins 里启用并重启编辑器",
+    "s2": "在工程根目录建 {dir}，放入第一个 .dsm 文件",
+    "s3": "保存。自动编译默认开启，资产已经在引擎里了",
+    "cols": {
+      "lang": "语言",
+      "plugins": "插件",
+      "docs": "文档",
+      "community": "社区"
+    },
+    "links": {
+      "library": "插件库",
+      "extensions": "编辑器扩展",
+      "registry": "包索引",
+      "reference": "语言参考",
+      "fxDocs": "DreamFX 文档",
+      "examples": "示例库",
+      "studio": "64Hz Games Studio"
+    }
+  }
+}

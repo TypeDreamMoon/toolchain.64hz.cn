@@ -1,0 +1,106 @@
+{
+  "site": {
+    "name": "64Hz Toolchain",
+    "tagline": "An Unreal Engine content pipeline",
+    "description": "DreamShader, DreamFX, DreamTexture and twenty-odd open source plugins — an Unreal Engine toolchain that keeps materials, VFX and textures as source."
+  },
+  "nav": {
+    "sections": "Sections",
+    "docs": "Docs",
+    "playground": "Playground",
+    "github": "GitHub",
+    "lang": "中文"
+  },
+  "panel": {
+    "home": "Home",
+    "shader": "Materials",
+    "fx": "VFX",
+    "texture": "Textures",
+    "plugins": "Plugins",
+    "ecosystem": "Ecosystem",
+    "start": "Start"
+  },
+  "hero": {
+    "eyebrow": "Unreal Engine content pipeline · 64Hz Games Studio",
+    "lede": "Three languages keep materials, VFX and textures as source; {count} plugins fill in what the engine leaves out. One idea runs through all of it:",
+    "ledeStrong": "the source file is the authoring surface, the asset is build output",
+    "more": "Plugin Library",
+    "moreKind": "EDITOR · CINEMATICS · GAMEPLAY · AUDIO",
+    "scroll": "Scroll",
+    "cornerLeft": "LOW END · CN",
+    "cornerRight": "MIT LICENSED"
+  },
+  "product": {
+    "docs": "Read the docs",
+    "reference": "Language reference",
+    "subscribe": "Follow progress",
+    "roundTrip": "compile / decompile",
+    "source": "Source",
+    "assets": "Niagara assets",
+    "roundTripNote": "Byte-identical after a round trip — the asset is not a one-way product"
+  },
+  "plugins": {
+    "title": "Plugin Library",
+    "tag": "(plugins)",
+    "fork": "Fork of {name} · {author} · {license}",
+    "countUnit": "open source plugins",
+    "hint": "Hover any name to read what it does."
+  },
+  "eco": {
+    "tag": "(ecosystem)",
+    "title": "Ecosystem",
+    "sub": "What grew around the languages",
+    "vscode": {
+      "k": "EDITOR",
+      "n": "VS Code extensions",
+      "d": "One each for DreamShaderLang and DreamFX: highlighting, completion, diagnostics, package management, material preview."
+    },
+    "rider": {
+      "k": "EDITOR",
+      "n": "Rider plugin",
+      "d": "The same language support inside Rider, in the window your C++ already lives in."
+    },
+    "mcp": {
+      "k": "AGENT",
+      "n": "dream-mcp",
+      "d": "Routes builds to a running editor, removing a 12–24s cold commandlet and the silent double-write; answers module signatures in milliseconds."
+    },
+    "registry": {
+      "k": "REGISTRY",
+      "n": "Package index",
+      "d": "math · color · noise · pbr · normal · sdf · uv · texture · postprocess"
+    },
+    "blender": {
+      "k": "BRIDGE",
+      "n": "dreamshader-blender",
+      "d": "Blender's shader nodes ported to DreamShaderLang from the Cycles kernel, so both sides share the same maths."
+    },
+    "apps": {
+      "k": "APPS",
+      "n": "Desktop apps",
+      "d": "DreamUnrealManager, DreamTranslatePO and DreamDSP are moving to their own site."
+    }
+  },
+  "start": {
+    "tag": "(start)",
+    "title": "Three steps into your project",
+    "s1": "Drop the plugin into {dir}, enable it under Edit ▸ Plugins and restart the editor",
+    "s2": "Create {dir} in the project root and add your first .dsm file",
+    "s3": "Save. Auto-compile is on by default, and the asset is already in the engine",
+    "cols": {
+      "lang": "Languages",
+      "plugins": "Plugins",
+      "docs": "Docs",
+      "community": "Community"
+    },
+    "links": {
+      "library": "Plugin library",
+      "extensions": "Editor extensions",
+      "registry": "Package index",
+      "reference": "Language reference",
+      "fxDocs": "DreamFX docs",
+      "examples": "Examples",
+      "studio": "64Hz Games Studio"
+    }
+  }
+}

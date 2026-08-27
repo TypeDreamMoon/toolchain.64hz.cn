@@ -1,0 +1,197 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+/* =============================================================================
+   base — everything below is layout-agnostic. Component styles live with their
+   components; nothing here re-declares a raw colour.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 300;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+/* the custom cursor replaces the native one only where a real pointer exists */
+body.cursor-on,
+body.cursor-on a,
+body.cursor-on button { cursor: none; }
+
+/* -----------------------------------------------------------------------------
+   shared type roles
+   -------------------------------------------------------------------------- */
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: .18em;
+  color: var(--accent);
+  transition: color 700ms var(--ease);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--step-3);
+  line-height: .98;
+  letter-spacing: -.03em;
+  color: var(--text-hi);
+  text-wrap: balance;
+}
+
+.sub {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.body-copy {
+  color: var(--muted);
+  max-width: 46ch;
+  line-height: 1.75;
+}
+.body-copy em { font-style: normal; color: var(--text); }
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* -----------------------------------------------------------------------------
+   shared controls
+   -------------------------------------------------------------------------- */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: .06em;
+  padding: .28rem .58rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.pill--on {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  color: var(--accent);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--step--1);
+  letter-spacing: .04em;
+  padding: .8rem 1.4rem;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-ink);
+  transition: background 700ms var(--ease), transform var(--dur-fast) var(--ease),
+              box-shadow var(--dur-mid) var(--ease);
+}
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--accent) 26%, transparent);
+}
+.cta--line {
+  background: none;
+  color: var(--text);
+  border: 1px solid var(--line-2);
+}
+.cta--line:hover { border-color: var(--accent); color: var(--accent); box-shadow: none; }
+
+/* -----------------------------------------------------------------------------
+   panel interior — global because the reveal is driven by the panel's own
+   `.is-live`, which lives one component up from the content
+   -------------------------------------------------------------------------- */
+
+.panel__inner {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+}
+
+/* a panel whose body must fit exactly: the head keeps its size, the dense
+   region below takes whatever is left and scrolls inside itself */
+.panel__inner--col {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.deck-on .rise { opacity: 0; transform: translateY(24px); }
+.deck-on .panel.is-live .rise {
+  opacity: 1;
+  transform: none;
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.deck-on .panel.is-live .rise:nth-child(2) { transition-delay: 90ms; }
+.deck-on .panel.is-live .rise:nth-child(3) { transition-delay: 180ms; }
+.deck-on .panel.is-live .rise:nth-child(4) { transition-delay: 270ms; }
+.deck-on .panel.is-live .rise:nth-child(5) { transition-delay: 360ms; }
+
+/* -----------------------------------------------------------------------------
+   per-character heading reveal — the spans are produced by v-split
+   -------------------------------------------------------------------------- */
+
+.ch { display: inline-block; will-change: transform, opacity; }
+.ch--sp { width: .32em; }
+
+.deck-on .ch { opacity: 0; transform: translateY(.55em) rotateX(-55deg); }
+.deck-on .panel.is-live .ch {
+  opacity: 1;
+  transform: none;
+  transition: opacity 520ms var(--ease), transform 620ms var(--ease);
+  transition-delay: calc(var(--i) * 26ms + 120ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  body.cursor-on, body.cursor-on a, body.cursor-on button { cursor: auto; }
+}

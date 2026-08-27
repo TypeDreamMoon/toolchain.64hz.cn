@@ -1,0 +1,36 @@
+{
+  "name": "hertz-toolchain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "64Hz Toolchain — toolchain.64hz.cn",
+  "packageManager": "pnpm@10.30.0",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt generate",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "sync:github": "node scripts/sync-github.mjs",
+    "check:links": "node scripts/check-links.mjs dist"
+  },
+  "dependencies": {
+    "nuxt": "^4.5.2",
+    "vue": "^3.5.42",
+    "vue-router": "^5.2.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/i18n": "^10.6.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.4.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.3.11"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

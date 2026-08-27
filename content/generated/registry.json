@@ -1,0 +1,453 @@
+{
+  "generatedAt": "2026-08-27T11:26:57.785Z",
+  "owner": "TypeDreamMoon",
+  "totals": {
+    "repos": 25,
+    "stars": 144
+  },
+  "repos": {
+    "DreamShader": {
+      "repo": "DreamShader",
+      "url": "https://github.com/TypeDreamMoon/DreamShader",
+      "description": "Unreal Engine Material DSL. Use Dream Shader Lang Write Unreal Material. Simple · Fast · Full syntax · HLSL GLSL Lang Support",
+      "stars": 97,
+      "forks": 19,
+      "topics": [
+        "dream-shader-lang",
+        "dsl",
+        "glsl",
+        "hlsl",
+        "hlsl-language",
+        "material",
+        "rendering",
+        "ue5",
+        "ue5-plugin",
+        "unrealengine"
+      ],
+      "license": "MIT",
+      "pushedAt": "2026-08-23T08:25:39Z",
+      "archived": false,
+      "release": {
+        "tag": "v1.8.0",
+        "name": "DreamShader 1.8.0",
+        "publishedAt": "2026-08-21T10:51:14Z",
+        "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.8.0"
+      }
+    },
+    "DreamFX": {
+      "repo": "DreamFX",
+      "url": "https://github.com/TypeDreamMoon/DreamFX",
+      "description": "Author Unreal Engine Niagara VFX as text: .dfs/.dfe/.dfm sources compile to standard Niagara assets, and any NiagaraSystem decompiles back to source. Byte-idempotent round-trips, four-layer verification, runs on stock UE 5.8.",
+      "stars": 8,
+      "forks": 1,
+      "topics": [
+        "code-generation",
+        "decompiler",
+        "dsl",
+        "gamedev",
+        "niagara",
+        "particles",
+        "ue5",
+        "unreal-engine",
+        "unreal-engine-5",
+        "unreal-plugin",
+        "vfx"
+      ],
+      "license": null,
+      "pushedAt": "2026-08-18T14:27:34Z",
+      "archived": false,
+      "release": null
+    },
+    "DreamFracture": {
+      "repo": "DreamFracture",
+      "url": "https://github.com/TypeDreamMoon/DreamFracture",
+      "description": "One-click Chaos destruction for cinematics in Unreal Engine: aim a rig's arrow at the impact, press Fracture then Bake, and get a scrubbable Chaos Cache track in Sequencer. Wood-style Dataflow fracture preset, scripted Simulate-in-Editor bake, live viewport force preview. Runs on stock UE 5.8.",
+      "stars": 2,
+      "forks": 0,
+      "topics": [],
+      "license": null,
+      "pushedAt": "2026-08-26T08:16:19Z",
+      "archived": false,
+      "release": null
+    },
+    "DreamTools": {
+      "repo": "DreamTools",
+      "url": "https://github.com/TypeDreamMoon/DreamTools",
+      "description": null,
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "license": null,
+      "pushedAt": "2024-02-29T10:47:25Z",
+      "archived": false,
+      "release": {
+        "tag": "1.0.2.1",
+        "name": "1.0.2.1",
+        "publishedAt": "2024-02-29T10:47:25Z",
+        "url": "https://github.com/TypeDreamMoon/DreamTools/releases/tag/1.0.2.1"
+      }
+    },
+    "DreamEngineStyle": {
+      "repo": "DreamEngineStyle",
+      "url": "https://github.com/TypeDreamMoon/DreamEngineStyle",
+      "description": null,
+      "stars": 2,
+      "forks": 1,
+      "topics": [],
+      "license": null,
+      "pushedAt": "2026-03-21T06:06:33Z",
+      "archived": false,
+      "release": null
+    },
+    "DreamUnrealThemes": {
+      "repo": "DreamUnrealThemes",
+      "url": "https://github.com/TypeDreamMoon/DreamUnrealThemes",
+      "description": null,
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "license": null,
+      "pushedAt": "2026-03-20T14:09:09Z",
+      "archived": false,
+      "release": null
+    },
+    "ImGuiAngel": {
+      "repo": "ImGuiAngel",
+      "url": "https://github.com/TypeDreamMoon/ImGuiAngel",
+      "description": null,
+      "stars": 1,
+      "forks": 1,
+      "topics": [],
+      "license": null,
+      "pushedAt": "2026-03-11T10:16:55Z",
+      "archived": false,
+      "release": null
+    },
+    "DreamSequenceSubtitle": {
+      "repo": "DreamSequenceSubtitle",
+      "url": "https://github.com/TypeDreamMoon/DreamSequenceSubtitle",
+      "description": null,
+      "stars": 1,
+      "forks": 0,
+      "topics": [],
+      "license": null,
+      "pushedAt": "2026-04-24T19:05:11Z",
+      "archived": false,
+      "release": null
+    },
+    "DreamLipSync": {
+      "repo": "DreamLipSync",
+      "url": "https://github.com/TypeDreamMoon/DreamLipSync",
+      "description": null,
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "license": null,
+      "pushedAt": "2026-05-01T15:55:56Z",
+      "archived": false,
+      "release": null
+    },
+    "DreamSequenceMorphTarget": {
+      "repo": "DreamSequenceMorphTarget",
+      "url": "https://github.com/TypeDreamMoon/DreamSequenceMorphTarget",
+      "description": null,
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "license": null,
+      "pushedAt": "2026-05-01T18:20:46Z",
+      "archived": false,
+      "release": {
+        "tag": "1.0.0",
+        "name": "1.0.0 release",
+        "publishedAt": "2025-06-27T06:34:56Z",
+        "url": "https://github.com/TypeDreamMoon/DreamSequenceMorphTarget/releases/tag/1.0.0"
+      }
+    },
+    "DreamFlow": {
+      "repo": "DreamFlow",
+      "url": "https://github.com/TypeDreamMoon/DreamFlow",
+      "description": null,
+      "stars": 2,
+      "forks": 1,
+      "topics": [],
+      "license": null,
+      "pushedAt": "2026-05-09T20:56:24Z",
+      "archived": false,
+      "release": null
+    },
+    "DreamFlowExpansion": {
+      "repo": "DreamFlowExpansion",
+      "url": "https://github.com/TypeDreamMoon/DreamFlowExpansion",
+      "description": null,
+      "stars": 2,
+      "forks": 1,
+      "topics": [],
+      "license": null,
+      "pushedAt": "2026-03-22T06:42:43Z",
+      "archived": false,
+      "release": null
+    },
+    "DreamGameplayTask": {
+      "repo": "DreamGameplayTask",
+      "url": "https://github.com/TypeDreamMoon/DreamGameplayTask",
+      "description": "Unreal Engine 5.x Gameplay Task System",
+      "stars": 5,
+      "forks": 2,
+      "topics": [
+        "game-development",
+        "gameplay",
+        "tasksystem",
+        "ue5-plugin",
+        "unreal-engine",
+        "unreal-engine-5"
+      ],
+      "license": null,
+      "pushedAt": "2025-08-07T05:46:52Z",
+      "archived": false,
+      "release": {
+        "tag": "v3.1.0",
+        "name": "Version 3.1.0",
+        "publishedAt": "2025-08-07T05:46:52Z",
+        "url": "https://github.com/TypeDreamMoon/DreamGameplayTask/releases/tag/v3.1.0"
+      }
+    },
+    "DreamUMG": {
+      "repo": "DreamUMG",
+      "url": "https://github.com/TypeDreamMoon/DreamUMG",
+      "description": null,
+      "stars": 4,
+      "forks": 1,
+      "topics": [],
+      "license": null,
+      "pushedAt": "2026-05-09T16:30:24Z",
+      "archived": false,
+      "release": null
+    },
+    "DreamAnimationTextBlock": {
+      "repo": "DreamAnimationTextBlock",
+      "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock",
+      "description": "Unreal Engine 5.x Animation Text Block Widget",
+      "stars": 5,
+      "forks": 1,
+      "topics": [
+        "animation",
+        "textblock",
+        "ue5",
+        "ue5-plugin",
+        "unreal-engine",
+        "unreal-engine-5"
+      ],
+      "license": null,
+      "pushedAt": "2025-08-07T00:31:48Z",
+      "archived": false,
+      "release": {
+        "tag": "v2.1.0",
+        "name": "Version 2.1.0",
+        "publishedAt": "2025-08-07T00:31:48Z",
+        "url": "https://github.com/TypeDreamMoon/DreamAnimationTextBlock/releases/tag/v2.1.0"
+      }
+    },
+    "DreamGameplayInventory": {
+      "repo": "DreamGameplayInventory",
+      "url": "https://github.com/TypeDreamMoon/DreamGameplayInventory",
+      "description": "Unreal Engine 5.x Gameplay Inventory System",
+      "stars": 3,
+      "forks": 1,
+      "topics": [
+        "gameplay",
+        "gameplay-tools",
+        "gameplaykit",
+        "inventory",
+        "inventory-system",
+        "ue-plugin",
+        "ue5",
+        "ue5-plugin",
+        "unrealengine",
+        "unrealengine5"
+      ],
+      "license": null,
+      "pushedAt": "2025-07-07T09:19:50Z",
+      "archived": false,
+      "release": null
+    },
+    "DreamGUI": {
+      "repo": "DreamGUI",
+      "url": "https://github.com/TypeDreamMoon/DreamGUI",
+      "description": null,
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "license": "NOASSERTION",
+      "pushedAt": "2026-08-27T10:27:39Z",
+      "archived": false,
+      "release": null
+    },
+    "DreamMusicPlayer": {
+      "repo": "DreamMusicPlayer",
+      "url": "https://github.com/TypeDreamMoon/DreamMusicPlayer",
+      "description": "Unreal Engine 5.x Music Player Plugins",
+      "stars": 10,
+      "forks": 2,
+      "topics": [
+        "musicplayer",
+        "plugins",
+        "ue5",
+        "ue5-plugin",
+        "unrealengine"
+      ],
+      "license": null,
+      "pushedAt": "2026-07-30T08:02:14Z",
+      "archived": false,
+      "release": {
+        "tag": "release200",
+        "name": "2.0.0",
+        "publishedAt": "2025-09-10T08:08:53Z",
+        "url": "https://github.com/TypeDreamMoon/DreamMusicPlayer/releases/tag/release200"
+      }
+    },
+    "DreamSMTC": {
+      "repo": "DreamSMTC",
+      "url": "https://github.com/TypeDreamMoon/DreamSMTC",
+      "description": "Unreal Engine Windows System Media Transport Controls(SMTC) Support Plugin.",
+      "stars": 1,
+      "forks": 0,
+      "topics": [
+        "media",
+        "smtc",
+        "system",
+        "ue5",
+        "ue5-plugin",
+        "window"
+      ],
+      "license": null,
+      "pushedAt": "2025-03-17T13:10:24Z",
+      "archived": false,
+      "release": null
+    },
+    "libdlp": {
+      "repo": "libdlp",
+      "url": "https://github.com/TypeDreamMoon/libdlp",
+      "description": "High-performance lyrics file parser in C++ 20",
+      "stars": 0,
+      "forks": 0,
+      "topics": [
+        "ass",
+        "cpp",
+        "cpp20",
+        "eslyric",
+        "lrc",
+        "lrc-files",
+        "lyrics",
+        "lyrics-parsing",
+        "parser",
+        "srt",
+        "srt-subtitles"
+      ],
+      "license": "MIT",
+      "pushedAt": "2026-03-07T14:12:15Z",
+      "archived": false,
+      "release": {
+        "tag": "v0.1.2",
+        "name": "Version 0.1.2",
+        "publishedAt": "2026-01-25T13:57:45Z",
+        "url": "https://github.com/TypeDreamMoon/libdlp/releases/tag/v0.1.2"
+      }
+    },
+    "dreamshader-language-support": {
+      "repo": "dreamshader-language-support",
+      "url": "https://github.com/TypeDreamMoon/dreamshader-language-support",
+      "description": null,
+      "stars": 0,
+      "forks": 1,
+      "topics": [],
+      "license": "MIT",
+      "pushedAt": "2026-08-16T02:18:40Z",
+      "archived": false,
+      "release": {
+        "tag": "v1.9.0",
+        "name": "v1.9.0",
+        "publishedAt": "2026-08-16T02:18:42Z",
+        "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v1.9.0"
+      }
+    },
+    "dreamfx-language-support": {
+      "repo": "dreamfx-language-support",
+      "url": "https://github.com/TypeDreamMoon/dreamfx-language-support",
+      "description": null,
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "license": "MIT",
+      "pushedAt": "2026-08-14T05:19:27Z",
+      "archived": false,
+      "release": {
+        "tag": "v0.5.0",
+        "name": "v0.5.0",
+        "publishedAt": "2026-08-14T05:05:51Z",
+        "url": "https://github.com/TypeDreamMoon/dreamfx-language-support/releases/tag/v0.5.0"
+      }
+    },
+    "dream-mcp": {
+      "repo": "dream-mcp",
+      "url": "https://github.com/TypeDreamMoon/dream-mcp",
+      "description": "MCP server for the DreamFX and DreamShader Unreal plugins. Routes builds to a running editor instead of a 12-24s cold commandlet, which also removes the silent double-write; answers Niagara module and material-expression signatures from disk in milliseconds; renders a material and hands the image back.",
+      "stars": 1,
+      "forks": 0,
+      "topics": [
+        "ai-tools",
+        "claude",
+        "dream-shader-lang",
+        "dreamfx",
+        "gamedev",
+        "material",
+        "mcp",
+        "model-context-protocol",
+        "niagara",
+        "python",
+        "ue5",
+        "unreal-engine",
+        "unreal-engine-5",
+        "vfx"
+      ],
+      "license": "MIT",
+      "pushedAt": "2026-08-20T14:56:34Z",
+      "archived": false,
+      "release": null
+    },
+    "dreamshader-blender": {
+      "repo": "dreamshader-blender",
+      "url": "https://github.com/TypeDreamMoon/dreamshader-blender",
+      "description": "Blender's shader nodes, ported to DreamShaderLang from the Cycles kernel.",
+      "stars": 0,
+      "forks": 0,
+      "topics": [
+        "blender",
+        "blender3d",
+        "dream-shader-lang",
+        "dreamshader-package",
+        "shader",
+        "unreal",
+        "unreal-engine",
+        "unreal-engine-5",
+        "unrealengine"
+      ],
+      "license": "Apache-2.0",
+      "pushedAt": "2026-08-09T11:45:48Z",
+      "archived": false,
+      "release": null
+    },
+    "dreamshader-package-index": {
+      "repo": "dreamshader-package-index",
+      "url": "https://github.com/TypeDreamMoon/dreamshader-package-index",
+      "description": null,
+      "stars": 0,
+      "forks": 0,
+      "topics": [],
+      "license": null,
+      "pushedAt": "2026-08-14T04:34:00Z",
+      "archived": false,
+      "release": null
+    }
+  }
+}

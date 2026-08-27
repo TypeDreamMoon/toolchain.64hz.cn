@@ -1,0 +1,125 @@
+{
+  "$comment": "The plugin library matrix. `repo` is the GitHub repo under TypeDreamMoon; sync-github.mjs fills in stars and the latest release. `source` credits an upstream project where this is a fork. Entries with `desc.zh` marked TODO have no README yet — replace with real copy before launch.",
+  "categories": [
+    { "id": "editor", "zh": "编辑器", "en": "Editor" },
+    { "id": "cine", "zh": "影视化", "en": "Cinematics" },
+    { "id": "play", "zh": "Gameplay", "en": "Gameplay" },
+    { "id": "audio", "zh": "音频", "en": "Audio" }
+  ],
+  "items": [
+    {
+      "repo": "DreamFracture",
+      "cat": "editor",
+      "zh": "对准撞击点按 Fracture 再 Bake，得到 Sequencer 里可拖动的 Chaos Cache 轨。木质 Dataflow 预设，视口内实时力预览。",
+      "en": "Aim a rig's arrow at the impact, press Fracture then Bake, and get a scrubbable Chaos Cache track in Sequencer. Wood-style Dataflow preset, live viewport force preview."
+    },
+    {
+      "repo": "DreamTools",
+      "cat": "editor",
+      "todo": true,
+      "zh": "虚幻引擎工具箱，日常编辑器杂活的集合。",
+      "en": "An Unreal Engine toolbox for everyday editor chores."
+    },
+    {
+      "repo": "DreamEngineStyle",
+      "cat": "editor",
+      "zh": "给 Windows 下的 UE 编辑器窗口套上 Win11 原生圆角，并修补 Slate 的 SWindow 样式使边框一致。",
+      "en": "Applies Windows 11 rounded-corner preferences to the Unreal Editor's windows and patches Slate's SWindow styling to match."
+    },
+    {
+      "repo": "DreamUnrealThemes",
+      "cat": "editor",
+      "zh": "编辑器主题预设，按 Dark / Gray / Light 分组，五个色系：Miku · Violet · Azure · Sakura · Ember。",
+      "en": "Unreal Editor theme presets grouped by Dark / Gray / Light, in five families: Miku · Violet · Azure · Sakura · Ember."
+    },
+    {
+      "repo": "ImGuiAngel",
+      "cat": "editor",
+      "zh": "ImGui 的 AngelScript 绑定，运行时热更写调试界面。需要支持 AngelScript 的引擎。",
+      "en": "AngelScript bindings for ImGui — write debug UI at runtime with hot reload. Needs an AngelScript-capable engine."
+    },
+
+    {
+      "repo": "DreamSequenceSubtitle",
+      "cat": "cine",
+      "zh": "Sequencer 字幕轨，运行时、PIE 与编辑器预览都通过 UMG 控件渲染当前字幕。",
+      "en": "Subtitle tracks for Sequencer, rendered through UMG widgets at runtime, in PIE and in editor preview."
+    },
+    {
+      "repo": "DreamLipSync",
+      "cat": "cine",
+      "zh": "基于 Morph Target 的口型同步，同一份 DataAsset 同时服务 Sequencer 与运行时组件。",
+      "en": "Morph-target lip sync. One DataAsset serves both Sequencer playback and the runtime component."
+    },
+    {
+      "repo": "DreamSequenceMorphTarget",
+      "cat": "cine",
+      "todo": true,
+      "zh": "Sequencer 的 Morph Target 轨道支持。",
+      "en": "Morph Target track support for Sequencer."
+    },
+
+    {
+      "repo": "DreamFlow",
+      "cat": "play",
+      "zh": "节点式流程图核心：运行时执行器、图编辑器、流程作用域变量、蓝图/C++ 扩展与网络复制。",
+      "en": "The core flow-graph plugin: a reusable runtime executor, a node editor, flow-scoped variables, Blueprint/C++ extensibility and replication."
+    },
+    {
+      "repo": "DreamFlowExpansion",
+      "cat": "play",
+      "zh": "DreamFlow 的领域扩展：任务、对话、剧情与遭遇战流程族。",
+      "en": "Domain extensions for DreamFlow: quest, dialogue, story and encounter flow families."
+    },
+    {
+      "repo": "DreamGameplayTask",
+      "cat": "play",
+      "zh": "Gameplay Task 系统。",
+      "en": "A Gameplay Task system for Unreal Engine 5.x."
+    },
+    {
+      "repo": "DreamUMG",
+      "cat": "play",
+      "zh": "UMG / Slate 扩展：动态文本动画、2D UMG 里的伪 3D 曲面变换、蓝图动态组装的 Slate UI 树。",
+      "en": "UMG / Slate extensions: dynamic text animation, pseudo-3D curved transforms inside 2D UMG, and Slate UI trees assembled from Blueprint."
+    },
+    {
+      "repo": "DreamAnimationTextBlock",
+      "cat": "play",
+      "zh": "带动画的文本控件。",
+      "en": "An animated Text Block widget."
+    },
+    {
+      "repo": "DreamGameplayInventory",
+      "cat": "play",
+      "zh": "背包与物品系统。",
+      "en": "A gameplay inventory system."
+    },
+    {
+      "repo": "DreamGUI",
+      "cat": "play",
+      "source": { "name": "LGUI", "author": "Lex Liu", "license": "MIT", "url": "https://github.com/liufei2008/LGUI" },
+      "zh": "世界空间 3D UI 系统，prefab 工作流，设计器手感对齐 UMG。UE 5.8。",
+      "en": "A world-space 3D UI system with a prefab workflow and a designer built to feel like UMG's. UE 5.8."
+    },
+
+    {
+      "repo": "DreamMusicPlayer",
+      "cat": "audio",
+      "zh": "音乐播放器插件，仓库里星标最高的运行时插件。",
+      "en": "A music player plugin — the most-starred runtime plugin in the collection."
+    },
+    {
+      "repo": "DreamSMTC",
+      "cat": "audio",
+      "zh": "Windows 系统媒体传输控件（SMTC）支持，让游戏内播放的音乐出现在系统媒体面板里。",
+      "en": "Windows System Media Transport Controls support, so in-game music shows up in the OS media panel."
+    },
+    {
+      "repo": "libdlp",
+      "cat": "audio",
+      "zh": "C++20 写的高性能歌词解析库，支持 lrc / ass 等格式。",
+      "en": "A high-performance lyrics parser in C++20, covering lrc / ass and more."
+    }
+  ]
+}
