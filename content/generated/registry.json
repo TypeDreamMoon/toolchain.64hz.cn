@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-27T12:27:58.213Z",
+  "generatedAt": "2026-08-28T03:54:35.779Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
@@ -349,31 +349,7 @@
     },
     "DreamSequenceMorphTarget": {
       "repo": "DreamSequenceMorphTarget",
-      "url": "https://github.com/TypeDreamMoon/DreamSequenceMorphTarget",
-      "description": null,
-      "stars": 0,
-      "forks": 0,
-      "topics": [],
-      "license": null,
-      "pushedAt": "2026-05-01T18:20:46Z",
-      "archived": false,
-      "defaultBranch": "main",
-      "releases": [
-        {
-          "tag": "1.0.0",
-          "name": "1.0.0 release",
-          "publishedAt": "2025-06-27T06:34:56Z",
-          "url": "https://github.com/TypeDreamMoon/DreamSequenceMorphTarget/releases/tag/1.0.0",
-          "prerelease": false,
-          "assets": []
-        }
-      ],
-      "release": {
-        "tag": "1.0.0",
-        "name": "1.0.0 release",
-        "publishedAt": "2025-06-27T06:34:56Z",
-        "url": "https://github.com/TypeDreamMoon/DreamSequenceMorphTarget/releases/tag/1.0.0"
-      }
+      "missing": true
     },
     "DreamFlow": {
       "repo": "DreamFlow",
