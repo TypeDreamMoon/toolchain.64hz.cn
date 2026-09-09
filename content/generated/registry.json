@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-08T22:08:18.383Z",
+  "generatedAt": "2026-09-09T22:05:17.786Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 145
+    "stars": 146
   },
   "repos": {
     "DreamShader": {
@@ -193,7 +193,7 @@
       "repo": "DreamFX",
       "url": "https://github.com/TypeDreamMoon/DreamFX",
       "description": "Author Unreal Engine Niagara VFX as text: .dfs/.dfe/.dfm sources compile to standard Niagara assets, and any NiagaraSystem decompiles back to source. Byte-idempotent round-trips, four-layer verification, runs on stock UE 5.8.",
-      "stars": 9,
+      "stars": 10,
       "forks": 1,
       "topics": [
         "code-generation",
