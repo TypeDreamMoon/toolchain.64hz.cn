@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-09-14T22:50:42.538Z",
+  "generatedAt": "2026-09-15T22:31:30.461Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 147
+    "stars": 148
   },
   "repos": {
     "DreamShader": {
       "repo": "DreamShader",
       "url": "https://github.com/TypeDreamMoon/DreamShader",
       "description": "Unreal Engine Material DSL. Use Dream Shader Lang Write Unreal Material. Simple · Fast · Full syntax · HLSL GLSL Lang Support",
-      "stars": 98,
+      "stars": 99,
       "forks": 19,
       "topics": [
         "dream-shader-lang",
