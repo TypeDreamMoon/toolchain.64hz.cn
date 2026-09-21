@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-20T22:01:38.883Z",
+  "generatedAt": "2026-09-21T22:55:04.894Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 150
+    "stars": 151
   },
   "repos": {
     "DreamShader": {
@@ -25,10 +25,29 @@
         "unrealengine"
       ],
       "license": "MIT",
-      "pushedAt": "2026-09-14T16:28:09Z",
+      "pushedAt": "2026-09-21T14:10:58Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
+        {
+          "tag": "v2.0.0",
+          "name": "DreamShader 2.0.0",
+          "publishedAt": "2026-09-21T13:41:11Z",
+          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v2.0.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamShader-2.0.0.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v2.0.0/DreamShader-2.0.0.zip",
+              "size": 2582867
+            },
+            {
+              "name": "dreamshaderlang-language-support-2.0.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v2.0.0/dreamshaderlang-language-support-2.0.0.vsix",
+              "size": 1047237
+            }
+          ]
+        },
         {
           "tag": "v1.9.1",
           "name": "DreamShader 1.9.1",
@@ -161,39 +180,20 @@
               "size": 153651
             }
           ]
-        },
-        {
-          "tag": "v1.5.0",
-          "name": "DreamShader 1.5.0",
-          "publishedAt": "2026-08-02T06:53:43Z",
-          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.5.0",
-          "prerelease": false,
-          "assets": [
-            {
-              "name": "DreamShader-1.5.0.zip",
-              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.5.0/DreamShader-1.5.0.zip",
-              "size": 893468
-            },
-            {
-              "name": "dreamshaderlang-language-support-1.6.3.vsix",
-              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.5.0/dreamshaderlang-language-support-1.6.3.vsix",
-              "size": 153651
-            }
-          ]
         }
       ],
       "release": {
-        "tag": "v1.9.1",
-        "name": "DreamShader 1.9.1",
-        "publishedAt": "2026-09-08T09:28:42Z",
-        "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.9.1"
+        "tag": "v2.0.0",
+        "name": "DreamShader 2.0.0",
+        "publishedAt": "2026-09-21T13:41:11Z",
+        "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v2.0.0"
       }
     },
     "DreamFX": {
       "repo": "DreamFX",
       "url": "https://github.com/TypeDreamMoon/DreamFX",
       "description": "Author Unreal Engine Niagara VFX as text: .dfs/.dfe/.dfm sources compile to standard Niagara assets, and any NiagaraSystem decompiles back to source. Byte-idempotent round-trips, four-layer verification, runs on stock UE 5.8.",
-      "stars": 10,
+      "stars": 11,
       "forks": 1,
       "topics": [
         "code-generation",
@@ -619,12 +619,31 @@
     "DreamGUI": {
       "repo": "DreamGUI",
       "url": "https://github.com/TypeDreamMoon/DreamGUI",
-      "description": null,
+      "description": "A 3D UI system for Unreal Engine 5.8: world-space and screen-space widgets, widget Blueprints with a UMG-style designer, a native control library, .dui text authoring and tween animation. A fork of LGUI.",
       "stars": 1,
       "forks": 0,
-      "topics": [],
+      "topics": [
+        "3d-ui",
+        "blueprints",
+        "cpp",
+        "game-ui",
+        "gamedev",
+        "gui",
+        "lgui",
+        "tween",
+        "ue5",
+        "ue5-plugin",
+        "ui",
+        "ui-framework",
+        "umg",
+        "unreal-engine",
+        "unreal-engine-5",
+        "unreal-engine-plugin",
+        "widgets",
+        "world-space-ui"
+      ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-09-08T09:12:36Z",
+      "pushedAt": "2026-09-21T12:08:40Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -787,10 +806,24 @@
       "forks": 1,
       "topics": [],
       "license": "MIT",
-      "pushedAt": "2026-09-05T00:19:58Z",
+      "pushedAt": "2026-09-21T13:38:07Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
+        {
+          "tag": "v2.0.0",
+          "name": "v2.0.0",
+          "publishedAt": "2026-09-21T13:38:10Z",
+          "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v2.0.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "dreamshaderlang-language-support-2.0.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/download/v2.0.0/dreamshaderlang-language-support-2.0.0.vsix",
+              "size": 1047237
+            }
+          ]
+        },
         {
           "tag": "v1.9.0",
           "name": "v1.9.0",
@@ -888,27 +921,13 @@
               "size": 153651
             }
           ]
-        },
-        {
-          "tag": "v1.6.2",
-          "name": "v1.6.2",
-          "publishedAt": "2026-07-01T04:37:14Z",
-          "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v1.6.2",
-          "prerelease": false,
-          "assets": [
-            {
-              "name": "dreamshaderlang-language-support-1.6.2.vsix",
-              "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/download/v1.6.2/dreamshaderlang-language-support-1.6.2.vsix",
-              "size": 153408
-            }
-          ]
         }
       ],
       "release": {
-        "tag": "v1.9.0",
-        "name": "v1.9.0",
-        "publishedAt": "2026-08-16T02:18:42Z",
-        "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v1.9.0"
+        "tag": "v2.0.0",
+        "name": "v2.0.0",
+        "publishedAt": "2026-09-21T13:38:10Z",
+        "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v2.0.0"
       }
     },
     "dreamfx-language-support": {
