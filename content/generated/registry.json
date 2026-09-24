@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T22:32:34.381Z",
+  "generatedAt": "2026-09-24T22:48:44.913Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
@@ -11,7 +11,7 @@
       "url": "https://github.com/TypeDreamMoon/DreamShader",
       "description": "Unreal Engine Material DSL. Use Dream Shader Lang Write Unreal Material. Simple · Fast · Full syntax · HLSL GLSL Lang Support",
       "stars": 102,
-      "forks": 19,
+      "forks": 20,
       "topics": [
         "dream-shader-lang",
         "dsl",
@@ -643,7 +643,7 @@
         "world-space-ui"
       ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-09-23T08:11:26Z",
+      "pushedAt": "2026-09-24T03:51:11Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
