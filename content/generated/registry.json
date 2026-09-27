@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T22:15:17.234Z",
+  "generatedAt": "2026-09-27T22:40:17.823Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
@@ -25,10 +25,29 @@
         "unrealengine"
       ],
       "license": "MIT",
-      "pushedAt": "2026-09-21T14:10:58Z",
+      "pushedAt": "2026-09-27T15:25:15Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
+        {
+          "tag": "v2.0.1",
+          "name": "DreamShader 2.0.1",
+          "publishedAt": "2026-09-27T14:59:21Z",
+          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v2.0.1",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamShader-2.0.1.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v2.0.1/DreamShader-2.0.1.zip",
+              "size": 2594424
+            },
+            {
+              "name": "dreamshaderlang-language-support-2.0.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v2.0.1/dreamshaderlang-language-support-2.0.0.vsix",
+              "size": 1047237
+            }
+          ]
+        },
         {
           "tag": "v2.0.0",
           "name": "DreamShader 2.0.0",
@@ -161,32 +180,13 @@
               "size": 956005
             }
           ]
-        },
-        {
-          "tag": "v1.5.1",
-          "name": "DreamShader 1.5.1",
-          "publishedAt": "2026-08-02T09:52:06Z",
-          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.5.1",
-          "prerelease": false,
-          "assets": [
-            {
-              "name": "DreamShader-1.5.1.zip",
-              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.5.1/DreamShader-1.5.1.zip",
-              "size": 933898
-            },
-            {
-              "name": "dreamshaderlang-language-support-1.6.3.vsix",
-              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.5.1/dreamshaderlang-language-support-1.6.3.vsix",
-              "size": 153651
-            }
-          ]
         }
       ],
       "release": {
-        "tag": "v2.0.0",
-        "name": "DreamShader 2.0.0",
-        "publishedAt": "2026-09-21T13:41:11Z",
-        "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v2.0.0"
+        "tag": "v2.0.1",
+        "name": "DreamShader 2.0.1",
+        "publishedAt": "2026-09-27T14:59:21Z",
+        "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v2.0.1"
       }
     },
     "DreamFX": {
@@ -194,7 +194,7 @@
       "url": "https://github.com/TypeDreamMoon/DreamFX",
       "description": "Author Unreal Engine Niagara VFX as text: .dfs/.dfe/.dfm sources compile to standard Niagara assets, and any NiagaraSystem decompiles back to source. Byte-idempotent round-trips, four-layer verification, runs on stock UE 5.8.",
       "stars": 12,
-      "forks": 1,
+      "forks": 2,
       "topics": [
         "code-generation",
         "decompiler",
