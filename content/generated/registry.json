@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-06T23:26:11.838Z",
+  "generatedAt": "2026-10-07T23:55:21.622Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 161
+    "stars": 162
   },
   "repos": {
     "DreamShader": {
@@ -25,7 +25,7 @@
         "unrealengine"
       ],
       "license": "MIT",
-      "pushedAt": "2026-10-06T08:17:43Z",
+      "pushedAt": "2026-10-07T17:51:42Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
@@ -193,7 +193,7 @@
       "repo": "DreamFX",
       "url": "https://github.com/TypeDreamMoon/DreamFX",
       "description": "Author Unreal Engine Niagara VFX as text: .dfs/.dfe/.dfm sources compile to standard Niagara assets, and any NiagaraSystem decompiles back to source. Byte-idempotent round-trips, four-layer verification, runs on stock UE 5.8.",
-      "stars": 13,
+      "stars": 14,
       "forks": 2,
       "topics": [
         "code-generation",
@@ -209,7 +209,7 @@
         "vfx"
       ],
       "license": null,
-      "pushedAt": "2026-10-06T15:00:12Z",
+      "pushedAt": "2026-10-07T15:58:42Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -643,7 +643,7 @@
         "world-space-ui"
       ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-10-06T16:51:06Z",
+      "pushedAt": "2026-10-07T17:03:05Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -987,7 +987,7 @@
         "vfx"
       ],
       "license": "MIT",
-      "pushedAt": "2026-08-20T14:56:34Z",
+      "pushedAt": "2026-10-07T14:37:47Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
