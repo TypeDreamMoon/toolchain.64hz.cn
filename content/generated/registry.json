@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-10T23:03:53.635Z",
+  "generatedAt": "2026-10-11T23:17:55.025Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
@@ -25,10 +25,29 @@
         "unrealengine"
       ],
       "license": "MIT",
-      "pushedAt": "2026-10-09T07:42:17Z",
+      "pushedAt": "2026-10-11T14:39:37Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
+        {
+          "tag": "v2.1.2",
+          "name": "DreamShader 2.1.2",
+          "publishedAt": "2026-10-11T14:40:02Z",
+          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v2.1.2",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamShader-2.1.2.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v2.1.2/DreamShader-2.1.2.zip",
+              "size": 3382699
+            },
+            {
+              "name": "dreamshaderlang-language-support-2.1.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v2.1.2/dreamshaderlang-language-support-2.1.0.vsix",
+              "size": 1088921
+            }
+          ]
+        },
         {
           "tag": "v2.1.1",
           "name": "DreamShader 2.1.1",
@@ -161,32 +180,13 @@
               "size": 1019205
             }
           ]
-        },
-        {
-          "tag": "v1.8.0",
-          "name": "DreamShader 1.8.0",
-          "publishedAt": "2026-08-21T10:51:14Z",
-          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.8.0",
-          "prerelease": false,
-          "assets": [
-            {
-              "name": "DreamShader-1.8.0.zip",
-              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.8.0/DreamShader-1.8.0.zip",
-              "size": 1126660
-            },
-            {
-              "name": "dreamshaderlang-language-support-1.9.0.vsix",
-              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.8.0/dreamshaderlang-language-support-1.9.0.vsix",
-              "size": 965473
-            }
-          ]
         }
       ],
       "release": {
-        "tag": "v2.1.1",
-        "name": "DreamShader 2.1.1",
-        "publishedAt": "2026-10-04T09:52:46Z",
-        "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v2.1.1"
+        "tag": "v2.1.2",
+        "name": "DreamShader 2.1.2",
+        "publishedAt": "2026-10-11T14:40:02Z",
+        "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v2.1.2"
       }
     },
     "DreamFX": {
@@ -194,7 +194,7 @@
       "url": "https://github.com/TypeDreamMoon/DreamFX",
       "description": "Author Unreal Engine Niagara VFX as text: .dfs/.dfe/.dfm sources compile to standard Niagara assets, and any NiagaraSystem decompiles back to source. Byte-idempotent round-trips, four-layer verification, runs on stock UE 5.8.",
       "stars": 16,
-      "forks": 2,
+      "forks": 3,
       "topics": [
         "code-generation",
         "decompiler",
@@ -220,7 +220,7 @@
       "url": "https://github.com/TypeDreamMoon/DreamFracture",
       "description": "One-click Chaos destruction for cinematics in Unreal Engine: aim a rig's arrow at the impact, press Fracture then Bake, and get a scrubbable Chaos Cache track in Sequencer. Wood-style Dataflow fracture preset, scripted Simulate-in-Editor bake, live viewport force preview. Runs on stock UE 5.8.",
       "stars": 3,
-      "forks": 0,
+      "forks": 1,
       "topics": [],
       "license": null,
       "pushedAt": "2026-08-26T08:16:19Z",
@@ -621,7 +621,7 @@
       "url": "https://github.com/TypeDreamMoon/DreamGUI",
       "description": "A 3D UI system for Unreal Engine 5.8: world-space and screen-space widgets, widget Blueprints with a UMG-style designer, a native control library, .dui text authoring and tween animation. A fork of LGUI.",
       "stars": 5,
-      "forks": 1,
+      "forks": 3,
       "topics": [
         "3d-ui",
         "blueprints",
@@ -643,7 +643,7 @@
         "world-space-ui"
       ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-10-09T11:15:00Z",
+      "pushedAt": "2026-10-11T15:28:32Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
