@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13T23:29:56.880Z",
+  "generatedAt": "2026-10-14T22:48:34.879Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
@@ -25,7 +25,7 @@
         "unrealengine"
       ],
       "license": "MIT",
-      "pushedAt": "2026-10-13T16:24:26Z",
+      "pushedAt": "2026-10-14T18:15:29Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
@@ -209,7 +209,7 @@
         "vfx"
       ],
       "license": null,
-      "pushedAt": "2026-10-13T16:01:31Z",
+      "pushedAt": "2026-10-14T17:30:31Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -643,7 +643,7 @@
         "world-space-ui"
       ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-10-13T13:40:49Z",
+      "pushedAt": "2026-10-14T17:44:11Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -806,10 +806,24 @@
       "forks": 1,
       "topics": [],
       "license": "MIT",
-      "pushedAt": "2026-10-04T02:41:09Z",
+      "pushedAt": "2026-10-14T11:00:11Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
+        {
+          "tag": "v2.2.0",
+          "name": "v2.2.0",
+          "publishedAt": "2026-10-14T11:00:13Z",
+          "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v2.2.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "dreamshaderlang-language-support-2.2.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/download/v2.2.0/dreamshaderlang-language-support-2.2.0.vsix",
+              "size": 1103180
+            }
+          ]
+        },
         {
           "tag": "v2.1.0",
           "name": "v2.1.0",
@@ -907,27 +921,13 @@
               "size": 954943
             }
           ]
-        },
-        {
-          "tag": "v1.7.0",
-          "name": "v1.7.0",
-          "publishedAt": "2026-08-10T09:05:28Z",
-          "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v1.7.0",
-          "prerelease": false,
-          "assets": [
-            {
-              "name": "dreamshaderlang-language-support-1.7.0.vsix",
-              "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/download/v1.7.0/dreamshaderlang-language-support-1.7.0.vsix",
-              "size": 523402
-            }
-          ]
         }
       ],
       "release": {
-        "tag": "v2.1.0",
-        "name": "v2.1.0",
-        "publishedAt": "2026-10-04T02:41:13Z",
-        "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v2.1.0"
+        "tag": "v2.2.0",
+        "name": "v2.2.0",
+        "publishedAt": "2026-10-14T11:00:13Z",
+        "url": "https://github.com/TypeDreamMoon/dreamshader-language-support/releases/tag/v2.2.0"
       }
     },
     "dreamfx-language-support": {
@@ -938,10 +938,24 @@
       "forks": 0,
       "topics": [],
       "license": "MIT",
-      "pushedAt": "2026-10-13T13:03:12Z",
+      "pushedAt": "2026-10-14T04:16:53Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
+        {
+          "tag": "v0.7.0",
+          "name": "v0.7.0",
+          "publishedAt": "2026-10-14T04:16:56Z",
+          "url": "https://github.com/TypeDreamMoon/dreamfx-language-support/releases/tag/v0.7.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "dreamfxlang-language-support-0.7.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/dreamfx-language-support/releases/download/v0.7.0/dreamfxlang-language-support-0.7.0.vsix",
+              "size": 291446
+            }
+          ]
+        },
         {
           "tag": "v0.6.1",
           "name": "v0.6.1",
@@ -986,10 +1000,10 @@
         }
       ],
       "release": {
-        "tag": "v0.6.1",
-        "name": "v0.6.1",
-        "publishedAt": "2026-10-12T11:19:15Z",
-        "url": "https://github.com/TypeDreamMoon/dreamfx-language-support/releases/tag/v0.6.1"
+        "tag": "v0.7.0",
+        "name": "v0.7.0",
+        "publishedAt": "2026-10-14T04:16:56Z",
+        "url": "https://github.com/TypeDreamMoon/dreamfx-language-support/releases/tag/v0.7.0"
       }
     },
     "dream-mcp": {
@@ -1039,7 +1053,7 @@
         "unrealengine"
       ],
       "license": "Apache-2.0",
-      "pushedAt": "2026-08-09T11:45:48Z",
+      "pushedAt": "2026-10-14T10:03:19Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
