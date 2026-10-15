@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-10-14T22:48:34.879Z",
+  "generatedAt": "2026-10-15T22:45:27.014Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 170
+    "stars": 171
   },
   "repos": {
     "DreamShader": {
       "repo": "DreamShader",
       "url": "https://github.com/TypeDreamMoon/DreamShader",
       "description": "Unreal Engine Material DSL. Use Dream Shader Lang Write Unreal Material. Simple · Fast · Full syntax · HLSL GLSL Lang Support",
-      "stars": 108,
+      "stars": 109,
       "forks": 21,
       "topics": [
         "dream-shader-lang",
@@ -25,10 +25,29 @@
         "unrealengine"
       ],
       "license": "MIT",
-      "pushedAt": "2026-10-14T18:15:29Z",
+      "pushedAt": "2026-10-15T19:13:31Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
+        {
+          "tag": "v2.2.0",
+          "name": "DreamShader 2.2.0",
+          "publishedAt": "2026-10-15T03:13:31Z",
+          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v2.2.0",
+          "prerelease": false,
+          "assets": [
+            {
+              "name": "DreamShader-2.2.0.zip",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v2.2.0/DreamShader-2.2.0.zip",
+              "size": 5908503
+            },
+            {
+              "name": "dreamshaderlang-language-support-2.2.0.vsix",
+              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v2.2.0/dreamshaderlang-language-support-2.2.0.vsix",
+              "size": 1103180
+            }
+          ]
+        },
         {
           "tag": "v2.1.2",
           "name": "DreamShader 2.1.2",
@@ -161,32 +180,13 @@
               "size": 1019205
             }
           ]
-        },
-        {
-          "tag": "v1.9.0",
-          "name": "DreamShader 1.9.0",
-          "publishedAt": "2026-09-08T05:54:29Z",
-          "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v1.9.0",
-          "prerelease": false,
-          "assets": [
-            {
-              "name": "DreamShader-1.9.0.zip",
-              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.9.0/DreamShader-1.9.0.zip",
-              "size": 1502973
-            },
-            {
-              "name": "dreamshaderlang-language-support-1.9.0.vsix",
-              "url": "https://github.com/TypeDreamMoon/DreamShader/releases/download/v1.9.0/dreamshaderlang-language-support-1.9.0.vsix",
-              "size": 1019205
-            }
-          ]
         }
       ],
       "release": {
-        "tag": "v2.1.2",
-        "name": "DreamShader 2.1.2",
-        "publishedAt": "2026-10-11T14:40:02Z",
-        "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v2.1.2"
+        "tag": "v2.2.0",
+        "name": "DreamShader 2.2.0",
+        "publishedAt": "2026-10-15T03:13:31Z",
+        "url": "https://github.com/TypeDreamMoon/DreamShader/releases/tag/v2.2.0"
       }
     },
     "DreamFX": {
