@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T21:50:47.523Z",
+  "generatedAt": "2026-10-18T22:01:15.869Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
@@ -1053,11 +1053,25 @@
         "unrealengine"
       ],
       "license": "Apache-2.0",
-      "pushedAt": "2026-10-14T10:03:19Z",
+      "pushedAt": "2026-10-18T14:23:10Z",
       "archived": false,
       "defaultBranch": "main",
-      "releases": [],
-      "release": null
+      "releases": [
+        {
+          "tag": "v0.10.0",
+          "name": "0.10.0 — DreamShaderLang 2.0 and material functions",
+          "publishedAt": "2026-10-18T14:23:28Z",
+          "url": "https://github.com/TypeDreamMoon/dreamshader-blender/releases/tag/v0.10.0",
+          "prerelease": false,
+          "assets": []
+        }
+      ],
+      "release": {
+        "tag": "v0.10.0",
+        "name": "0.10.0 — DreamShaderLang 2.0 and material functions",
+        "publishedAt": "2026-10-18T14:23:28Z",
+        "url": "https://github.com/TypeDreamMoon/dreamshader-blender/releases/tag/v0.10.0"
+      }
     },
     "dreamshader-package-index": {
       "repo": "dreamshader-package-index",
