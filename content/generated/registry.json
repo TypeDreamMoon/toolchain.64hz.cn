@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-31T22:54:40.181Z",
+  "generatedAt": "2026-11-01T23:13:04.279Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 198
+    "stars": 199
   },
   "repos": {
     "DreamShader": {
@@ -741,7 +741,7 @@
       "repo": "libdlp",
       "url": "https://github.com/TypeDreamMoon/libdlp",
       "description": "High-performance lyrics file parser in C++ 20",
-      "stars": 0,
+      "stars": 1,
       "forks": 0,
       "topics": [
         "ass",
