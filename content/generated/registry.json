@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-11-04T00:16:16.931Z",
+  "generatedAt": "2026-11-05T00:36:22.378Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 205
+    "stars": 208
   },
   "repos": {
     "DreamShader": {
       "repo": "DreamShader",
       "url": "https://github.com/TypeDreamMoon/DreamShader",
       "description": "Unreal Engine Material DSL. Use Dream Shader Lang Write Unreal Material. Simple · Fast · Full syntax · HLSL GLSL Lang Support",
-      "stars": 124,
+      "stars": 126,
       "forks": 23,
       "topics": [
         "dream-shader-lang",
@@ -620,7 +620,7 @@
       "repo": "DreamGUI",
       "url": "https://github.com/TypeDreamMoon/DreamGUI",
       "description": "A 3D UI system for Unreal Engine 5.8: world-space and screen-space widgets, widget Blueprints with a UMG-style designer, a native control library, .dui text authoring and tween animation. A fork of LGUI.",
-      "stars": 10,
+      "stars": 11,
       "forks": 4,
       "topics": [
         "3d-ui",
@@ -643,7 +643,7 @@
         "world-space-ui"
       ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-11-03T12:45:43Z",
+      "pushedAt": "2026-11-04T16:48:11Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
