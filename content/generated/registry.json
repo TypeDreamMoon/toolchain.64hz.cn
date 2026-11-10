@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-11-08T23:16:23.324Z",
+  "generatedAt": "2026-11-10T02:27:37.174Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 217
+    "stars": 220
   },
   "repos": {
     "DreamShader": {
       "repo": "DreamShader",
       "url": "https://github.com/TypeDreamMoon/DreamShader",
       "description": "Unreal Engine Material DSL. Use Dream Shader Lang Write Unreal Material. Simple · Fast · Full syntax · HLSL GLSL Lang Support",
-      "stars": 129,
+      "stars": 130,
       "forks": 24,
       "topics": [
         "dream-shader-lang",
@@ -25,7 +25,7 @@
         "unrealengine"
       ],
       "license": "MIT",
-      "pushedAt": "2026-11-08T05:39:56Z",
+      "pushedAt": "2026-11-09T16:54:19Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
@@ -193,7 +193,7 @@
       "repo": "DreamFX",
       "url": "https://github.com/TypeDreamMoon/DreamFX",
       "description": "Author Unreal Engine Niagara VFX as text: .dfs/.dfe/.dfm sources compile to standard Niagara assets, and any NiagaraSystem decompiles back to source. Byte-idempotent round-trips, four-layer verification, runs on stock UE 5.8.",
-      "stars": 34,
+      "stars": 35,
       "forks": 5,
       "topics": [
         "code-generation",
@@ -209,7 +209,7 @@
         "vfx"
       ],
       "license": null,
-      "pushedAt": "2026-11-08T05:40:13Z",
+      "pushedAt": "2026-11-09T16:54:30Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -643,7 +643,7 @@
         "world-space-ui"
       ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-11-08T08:53:10Z",
+      "pushedAt": "2026-11-09T17:45:06Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -741,7 +741,7 @@
       "repo": "libdlp",
       "url": "https://github.com/TypeDreamMoon/libdlp",
       "description": "High-performance lyrics file parser in C++ 20",
-      "stars": 1,
+      "stars": 2,
       "forks": 0,
       "topics": [
         "ass",
