@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-11-11T00:18:08.460Z",
+  "generatedAt": "2026-11-12T01:43:49.657Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 227
+    "stars": 238
   },
   "repos": {
     "DreamShader": {
       "repo": "DreamShader",
       "url": "https://github.com/TypeDreamMoon/DreamShader",
       "description": "Unreal Engine Material DSL. Use Dream Shader Lang Write Unreal Material. Simple · Fast · Full syntax · HLSL GLSL Lang Support",
-      "stars": 130,
+      "stars": 132,
       "forks": 24,
       "topics": [
         "dream-shader-lang",
@@ -25,7 +25,7 @@
         "unrealengine"
       ],
       "license": "MIT",
-      "pushedAt": "2026-11-10T11:30:24Z",
+      "pushedAt": "2026-11-12T01:11:02Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
@@ -193,7 +193,7 @@
       "repo": "DreamFX",
       "url": "https://github.com/TypeDreamMoon/DreamFX",
       "description": "Author Unreal Engine Niagara VFX as text: .dfs/.dfe/.dfm sources compile to standard Niagara assets, and any NiagaraSystem decompiles back to source. Byte-idempotent round-trips, four-layer verification, runs on stock UE 5.8.",
-      "stars": 35,
+      "stars": 36,
       "forks": 5,
       "topics": [
         "code-generation",
@@ -208,8 +208,8 @@
         "unreal-plugin",
         "vfx"
       ],
-      "license": null,
-      "pushedAt": "2026-11-09T16:54:30Z",
+      "license": "MIT",
+      "pushedAt": "2026-11-12T01:14:23Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -620,8 +620,8 @@
       "repo": "DreamGUI",
       "url": "https://github.com/TypeDreamMoon/DreamGUI",
       "description": "A 3D UI system for Unreal Engine 5.8: world-space and screen-space widgets, widget Blueprints with a UMG-style designer, a native control library, .dui text authoring and tween animation. A fork of LGUI.",
-      "stars": 19,
-      "forks": 4,
+      "stars": 27,
+      "forks": 6,
       "topics": [
         "3d-ui",
         "blueprints",
@@ -643,7 +643,7 @@
         "world-space-ui"
       ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-11-10T05:03:01Z",
+      "pushedAt": "2026-11-11T22:14:07Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -1029,7 +1029,7 @@
         "vfx"
       ],
       "license": "MIT",
-      "pushedAt": "2026-10-07T14:37:47Z",
+      "pushedAt": "2026-11-12T01:11:25Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
