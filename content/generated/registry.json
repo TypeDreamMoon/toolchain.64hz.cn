@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-11-12T01:43:49.657Z",
+  "generatedAt": "2026-11-13T00:47:07.897Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 238
+    "stars": 252
   },
   "repos": {
     "DreamShader": {
       "repo": "DreamShader",
       "url": "https://github.com/TypeDreamMoon/DreamShader",
       "description": "Unreal Engine Material DSL. Use Dream Shader Lang Write Unreal Material. Simple · Fast · Full syntax · HLSL GLSL Lang Support",
-      "stars": 132,
-      "forks": 24,
+      "stars": 133,
+      "forks": 25,
       "topics": [
         "dream-shader-lang",
         "dsl",
@@ -25,7 +25,7 @@
         "unrealengine"
       ],
       "license": "MIT",
-      "pushedAt": "2026-11-12T01:11:02Z",
+      "pushedAt": "2026-11-12T04:14:44Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
@@ -194,7 +194,7 @@
       "url": "https://github.com/TypeDreamMoon/DreamFX",
       "description": "Author Unreal Engine Niagara VFX as text: .dfs/.dfe/.dfm sources compile to standard Niagara assets, and any NiagaraSystem decompiles back to source. Byte-idempotent round-trips, four-layer verification, runs on stock UE 5.8.",
       "stars": 36,
-      "forks": 5,
+      "forks": 6,
       "topics": [
         "code-generation",
         "decompiler",
@@ -620,7 +620,7 @@
       "repo": "DreamGUI",
       "url": "https://github.com/TypeDreamMoon/DreamGUI",
       "description": "A 3D UI system for Unreal Engine 5.8: world-space and screen-space widgets, widget Blueprints with a UMG-style designer, a native control library, .dui text authoring and tween animation. A fork of LGUI.",
-      "stars": 27,
+      "stars": 40,
       "forks": 6,
       "topics": [
         "3d-ui",
@@ -643,7 +643,7 @@
         "world-space-ui"
       ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-11-11T22:14:07Z",
+      "pushedAt": "2026-11-12T06:51:10Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -654,7 +654,7 @@
       "url": "https://github.com/TypeDreamMoon/DreamMusicPlayer",
       "description": "Unreal Engine 5.x Music Player Plugins",
       "stars": 10,
-      "forks": 2,
+      "forks": 3,
       "topics": [
         "musicplayer",
         "plugins",
@@ -1029,7 +1029,7 @@
         "vfx"
       ],
       "license": "MIT",
-      "pushedAt": "2026-11-12T01:11:25Z",
+      "pushedAt": "2026-11-12T06:49:19Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
