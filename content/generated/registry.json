@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-14T00:32:25.958Z",
+  "generatedAt": "2026-11-14T23:28:52.593Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 259
+    "stars": 262
   },
   "repos": {
     "DreamShader": {
@@ -620,7 +620,7 @@
       "repo": "DreamGUI",
       "url": "https://github.com/TypeDreamMoon/DreamGUI",
       "description": "A 3D UI system for Unreal Engine 5.8: world-space and screen-space widgets, widget Blueprints with a UMG-style designer, a native control library, .dui text authoring and tween animation. A fork of LGUI.",
-      "stars": 46,
+      "stars": 48,
       "forks": 8,
       "topics": [
         "3d-ui",
@@ -643,7 +643,7 @@
         "world-space-ui"
       ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-11-12T06:51:10Z",
+      "pushedAt": "2026-11-14T15:01:01Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -1010,7 +1010,7 @@
       "repo": "dream-mcp",
       "url": "https://github.com/TypeDreamMoon/dream-mcp",
       "description": "MCP server for the DreamFX and DreamShader Unreal plugins. Routes builds to a running editor instead of a 12-24s cold commandlet, which also removes the silent double-write; answers Niagara module and material-expression signatures from disk in milliseconds; renders a material and hands the image back.",
-      "stars": 1,
+      "stars": 2,
       "forks": 0,
       "topics": [
         "ai-tools",
