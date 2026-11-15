@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-14T23:28:52.593Z",
+  "generatedAt": "2026-11-15T23:38:32.163Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 262
+    "stars": 264
   },
   "repos": {
     "DreamShader": {
@@ -620,8 +620,8 @@
       "repo": "DreamGUI",
       "url": "https://github.com/TypeDreamMoon/DreamGUI",
       "description": "A 3D UI system for Unreal Engine 5.8: world-space and screen-space widgets, widget Blueprints with a UMG-style designer, a native control library, .dui text authoring and tween animation. A fork of LGUI.",
-      "stars": 48,
-      "forks": 8,
+      "stars": 50,
+      "forks": 9,
       "topics": [
         "3d-ui",
         "blueprints",
