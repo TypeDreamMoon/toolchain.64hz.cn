@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-11-15T23:38:32.163Z",
+  "generatedAt": "2026-11-17T02:41:11.668Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 264
+    "stars": 278
   },
   "repos": {
     "DreamShader": {
       "repo": "DreamShader",
       "url": "https://github.com/TypeDreamMoon/DreamShader",
       "description": "Unreal Engine Material DSL. Use Dream Shader Lang Write Unreal Material. Simple · Fast · Full syntax · HLSL GLSL Lang Support",
-      "stars": 134,
+      "stars": 139,
       "forks": 25,
       "topics": [
         "dream-shader-lang",
@@ -193,7 +193,7 @@
       "repo": "DreamFX",
       "url": "https://github.com/TypeDreamMoon/DreamFX",
       "description": "Author Unreal Engine Niagara VFX as text: .dfs/.dfe/.dfm sources compile to standard Niagara assets, and any NiagaraSystem decompiles back to source. Byte-idempotent round-trips, four-layer verification, runs on stock UE 5.8.",
-      "stars": 36,
+      "stars": 37,
       "forks": 7,
       "topics": [
         "code-generation",
@@ -209,7 +209,7 @@
         "vfx"
       ],
       "license": "MIT",
-      "pushedAt": "2026-11-12T01:14:23Z",
+      "pushedAt": "2026-11-16T00:56:23Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -620,7 +620,7 @@
       "repo": "DreamGUI",
       "url": "https://github.com/TypeDreamMoon/DreamGUI",
       "description": "A 3D UI system for Unreal Engine 5.8: world-space and screen-space widgets, widget Blueprints with a UMG-style designer, a native control library, .dui text authoring and tween animation. A fork of LGUI.",
-      "stars": 50,
+      "stars": 58,
       "forks": 9,
       "topics": [
         "3d-ui",
@@ -643,7 +643,7 @@
         "world-space-ui"
       ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-11-14T15:01:01Z",
+      "pushedAt": "2026-11-16T10:55:42Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
