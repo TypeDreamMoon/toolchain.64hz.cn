@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-11-17T02:41:11.668Z",
+  "generatedAt": "2026-11-18T01:56:42.076Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 278
+    "stars": 283
   },
   "repos": {
     "DreamShader": {
       "repo": "DreamShader",
       "url": "https://github.com/TypeDreamMoon/DreamShader",
       "description": "Unreal Engine Material DSL. Use Dream Shader Lang Write Unreal Material. Simple · Fast · Full syntax · HLSL GLSL Lang Support",
-      "stars": 139,
-      "forks": 25,
+      "stars": 141,
+      "forks": 26,
       "topics": [
         "dream-shader-lang",
         "dsl",
@@ -25,7 +25,7 @@
         "unrealengine"
       ],
       "license": "MIT",
-      "pushedAt": "2026-11-13T13:40:00Z",
+      "pushedAt": "2026-11-17T07:25:30Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
@@ -193,7 +193,7 @@
       "repo": "DreamFX",
       "url": "https://github.com/TypeDreamMoon/DreamFX",
       "description": "Author Unreal Engine Niagara VFX as text: .dfs/.dfe/.dfm sources compile to standard Niagara assets, and any NiagaraSystem decompiles back to source. Byte-idempotent round-trips, four-layer verification, runs on stock UE 5.8.",
-      "stars": 37,
+      "stars": 38,
       "forks": 7,
       "topics": [
         "code-generation",
@@ -209,7 +209,7 @@
         "vfx"
       ],
       "license": "MIT",
-      "pushedAt": "2026-11-16T00:56:23Z",
+      "pushedAt": "2026-11-17T07:25:34Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -620,7 +620,7 @@
       "repo": "DreamGUI",
       "url": "https://github.com/TypeDreamMoon/DreamGUI",
       "description": "A 3D UI system for Unreal Engine 5.8: world-space and screen-space widgets, widget Blueprints with a UMG-style designer, a native control library, .dui text authoring and tween animation. A fork of LGUI.",
-      "stars": 58,
+      "stars": 60,
       "forks": 9,
       "topics": [
         "3d-ui",
@@ -643,7 +643,7 @@
         "world-space-ui"
       ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-11-16T10:55:42Z",
+      "pushedAt": "2026-11-17T13:53:06Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
