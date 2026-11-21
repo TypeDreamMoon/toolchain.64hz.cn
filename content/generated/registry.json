@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-21T00:59:19.461Z",
+  "generatedAt": "2026-11-21T23:59:37.890Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 296
+    "stars": 298
   },
   "repos": {
     "DreamShader": {
@@ -193,7 +193,7 @@
       "repo": "DreamFX",
       "url": "https://github.com/TypeDreamMoon/DreamFX",
       "description": "Author Unreal Engine Niagara VFX as text: .dfs/.dfe/.dfm sources compile to standard Niagara assets, and any NiagaraSystem decompiles back to source. Byte-idempotent round-trips, four-layer verification, runs on stock UE 5.8.",
-      "stars": 41,
+      "stars": 42,
       "forks": 7,
       "topics": [
         "code-generation",
@@ -620,8 +620,8 @@
       "repo": "DreamGUI",
       "url": "https://github.com/TypeDreamMoon/DreamGUI",
       "description": "A 3D UI system for Unreal Engine 5.8: world-space and screen-space widgets, widget Blueprints with a UMG-style designer, a native control library, .dui text authoring and tween animation. A fork of LGUI.",
-      "stars": 67,
-      "forks": 10,
+      "stars": 68,
+      "forks": 11,
       "topics": [
         "3d-ui",
         "blueprints",
