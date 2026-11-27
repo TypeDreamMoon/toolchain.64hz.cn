@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-26T02:32:51.464Z",
+  "generatedAt": "2026-11-27T02:31:47.961Z",
   "owner": "TypeDreamMoon",
   "totals": {
     "repos": 25,
-    "stars": 307
+    "stars": 313
   },
   "repos": {
     "DreamShader": {
@@ -25,7 +25,7 @@
         "unrealengine"
       ],
       "license": "MIT",
-      "pushedAt": "2026-11-20T18:57:38Z",
+      "pushedAt": "2026-11-26T11:29:07Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
@@ -209,7 +209,7 @@
         "vfx"
       ],
       "license": "MIT",
-      "pushedAt": "2026-11-20T19:57:30Z",
+      "pushedAt": "2026-11-26T11:22:13Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -620,7 +620,7 @@
       "repo": "DreamGUI",
       "url": "https://github.com/TypeDreamMoon/DreamGUI",
       "description": "A 3D UI system for Unreal Engine 5.8: world-space and screen-space widgets, widget Blueprints with a UMG-style designer, a native control library, .dui text authoring and tween animation. A fork of LGUI.",
-      "stars": 72,
+      "stars": 78,
       "forks": 11,
       "topics": [
         "3d-ui",
@@ -643,7 +643,7 @@
         "world-space-ui"
       ],
       "license": "NOASSERTION",
-      "pushedAt": "2026-11-25T17:35:34Z",
+      "pushedAt": "2026-11-26T16:24:07Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
@@ -806,7 +806,7 @@
       "forks": 1,
       "topics": [],
       "license": "MIT",
-      "pushedAt": "2026-10-14T11:00:11Z",
+      "pushedAt": "2026-11-26T11:31:04Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
@@ -938,7 +938,7 @@
       "forks": 0,
       "topics": [],
       "license": "MIT",
-      "pushedAt": "2026-10-14T04:16:53Z",
+      "pushedAt": "2026-11-26T11:23:00Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [
@@ -1029,7 +1029,7 @@
         "vfx"
       ],
       "license": "MIT",
-      "pushedAt": "2026-11-12T06:49:19Z",
+      "pushedAt": "2026-11-26T11:23:56Z",
       "archived": false,
       "defaultBranch": "main",
       "releases": [],
